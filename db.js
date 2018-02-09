@@ -9,6 +9,9 @@ var Account = new Schema({
     active: { type: Boolean, default: false }
    });
 module.exports = mongoose.model('Accounts', Account);
+var AccountModel = mongoose.model('Account', Account);
+module.exports = AccountModel ;
+
 /*
 mongoose.connect('mongodb://146.148.39.207:27017/test');
 mongoose.connection.on('open', function() {

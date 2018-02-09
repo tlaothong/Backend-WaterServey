@@ -14,8 +14,8 @@ exports.list_all_account = function(req, res) {
 
 
 exports.create_a_account = function(req, res) {
-  var new_account = new account(req.body);
-  new_account.save(function(err, account) {
+  var newUser = new AccountModel({ username: req.params.accountId});  
+  newUser.save(function(err, account) {
     if (err)
       res.send(err);
     res.json(account);
@@ -33,7 +33,7 @@ exports.read_a_account = function(req, res) {
 
 
 exports.update_a_account = function(req, res) {
-  account.findOneAndUpdate({_id: req.params.accountId}, req.body, {new: true}, function(err, account) {
+  account.findOneAndUpdate({username: req.params.accountId}, req.body, {new: true}, function(err, account) {
     if (err)
       res.send(err);
     res.json(account);
@@ -45,7 +45,7 @@ exports.delete_a_account = function(req, res) {
 
 
   account.remove({
-    _id: req.params.accountId
+    username: req.params.accountId
   }, function(err, account) {
     if (err)
       res.send(err);
