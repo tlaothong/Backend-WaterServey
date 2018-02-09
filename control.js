@@ -1,3 +1,5 @@
+import { model } from 'mongoose';
+
 var path = require('path')
 var mongoose = require('mongoose'),
 account = mongoose.model('Accounts');
@@ -14,7 +16,7 @@ exports.list_all_account = function(req, res) {
 
 
 exports.create_a_account = function(req, res) {
-  var newUser = new AccountModel({ username: req.params.accountId});  
+  var newUser = new account({ username: req.params.accountId});  
   newUser.save(function(err, account) {
     if (err)
       res.send(err);
