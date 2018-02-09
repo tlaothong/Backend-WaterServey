@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 account = mongoose.model('Accounts');
 
 exports.list_all_account = function(req, res) {
-    account.find({}, function(err, account) {
+    account.find({},{'_id':0,'username':1 }, function(err, account) {
     if (err)
       res.send(err);
     res.json(account);

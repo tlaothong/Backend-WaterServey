@@ -10,7 +10,7 @@ var Account = new Schema({
    });
 module.exports = mongoose.model('Accounts', Account);
 /*
-mongoose.connect('mongodb://35.192.216.63:27017/test');
+mongoose.connect('mongodb://146.148.39.207:27017/test');
 mongoose.connection.on('open', function() {
     console.log('Mongoose connected.');
     console.log(mongoose.connection.readyState);
@@ -21,13 +21,13 @@ module.exports
 
 var AccountModel = mongoose.model('Account', Account);
 module.exports = AccountModel ;
-var newUser = new AccountModel({ username: 'zcz12345' });
+var newUser = new AccountModel({ username: 'asdasd' });
 newUser.save();
 console.log(newUser.username);
 console.log(newUser.date_created);
 console.log(newUser.visits);
 console.log(newUser.active);
-*/  
+*/
 var wtr_census_1 = new Schema({
     id: { type: String } ,
     reg: { type: String } ,
