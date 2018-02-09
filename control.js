@@ -1,7 +1,7 @@
 var path = require('path')
 var mongoose = require('mongoose'),
 account = mongoose.model('Accounts');
-AccountModel = model
+
 
 exports.list_all_account = function(req, res) {
     account.find({},{'_id':0,'username':1 }, function(err, account) {
