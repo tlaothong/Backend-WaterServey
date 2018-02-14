@@ -2,15 +2,24 @@
 
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
+var test = new Schema({
+    _1: {type: Number, default: 0 },
+    _2: {type: Number, default: 1 },
+    _3: {type: Number, default: 2 },
+    _4_1: {type: Number, default: 3 },
+    _4_2: {type: Number, default: 4 }
+})
 var Account = new Schema({
     username: { type: String },
     date_created: { type: Date, default: Date.now },
     visits: { type: Number, default: 0 },
-    active: { type: Boolean, default: false }
-   });
+    active: { type: Boolean, default: false },
+    //wtr :   [wtr_source],
+    test1 : [test]  
+    }); 
+
 module.exports = mongoose.model('Accounts', Account);
-var AccountModel = mongoose.model('Account', Account);
-module.exports = AccountModel ;
+module.exports = mongoose.model('Test', test);
 
 /*
 mongoose.connect('mongodb://146.148.39.207:27017/test');
