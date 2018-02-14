@@ -15,7 +15,7 @@ var Account = new Schema({
     visits: { type: Number, default: 0 },
     active: { type: Boolean, default: false },
     //wtr :   [wtr_source],
-    test1 : [test]  
+    test1 :  [{ type: Schema.Types.ObjectId, ref: 'test' }]
     }); 
 
 module.exports = mongoose.model('Accounts', Account);
