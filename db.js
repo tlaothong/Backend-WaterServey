@@ -9,13 +9,15 @@ var test = new Schema({
     _4_1: {type: Number, default: 3 },
     _4_2: {type: Number, default: 4 }
 })
+
+var Test  = mongoose.model('Test', test);
 var Account = new Schema({
     username: { type: String },
     date_created: { type: Date, default: Date.now },
     visits: { type: Number, default: 0 },
     active: { type: Boolean, default: false },
     //wtr :   [wtr_source],
-    test1 :  [{ type: Schema.Types.ObjectId, ref: 'test' }]
+    test1 :  { type: Schema.Types.ObjectId, ref: 'Test' }
     }); 
 
 module.exports = mongoose.model('Accounts', Account);
