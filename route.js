@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var account = require('./control');
-  
+    var staff = require('./control');
     //api
     app.route('/api/v1/accounts')
       .get(account.list_all_account)
@@ -13,8 +13,11 @@ module.exports = function(app) {
       .delete(account.delete_a_account)
       .post(account.create_a_account);
 
+    app.route('/api/v1/staffs')
+      .get(staff.read_a_staff)
 
-
+    app.route('/api/v1/staff/:staffName') 
+      .post(staff.create_a_staff) 
     //page
     app.route('/')
       .get(account.getHomePage);

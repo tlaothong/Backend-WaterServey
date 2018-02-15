@@ -2,26 +2,15 @@
 
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
-var test = new Schema({
-    _1: {type: Number, default: 0 },
-    _2: {type: Number, default: 1 },
-    _3: {type: Number, default: 2 },
-    _4_1: {type: Number, default: 3 },
-    _4_2: {type: Number, default: 4 }
-})
 
-var Test  = mongoose.model('Test', test);
 var Account = new Schema({
     username: { type: String },
     date_created: { type: Date, default: Date.now },
     visits: { type: Number, default: 0 },
-    active: { type: Boolean, default: false },
-    //wtr :   [wtr_source],
-    test1 :  { type: Schema.Types.ObjectId, ref: 'Test' }
+    active: { type: Boolean, default: false }
     }); 
 
 module.exports = mongoose.model('Accounts', Account);
-module.exports = mongoose.model('Test', test);
 
 /*
 mongoose.connect('mongodb://146.148.39.207:27017/test');
@@ -284,17 +273,18 @@ var wtr_source = new Schema({
 });
 
 var staff = new Schema({
-    user_id: {type: Number},
-    firsname: {type: String},
-    lastname: {type: String},
-    email: {type: String},
-    phone: {type: Number},
-    province: {type: String},
-    role: {type: String},
-    image_url: {type: String},
-    password: {type: String},
-    ea_id: {type: String}
+    user_id: {type: Number ,default: '3310522'},
+    firstname: {type: String, default: 'gajanawat'},
+    lastname: {type: String,default: 'wat'},
+    email: {type: String,default: 'aaa@mail.com'},
+    phone: {type: Number,default: '0555585'},
+    province: {type: String,default: 'bangkok'},
+    role: {type: String ,default: 'slave'},
+    image_url: {type: String ,default: '3310522'},
+    password: {type: String,default: 'xxxxxx'},
+    ea_id: {type: String,default: '3310522'}
 });
+module.exports = mongoose.model('Staffs', staff);
 
 var area = new Schema({
     reg: {type: Number},
