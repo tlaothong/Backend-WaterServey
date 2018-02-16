@@ -4,7 +4,7 @@ account = mongoose.model('Accounts'),
 staff = mongoose.model('Staffs');
 
 exports.list_all_account = function(req, res) {
-    account.find({},{'_id':0,'username':1 ,'test':1}, function(err, account) {
+    account.find({},{}, function(err, account) {
     if (err)
       res.send(err);
     res.json(account);
@@ -37,9 +37,7 @@ exports.update_a_account = function(req, res) {
 };
 
 exports.delete_a_account = function(req, res) {
-  account.remove({
-    username: req.params.accountId
-  }, function(err, account) {
+  account.remove({username: req.params.accountId}, function(err, account) {
     if (err)
       res.send(err);
     res.json({ message: 'account successfully deleted' });

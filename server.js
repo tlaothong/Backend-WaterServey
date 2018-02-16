@@ -6,7 +6,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
   mongoose.Promise = global.Promise;
-  mongoose.connect('mongodb://35.231.22.188:27017/test'); 
+  mongoose.connect('mongodb://35.185.90.99:27017/test'); 
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
