@@ -14,10 +14,13 @@ module.exports = function(app) {
       .post(account.create_a_account);
     //staff
     app.route('/api/v1/staffs')
-      .get(staff.read_a_staff)
+      .get(staff.read_all_staff)
 
-    app.route('/api/v1/post/staff/:staffName') 
-      .get(staff.create_a_staff) 
+    app.route('/api/v1/staff/:staffName') 
+      .post(staff.create_a_staff) 
+      .get(staff.read_a_staff);
+
+    app.route('/api/v1/staff/:')
     //page
     app.route('/')
       .get(account.getHomePage);

@@ -1,6 +1,6 @@
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 5555;
+  port = process.env.PORT || 8080 ;
   mongoose = require('mongoose'),
   Account = require('./db'), //created model loading here
   bodyParser = require('body-parser');

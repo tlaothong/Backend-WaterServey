@@ -44,7 +44,7 @@ exports.delete_a_account = function(req, res) {
   });
 };
 //staffs
-exports.read_a_staff = function(req, res) {
+exports.read_all_staff = function(req, res) {
   staff.find({},{}, function(err, staff) {
     if (err)
       res.send(err);
@@ -52,8 +52,16 @@ exports.read_a_staff = function(req, res) {
   });
 };
 
+exports.read_a_staff = function(req, res) {
+  staff.find({user_id: req.params.staffName}, function(err, staff) {
+    if (err)
+      res.send(err);
+    res.json(staff);
+  });
+};
+
 exports.create_a_staff = function(req, res) {
-  var newUser = new staff({ firstname: req.params.staffName});  
+  var newUser = new staff({ user_id: req.params.staffName});  
   newUser.save(function(err, staff) {
     if (err)
       res.send(err);
