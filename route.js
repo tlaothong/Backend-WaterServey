@@ -1,28 +1,63 @@
 module.exports = function(app) {
-    var account = require('./control');
-    var staff = require('./control');
+    var ctrl = require('./control');
     //api
-    app.route('/api/v1/accounts')
-      .get(account.list_all_account)
+    app.route('/api/accounts')
+      .get(ctrl.list_all_account);
       
   
   
-    app.route('/api/v1/account/:accountId')
-      .get(account.read_a_account)
-      .put(account.update_a_account)
-      .delete(account.delete_a_account)
-      .post(account.create_a_account);
+    app.route('/api/account/:accountId')
+      .get(ctrl.read_a_account)
+      .put(ctrl.update_a_account)
+      .delete(ctrl.delete_a_account)
+      .post(ctrl.create_a_account);
+    
     //staff
-    app.route('/api/v1/staffs')
-      .get(staff.read_all_staff)
-
-    app.route('/api/v1/staff/:staffName') 
-      .post(staff.create_a_staff) 
-      .get(staff.read_a_staff);
-
-    app.route('/api/v1/staff/:')
+    app.route('/api/staffs')
+      .get(ctrl.read_all_staff)
+    app.route('/api/staff/:staffName')  
+      .get(ctrl.read_a_staff);
+    app.route('/api/staff/')
+      .post(ctrl.create_a_staff)
+    
+    //region
+    app.route('/api/regions')
+      .get(ctrl.read_all_region);
+    app.route('/api/region/') 
+      .post(ctrl.create_a_region); 
+    
+    //changwat
+    app.route('/api/changwats')
+      .get(ctrl.read_all_changwat);
+    app.route('/api/changwat/')
+      .post(ctrl.create_a_changwat)
+    
+    //amphoe
+    app.route('/api/amphoes')
+      .get(ctrl.read_all_amphoe);
+    app.route('/api/changwat/')
+      .post(ctrl.create_a_amphoe)
+    
+    //tambon
+    app.route('/api/tambons')
+      .get(ctrl.read_all_tambon);
+    app.route('/api/tambon/')
+      .post(ctrl.create_a_tambon)
+    
+    //district
+    app.route('/api/districts')
+      .get(ctrl.read_all_district);
+    app.route('/api/district/')
+      .post(ctrl.create_a_district)
+    
+    //EnumerationArea
+    app.route('/api/EAs')
+      .get(ctrl.read_all_EnumerationArea);
+    app.route('/api/EA/')
+      .post(ctrl.create_a_EnumerationArea)
+    
     //page
     app.route('/')
-      .get(account.getHomePage);
+      .get(ctrl.getHomePage);
 
-  };
+  };  

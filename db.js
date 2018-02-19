@@ -12,25 +12,69 @@ var Account = new Schema({
 
 module.exports = mongoose.model('Accounts', Account);
 
-/*
-mongoose.connect('mongodb://146.148.39.207:27017/test');
-mongoose.connection.on('open', function() {
-    console.log('Mongoose connected.');
-    console.log(mongoose.connection.readyState);
-});
+var Region = new Schema({
+    reg: { type: Number ,unique: true,index: true},
+    reg_name: { type: String },
+    }); 
+module.exports = mongoose.model('Regions', Region);
 
+var Changwat = new Schema({
+        reg : Number,
+        cwt : { type: Number ,unique: true,index: true },
+        cwt_name : { type: String}    
+    })
+module.exports = mongoose.model('Changwats', Changwat);
+    
+var Amphoe = new Schema({
+        reg :Number,
+        cwt : Number,
+        amp : { type: Number ,unique: true,index: true},
+        amp_name : { type: String}    
+    })
+module.exports = mongoose.model('Amphoes', Amphoe);
 
-module.exports 
+var Tambon = new Schema({
+        reg :Number,
+        cwt : Number,
+        amp : { type: Number },
+        tmb : { type: Number ,unique: true,index: true},
+        tmb_name : { type: String}    
+    })
+module.exports = mongoose.model('Tambons', Tambon);
 
-var AccountModel = mongoose.model('Account', Account);
-module.exports = AccountModel ;
-var newUser = new AccountModel({ username: 'asdasd' });
-newUser.save();
-console.log(newUser.username);
-console.log(newUser.date_created);
-console.log(newUser.visits);
-console.log(newUser.active);
-*/
+var District = new Schema({
+        reg :Number,
+        cwt : Number,
+        amp : { type: Number },
+        tmb : { type: Number },
+        district : {type :Number ,index: true},
+        mun_tao : Number ,unique: true,index: true,
+        district_name : { type: String} 
+    })
+module.exports = mongoose.model('Districts', District);
+
+var EnumerationArea = new Schema({
+        reg :Number,
+        cwt : Number,
+        amp : Number ,
+        tmb : Number ,
+        district : Number,
+        mun_tao : Number,
+        ea : Number,
+        vil : Number,
+        vil_name : String,
+        map_status : Number,
+        building : Number,
+        household : Number,
+        agricultural_HH : Number,
+        ES_BUSI : Number,
+        ES_INDUS : Number,
+        ES_HOTEL : Number,
+        ES_PV_HOS : Number,
+        remark : String
+    })
+module.exports = mongoose.model('EnumerationAreas', EnumerationArea);
+
 var wtr_census_1 = new Schema({
     id: { type: String } ,
     reg: { type: String } ,
@@ -323,9 +367,9 @@ var wtr_source = new Schema({
 });
 
 var staff = new Schema({
-    user_id: {type: Number ,default: '12345678'},
-    firstname: {type: String, default: 'none'},
-    lastname: {type: String,default: 'none'},
+    user_id: {type: Number ,default: '12345678',},
+    firstname: {type: String},
+    lastname: {type: String},
     email: {type: String,default: 'aaa@mail.com'},
     phone: {type: Number,default: '123456'},
     province: {type: String,default: 'none'},
