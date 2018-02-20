@@ -95,7 +95,7 @@ exports.read_all_region = function(req, res) {
 };
 
 //chagwat
-exports.create_a_chagwat = function(req, res)  {
+exports.create_a_changwat = function(req, res)  {
   var myData = new chagwat(req.body);
     myData.save(function(err, chagwat) {
       if (err)
@@ -104,7 +104,7 @@ exports.create_a_chagwat = function(req, res)  {
   });
 };
 
-exports.read_all_chagwat = function(req, res) {
+exports.read_all_changwat = function(req, res) {
   chagwat.find({}, function(err, chagwat) {
     if (err)
       res.send(err);
@@ -167,7 +167,7 @@ exports.read_all_district = function(req, res) {
 };
 
 //enumerationArea
-exports.create_a_enumerationArea = function(req, res)  {
+exports.create_a_EnumerationArea = function(req, res)  {
   var myData = new enumerationArea(req.body);
     myData.save(function(err, enumerationArea) {
       if (err)
@@ -176,7 +176,7 @@ exports.create_a_enumerationArea = function(req, res)  {
   });
 };
 
-exports.read_all_enumerationArea = function(req, res) {
+exports.read_all_EnumerationArea = function(req, res) {
   enumerationArea.find({}, function(err, enumerationArea) {
     if (err)
       res.send(err);

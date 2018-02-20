@@ -48,7 +48,7 @@ var District = new Schema({
         amp : { type: Number },
         tmb : { type: Number },
         district : {type :Number ,index: true},
-        mun_tao : Number ,unique: true,index: true,
+        mun_tao : { type : Number ,unique: true,index: true},
         district_name : { type: String} 
     })
 module.exports = mongoose.model('Districts', District);
