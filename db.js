@@ -21,7 +21,9 @@ var User = new Schema({
     image_url: {type: String },
     password: {type: String},
     fi_eas:[{ type: Schema.Types.ObjectId, ref: 'EnumerationAreas' }],
-    fs_eas:[{ type: Schema.Types.ObjectId, ref: 'EnumerationAreas' }]
+    fs_eas:[{ type: Schema.Types.ObjectId, ref: 'EnumerationAreas' }],
+    fi_wc21s:[{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' }],
+    fs_wc21s:[{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' }]
 });
 
 var Region = new Schema({
@@ -80,7 +82,7 @@ var EnumerationArea = new Schema({
         es_PV_HOS : Number,
         remark : String,
         fs_id:{ type: Schema.Types.ObjectId, ref: 'User' },
-        fi_id:{ type: Schema.Types.ObjectId, ref: 'User' }
+        fi_id:[{ type: Schema.Types.ObjectId, ref: 'User'}]
     });
 
 var WaterCensus1 = new Schema({
@@ -89,7 +91,7 @@ var WaterCensus1 = new Schema({
     check_date: { type: Date },
     fs_id:{ type: Schema.Types.ObjectId, ref: 'User' },
     fi_id:{ type: Schema.Types.ObjectId, ref: 'User' },
-    bd_id:[{ type: Schema.Types.ObjectId, ref: 'Building' }]
+    buildings:[{ type: Schema.Types.ObjectId, ref: 'Building' }]
     });
 
 var Building = new Schema({
@@ -118,7 +120,7 @@ var Building = new Schema({
     p3: { type: Boolean},
     p4: { type: Boolean},
     a11: { type: String},
-    hh_id:{ type: Schema.Types.ObjectId, ref: 'Household' },
+    households:[{ type: Schema.Types.ObjectId, ref: 'Household' }]
 });
 
 var Household =  new Schema({
@@ -142,22 +144,23 @@ var  WaterCensus21 = new Schema({
     check_date: { type: Date},
     fs_id:{ type: Schema.Types.ObjectId, ref: 'User' },
     fi_id:{ type: Schema.Types.ObjectId, ref: 'User' },
-    wc21_1:{ type: Schema.Types.ObjectId, ref: 'wc21_1' },
-    wc21_2:{ type: Schema.Types.ObjectId, ref: 'wc21_2' },
-    wc21_3:{ type: Schema.Types.ObjectId, ref: 'wc21_3' },
-    wc21_4:{ type: Schema.Types.ObjectId, ref: 'wc21_4' },  
-    wc21_5_1:{ type: Schema.Types.ObjectId, ref: 'wc21_5_1' },
-    wc21_5_2:{ type: Schema.Types.ObjectId, ref: 'wc21_5_2' },
-    wc21_5_3:{ type: Schema.Types.ObjectId, ref: 'wc21_5_3' },
-    wc21_5_4:{ type: Schema.Types.ObjectId, ref: 'wc21_5_4' },
-    wc21_5_5:{ type: Schema.Types.ObjectId, ref: 'wc21_5_5' },
-    wc21_5_6:{ type: Schema.Types.ObjectId, ref: 'wc21_5_6' },
-    wc21_5_7:{ type: Schema.Types.ObjectId, ref: 'wc21_5_7' },
-    wc21_6:{ type: Schema.Types.ObjectId, ref: 'wc21_6'}
+    wc21_1:{ type: Schema.Types.ObjectId, ref: 'WC21_1' },
+    wc21_2:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
+    wc21_3:{ type: Schema.Types.ObjectId, ref: 'WC21_3' },
+    wc21_4:{ type: Schema.Types.ObjectId, ref: 'WC21_4' },  
+    wc21_5_1:{ type: Schema.Types.ObjectId, ref: 'WC21_5_1' },
+    wc21_5_2:{ type: Schema.Types.ObjectId, ref: 'WC21_5_2' },
+    wc21_5_3:{ type: Schema.Types.ObjectId, ref: 'WC21_5_3' },
+    wc21_5_4:{ type: Schema.Types.ObjectId, ref: 'WC21_5_4' },
+    wc21_5_5:{ type: Schema.Types.ObjectId, ref: 'WC21_5_5' },
+    wc21_5_6:{ type: Schema.Types.ObjectId, ref: 'WC21_5_6' },
+    wc21_5_7:{ type: Schema.Types.ObjectId, ref: 'WC21_5_7' },
+    wc21_6:{ type: Schema.Types.ObjectId, ref: 'WC21_6'},
+    msg : String
 });
 
-var Wc21_1 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_1 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _1_1: { type: String},
     _1_2: { type: Number},
     _1_2_1: { type: Number},
@@ -174,8 +177,8 @@ var Wc21_1 = new Schema({
     _1_4_other: { type: String},
 });
 
-var Wc21_2 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_2 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _2_1_1: { type: Boolean},
     _2_1_2: { type: Number},
     rice_id:[{ type: Schema.Types.ObjectId, ref: 'Rice' }],
@@ -222,8 +225,8 @@ var Wc21_2 = new Schema({
     _2_8_1_6: { type: String},
     other_animal_id:{ type: Schema.Types.ObjectId, ref: 'Other_animal' }
 });
-var Wc21_3 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_3 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _3_1: {type: String},
     _3_2_tel: {type: String},
     _3_2_fax: {type: String},
@@ -232,7 +235,7 @@ var Wc21_3 = new Schema({
     _3_3_1: {type: String},
     _3_3_2: {type: String},
     _3_4: {type: String},
-    _3_5: {type: Number},
+    _3_5: {type: Number,ref: 'Building.a8'},
     _3_6: {type: Number},
     _3_7: {type: String},
     _3_7_other:{ type: String},
@@ -240,8 +243,8 @@ var Wc21_3 = new Schema({
     _3_9: {type: Boolean},
     _3_10: {type: Boolean}
 });
-var Wc21_4 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_4 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _4_1: {type: String},
     _4_2_tel: {type: String},
     _4_2_fax: {type: String},
@@ -270,8 +273,8 @@ var Wc21_4 = new Schema({
     _4_7: {type: String},
     _4_7_other: {type: String}
 });
-var Wc21_5_1 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_1 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_1_1_1_1: {type: Boolean},
     _5_1_1_1_2: {type: Boolean},
     _5_1_1_1_2_1: {type: String},
@@ -299,8 +302,8 @@ var Wc21_5_1 = new Schema({
     _5_1_2_5_2: {type: Number},
     _5_1_3: {type: Number}
 });
-var Wc21_5_2 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_2 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_2_1: {type: Boolean},
     _5_2_2_1: {type: Number},
     _5_2_2_2: {type: Number},
@@ -319,8 +322,8 @@ var Wc21_5_2 = new Schema({
     _5_2_6_1: {type: Boolean},
     _5_2_6_2: {type: String}
 });
-var Wc21_5_3 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_3 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_3_1: {type: Boolean},
     _5_3_2: {type: Number},
     _5_3_3: {type: Boolean},
@@ -335,8 +338,8 @@ var Wc21_5_3 = new Schema({
     _5_3_6: {type: Boolean},
     _5_3_6_1: {type: String}
 });
-var Wc21_5_4 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_4 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_4_1: {type: Number},
     _5_4_2: {type: Boolean},
     _5_4_3: {type: Number},
@@ -350,8 +353,8 @@ var Wc21_5_4 = new Schema({
     _5_4_5: {type: Boolean},
     _5_4_5_1: {type: String}
 });
-var Wc21_5_5 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_5 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_5_1: {type: Number},
     _5_5_2: {type: Boolean},
     _5_5_3: {type: Number},
@@ -365,8 +368,8 @@ var Wc21_5_5 = new Schema({
     _5_5_5: {type: Boolean},
     _5_5_5_1: {type : String}
 });
-var Wc21_5_6 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_6 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_6_1_1: {type: String},
     _5_6_1_1_1: {type: Number},
     _5_6_1_1_2: {type: Number},
@@ -388,8 +391,8 @@ var Wc21_5_6 = new Schema({
     _5_6_2_4: {type: Number},
     _5_6_2_5: {type: Number}
 });
-var Wc21_5_7 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_5_7 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _5_7_1_1: {type: String},
     _5_7_1_1_1: {type: Number},
     _5_7_1_1_2: {type: Number},
@@ -422,8 +425,8 @@ var Wc21_5_7 = new Schema({
     _5_7_1_5_5: {type: Number}
 
 });
-var Wc21_6 = new Schema({
-    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus2_1' },
+var WC21_6 = new Schema({
+    wc2_1_id:{ type: Schema.Types.ObjectId, ref: 'WaterCensus21' },
     _6_1: {type: Boolean},
     _6_2_1: {type: Number},
     _6_2_1_1: {type: Number},
@@ -505,7 +508,7 @@ var wtr_source = new Schema({
 
 
 var Rice = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -543,7 +546,7 @@ var Rice = new Schema({
 });
 
 var Plant = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -556,7 +559,7 @@ var Plant = new Schema({
 });
 
 var Rubber = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -568,7 +571,7 @@ var Rubber = new Schema({
 });
 
 var Perennial = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -582,7 +585,7 @@ var Perennial = new Schema({
 });
 
 var Vegetable = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -596,7 +599,7 @@ var Vegetable = new Schema({
 });
 
 var Garden = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1_1: {type: String},
     _1_2: {type: String},
     _1_3: {type: String},
@@ -612,7 +615,7 @@ var Garden = new Schema({
 });
 
 var Fish = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
@@ -625,7 +628,7 @@ var Fish = new Schema({
 });
 
 var Shrimp = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
@@ -638,7 +641,7 @@ var Shrimp = new Schema({
 });
 
 var Flog = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
@@ -651,7 +654,7 @@ var Flog = new Schema({
 });
 
 var Crocodile = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
@@ -663,7 +666,7 @@ var Crocodile = new Schema({
 });
 
 var S_turtle = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
@@ -675,12 +678,12 @@ var S_turtle = new Schema({
 });
 
 var Other_animal = new Schema({
-    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_2' },
+    wc21_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_2' },
     _1: {type: String},
     _1_other : {type: String},
     _2: {type: Number},
     _2_1: {type: Boolean},
-    pool_size_id:{ type: Schema.Types.ObjectId, ref: 'Pool_size' },
+    pool_size_id:[{ type: Schema.Types.ObjectId, ref: 'Pool_size' }],
     _3: {type: Number},
     _4: {type: String},
     _4_other: {type: String}
@@ -688,7 +691,7 @@ var Other_animal = new Schema({
 });
 
 var Well = new Schema({
-    wc21_5_2_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_5_2' },
+    wc21_5_2_id:{ type: Schema.Types.ObjectId, ref: 'WC21_5_2' },
     _1: {type: Number},
     _2: {type: Boolean},
     _3: {type: Number},
@@ -712,7 +715,7 @@ var Pool_size = new Schema({
 });
 
 var Pool = new Schema({
-    wc21_5_3_id:{ type: Schema.Types.ObjectId, ref: 'Wc21_5_3' },
+    wc21_5_3_id:{ type: Schema.Types.ObjectId, ref: 'WC21_5_3' },
     _1: {type: Number},
     _2: {type: Boolean},
     _3: {type: Number},
@@ -750,18 +753,18 @@ module.exports = mongoose.model('WaterCensus1', WaterCensus1);
 module.exports = mongoose.model('Building', Building);
 module.exports = mongoose.model('Household', Household);
 module.exports = mongoose.model('WaterCensus21', WaterCensus21);
-module.exports = mongoose.model('Wc21_1', Wc21_1);
-module.exports = mongoose.model('Wc21_2', Wc21_2);
-module.exports = mongoose.model('Wc21_3', Wc21_3);
-module.exports = mongoose.model('Wc21_4', Wc21_4);
-module.exports = mongoose.model('Wc21_5_1', Wc21_5_1);
-module.exports = mongoose.model('Wc21_5_2', Wc21_5_2);
-module.exports = mongoose.model('Wc21_5_3', Wc21_5_3);
-module.exports = mongoose.model('Wc21_5_4', Wc21_5_4);
-module.exports = mongoose.model('Wc21_5_5', Wc21_5_5);
-module.exports = mongoose.model('Wc21_5_6', Wc21_5_6);
-module.exports = mongoose.model('Wc21_5_7', Wc21_5_7);
-module.exports = mongoose.model('Wc21_6', Wc21_6);
+module.exports = mongoose.model('WC21_1', WC21_1);
+module.exports = mongoose.model('WC21_2', WC21_2);
+module.exports = mongoose.model('WC21_3', WC21_3);
+module.exports = mongoose.model('WC21_4', WC21_4);
+module.exports = mongoose.model('WC21_5_1', WC21_5_1);
+module.exports = mongoose.model('WC21_5_2', WC21_5_2);
+module.exports = mongoose.model('WC21_5_3', WC21_5_3);
+module.exports = mongoose.model('WC21_5_4', WC21_5_4);
+module.exports = mongoose.model('WC21_5_5', WC21_5_5);
+module.exports = mongoose.model('WC21_5_6', WC21_5_6);
+module.exports = mongoose.model('WC21_5_7', WC21_5_7);
+module.exports = mongoose.model('WC21_6', WC21_6);
 module.exports = mongoose.model('Rice', Rice);
 module.exports = mongoose.model('Plant', Plant);
 module.exports = mongoose.model('Rubber', Rubber);
