@@ -4,9 +4,9 @@ var express = require('express'),
   mongoose = require('mongoose'), 
   db = require('./db'), //created model loading here
   bodyParser = require('body-parser');
-  urls = '35.196.53.77'
+  urls = '35.227.94.29'
   mongoose.Promise = global.Promise;
-  mongoose.connect('mongodb://'+urls+':27017/test'); 
+  mongoose.connect('mongodb://'+urls+':27017/Demo'); 
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
@@ -18,4 +18,6 @@ var express = require('express'),
 
 app.listen(port);
 
-console.log('API server started on: ' +urls+':'+port);
+console.log('API server started on: localhost:'+port);
+console.log('Mongodb server started on: ' +urls+':27017');
+//    

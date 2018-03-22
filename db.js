@@ -11,6 +11,7 @@ var Account = new Schema({
     }); 
 
 var User = new Schema({
+var user = new Schema({
     user_id: {type: Number ,unique: true},
     firstname: {type: String},
     lastname: {type: String},
