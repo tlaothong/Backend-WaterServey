@@ -10,7 +10,6 @@ var Account = new Schema({
     active: { type: Boolean, default: false }
     }); 
 
-var User = new Schema({
 var user = new Schema({
     user_id: {type: Number ,unique: true},
     firstname: {type: String},
@@ -743,7 +742,7 @@ var Pump = new Schema({
 
 
 module.exports = mongoose.model('Account', Account);
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', user);
 module.exports = mongoose.model('Region', Region);
 module.exports = mongoose.model('Changwat', Changwat);
 module.exports = mongoose.model('Amphoe', Amphoe);
