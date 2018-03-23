@@ -5,8 +5,6 @@ module.exports = function(app) {
     app.route('/api/accounts')
       .get(ctrl.list_all_account);
       
-  
-    
     app.route('/api/account/:accountId')
       .get(ctrl.read_a_account)
       .put(ctrl.update_a_account)
