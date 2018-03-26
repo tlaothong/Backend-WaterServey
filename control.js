@@ -1,6 +1,5 @@
 var path = require('path')
 var mongoose = require('mongoose'),
-account = mongoose.model('Account'),
 user            = mongoose.model('User'),
 region          = mongoose.model('Region'),
 chagwat         = mongoose.model('Changwat'),
@@ -8,38 +7,44 @@ amphoe          = mongoose.model('Amphoe'),
 tambon          = mongoose.model('Tambon'),
 district        = mongoose.model('District'),
 enumerationArea = mongoose.model('EnumerationArea'),
-waterCensus1    = mongoose.model('WaterCensus1'),
-building        = mongoose.model('Building'),
-household       = mongoose.model('Household'),
-waterCensus21  = mongoose.model('WaterCensus21'),
-wc21_1          = mongoose.model('WC21_1'),
-wc21_2          = mongoose.model('WC21_2'),
-wc21_3          = mongoose.model('WC21_3'),
-wc21_4          = mongoose.model('WC21_4'),
-wc21_5_1        = mongoose.model('WC21_5_1'),
-wc21_5_2        = mongoose.model('WC21_5_2'),
-wc21_5_3        = mongoose.model('WC21_5_3'),
-wc21_5_4        = mongoose.model('WC21_5_4'),
-wc21_5_5        = mongoose.model('WC21_5_5'),
-wc21_5_6        = mongoose.model('WC21_5_6'),
-wc21_5_7        = mongoose.model('WC21_5_7'),
-wc21_6          = mongoose.model('WC21_6'),
-rice            = mongoose.model('Rice'),
-plant           = mongoose.model('Plant'),
-rubber          = mongoose.model('Rubber'),
-perennial       = mongoose.model('Perennial'),
-vegetable       = mongoose.model('Vegetable'),
-garden          = mongoose.model('Garden'),
-fish            = mongoose.model('Fish'),
-shrimp          = mongoose.model('Shrimp'),
-flog            = mongoose.model('Flog'),
-crocodile       = mongoose.model('Crocodile'),
-s_turtle        = mongoose.model('S_turtle'),
-other_animal    = mongoose.model('Other_animal'),
-well            = mongoose.model('Well'),
-pool_size       = mongoose.model('Pool_size'),
-pool            = mongoose.model('Pool'),
-pump            = mongoose.model('Pump');
+area            = mongoose.model('area'),
+tablet          = mongoose.model('Tablet'),
+progress        = mongoose.model('Progress'),
+SN1             = mongoose.model('SN1'),
+SN1P1           = mongoose.model('SN1P1'),
+SN1P2           = mongoose.model('SN1P2'),
+SN1P3           = mongoose.model('SN1P3'),
+SN2_1           = mongoose.model('SN2_1'),
+SN2_1P1         = mongoose.model('SN2_1P1'),
+SN2_1P2         = mongoose.model('SN2_1P2'),
+SN2_1P2_1       = mongoose.model('SN2_1P2_1'),
+SN2_1P2_2       = mongoose.model('SN2_1P2_2'),
+SN2_1P2_3       = mongoose.model('SN2_1P2_3'),
+SN2_1P2_4       = mongoose.model('SN2_1P2_4'),
+SN2_1P2_5       = mongoose.model('SN2_1P2_5'),
+SN2_1P2_6       = mongoose.model('SN2_1P2_6'),
+SN2_1P2_7       = mongoose.model('SN2_1P2_7'),
+SN2_1P2_9_1     = mongoose.model('SN2_1P2_9_1'),
+SN2_1P2_9_3     = mongoose.model('SN2_1P2_9_3'),
+SN2_1P2_9_4     = mongoose.model('SN2_1P2_9_4'),
+SN2_1P3         = mongoose.model('SN2_1P3'),
+SN2_1P4         = mongoose.model('SN2_1P4'),
+SN2_1P5         = mongoose.model('SN2_1P5'),
+SN2_1P5_1       = mongoose.model('SN2_1P5_1'),
+SN2_1P5_2       = mongoose.model('SN2_1P5_2'),
+SN2_1P5_3       = mongoose.model('SN2_1P5_3'),
+SN2_1P5_4       = mongoose.model('SN2_1P5_4'),
+SN2_1P5_5       = mongoose.model('SN2_1P5_5'),
+SN2_1P5_6       = mongoose.model('SN2_1P5_6'),
+SN2_1P5_7       = mongoose.model('SN2_1P5_7'),
+SN2_1P6         = mongoose.model('SN2_1P6'),
+Pool            = mongoose.model('Pool'),
+Pump            = mongoose.model('Pump');
+SN2_2P0         = mongoose.model('SN2_2P0');
+SN2_2           = mongoose.model('SN2_2');
+SN2_2P1_3       = mongoose.model('SN2_2P1_3');
+SN2_2P1_5       = mongoose.model('SN2_2P1_5');
+SN2_2P2         = mongoose.model('SN2_2P2');
 
 //user
 exports.read_all_user = function(req, res) {
@@ -333,6 +338,50 @@ exports.delete_a_enumerationArea = function(req, res) {
     res.json({ message: 'enumerationArea successfully deleted' });
   });
 };
+
+//area
+
+exports.create_a_area = function(req, res)  {
+  var myData = new area (req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_area = function(req, res) {
+  area.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_area = function(req, res) {
+  area.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_area = function(req, res) {
+  area.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_area = function(req, res) {
+  area.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'area successfully deleted' });
+  });
+};
+
 
 //WaterCensus1
 
