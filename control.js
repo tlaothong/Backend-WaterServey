@@ -7,7 +7,7 @@ amphoe          = mongoose.model('Amphoe'),
 tambon          = mongoose.model('Tambon'),
 district        = mongoose.model('District'),
 enumerationArea = mongoose.model('EnumerationArea'),
-area            = mongoose.model('area'),
+area            = mongoose.model('Area'),
 tablet          = mongoose.model('Tablet'),
 progress        = mongoose.model('Progress'),
 SN1             = mongoose.model('SN1'),
@@ -382,11 +382,10 @@ exports.delete_a_area = function(req, res) {
   });
 };
 
+//tablet
 
-//WaterCensus1
-
-exports.create_a_waterCensus1 = function(req, res)  {
-  var myData = new waterCensus1(req.body);
+exports.create_a_tablet = function(req, res)  {
+  var myData = new tablet(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -394,42 +393,42 @@ exports.create_a_waterCensus1 = function(req, res)  {
   });
 };
 
-exports.read_all_waterCensus1 = function(req, res) {
-  waterCensus1.find({}, function(err, data) {
+exports.read_all_tablet = function(req, res) {
+  tablet.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_waterCensus1 = function(req, res) {
-  waterCensus1.find({_id: req.params.id}, function(err, data) {
+exports.read_a_tablet = function(req, res) {
+  tablet.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_waterCensus1 = function(req, res) {
-  waterCensus1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_tablet = function(req, res) {
+  tablet.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_waterCensus1 = function(req, res) {
-  waterCensus1.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_tablet = function(req, res) {
+  tablet.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'waterCensus1 successfully deleted' });
+    res.json({ message: 'tablet successfully deleted' });
   });
 };
 
-//building
+//Progress
 
-exports.create_a_building = function(req, res)  {
-  var myData = new building(req.body);
+exports.create_a_progress = function(req, res)  {
+  var myData = new progress(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -437,41 +436,42 @@ exports.create_a_building = function(req, res)  {
   });
 };
 
-exports.read_all_building = function(req, res) {
-  building.find({}, function(err, data) {
+exports.read_all_progress = function(req, res) {
+  progress.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_building = function(req, res) {
-  building.find({_id: req.params.id}, function(err, data) {
+exports.read_a_progress = function(req, res) {
+  progress.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_building = function(req, res) {
-  building.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_progress = function(req, res) {
+  progress.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_building = function(req, res) {
-  building.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_progress = function(req, res) {
+  progress.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'building successfully deleted' });
+    res.json({ message: 'progress successfully deleted' });
   });
 };
 
-//Household
-exports.create_a_household = function(req, res)  {
-  var myData = new household(req.body);
+//SN1
+
+exports.create_a_SN1 = function(req, res)  {
+  var myData = new SN1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -479,7 +479,49 @@ exports.create_a_household = function(req, res)  {
   });
 };
 
-exports.read_all_household = function(req, res) {
+exports.read_all_SN1 = function(req, res) {
+  SN1.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN1 = function(req, res) {
+  SN1.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN1 = function(req, res) {
+  SN1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN1 = function(req, res) {
+  SN1.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN1 successfully deleted' });
+  });
+};
+
+//SN1P1
+exports.create_a_SN1P1 = function(req, res)  {
+  var myData = new SN1P1(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN1P1 = function(req, res) {
   household.find({}, function(err, data) {
     if (err)
       res.send(err);
@@ -487,33 +529,33 @@ exports.read_all_household = function(req, res) {
   });
 };
 
-exports.read_a_household = function(req, res) {
-  household.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN1P1 = function(req, res) {
+  SN1P1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_household = function(req, res) {
-  household.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN1P1 = function(req, res) {
+  SN1P1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_household = function(req, res) {
-  household.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN1P1 = function(req, res) {
+  SN1P1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'household successfully deleted' });
+    res.json({ message: 'SN1P1 successfully deleted' });
   });
 };
 
-//waterCensus21 
-exports.create_a_waterCensus21 = function(req, res)  {
-  var myData = new waterCensus21(req.body);
+//SN1P2 
+exports.create_a_SN1P2 = function(req, res)  {
+  var myData = new SN1P2(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -521,40 +563,41 @@ exports.create_a_waterCensus21 = function(req, res)  {
   });
 };
 
-exports.read_all_waterCensus21 = function(req, res) {
-  waterCensus21.find({}, function(err, data) {
+exports.read_all_SN1P2 = function(req, res) {
+  SN1P2.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_waterCensus21 = function(req, res) {
-  waterCensus21.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN1P2 = function(req, res) {
+  SN1P2.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_waterCensus21 = function(req, res) {
-  waterCensus21.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN1P2 = function(req, res) {
+  SN1P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_waterCensus21 = function(req, res) {
-  waterCensus21.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN1P2 = function(req, res) {
+  SN1P2.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'waterCensus21 successfully deleted' });
+    res.json({ message: 'SN1P2 successfully deleted' });
   });
 };
+
 //wc21_1
-exports.create_a_wc21_1 = function(req, res)  {
-  var myData = new wc21_1(req.body);
+exports.create_a_SN1P3 = function(req, res)  {
+  var myData = new SN1P3(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -562,41 +605,41 @@ exports.create_a_wc21_1 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_1 = function(req, res) {
-  wc21_1.find({}, function(err, data) {
+exports.read_all_SN1P3 = function(req, res) {
+  SN1P3.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_1 = function(req, res) {
-  wc21_1.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN1P3 = function(req, res) {
+  SN1P3.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_1 = function(req, res) {
-  wc21_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN1P3 = function(req, res) {
+  SN1P3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_1 = function(req, res) {
-  wc21_1.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN1P3 = function(req, res) {
+  SN1P3.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_1 successfully deleted' });
+    res.json({ message: 'SN1P3 successfully deleted' });
   });
 };  
 
-//wc21_2       
-exports.create_a_wc21_2 = function(req, res)  {
-  var myData = new wc21_2(req.body);
+//SN2_1       
+exports.create_a_SN2_1 = function(req, res)  {
+  var myData = new SN2_1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -604,41 +647,41 @@ exports.create_a_wc21_2 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_2 = function(req, res) {
-  wc21_2.find({}, function(err, data) {
+exports.read_all_SN2_1 = function(req, res) {
+  SN2_1.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_2 = function(req, res) {
-  wc21_2.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1 = function(req, res) {
+  SN2_1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_2 = function(req, res) {
-  wc21_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1 = function(req, res) {
+  SN2_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_2 = function(req, res) {
-  wc21_2.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1 = function(req, res) {
+  SN2_1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'Region successfully deleted' });
+    res.json({ message: 'SN2_1 successfully deleted' });
   });
 }; 
 
-//wc21_3
-exports.create_a_wc21_3 = function(req, res)  {
-  var myData = new wc21_3(req.body);
+//SN2_1P1
+exports.create_a_SN2_1P1 = function(req, res)  {
+  var myData = new SN2_1P1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -646,41 +689,41 @@ exports.create_a_wc21_3 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_3 = function(req, res) {
-  wc21_3.find({}, function(err, data) {
+exports.read_all_SN2_1P1 = function(req, res) {
+  SN2_1P1.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_3 = function(req, res) {
-  wc21_3.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P1 = function(req, res) {
+  SN2_1P1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_3 = function(req, res) {
-  wc21_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P1 = function(req, res) {
+  SN2_1P1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_3 = function(req, res) {
-  wc21_3.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P1 = function(req, res) {
+  SN2_1P1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_3 successfully deleted' });
+    res.json({ message: 'SN2_1P1 successfully deleted' });
   });
 }; 
         
-//wc21_4
-exports.create_a_wc21_4 = function(req, res)  {
-  var myData = new wc21_4(req.body);
+//SN2_1P2
+exports.create_a_SN2_1P2 = function(req, res)  {
+  var myData = new SN2_1P2(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -688,41 +731,41 @@ exports.create_a_wc21_4 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_4 = function(req, res) {
-  wc21_4.find({}, function(err, data) {
+exports.read_all_SN2_1P2 = function(req, res) {
+  SN2_1P2.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_4 = function(req, res) {
-  wc21_4.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2 = function(req, res) {
+  SN2_1P2.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_4 = function(req, res) {
-  wc21_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2 = function(req, res) {
+  SN2_1P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_4 = function(req, res) {
-  wc21_4.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2 = function(req, res) {
+  SN2_1P2.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_4 successfully deleted' });
+    res.json({ message: 'SN2_1P2 successfully deleted' });
   });
 }; 
          
-//wc21_5_1
-exports.create_a_wc21_5_1 = function(req, res)  {
-  var myData = new wc21_5_1(req.body);
+//SN2_1P2_1
+exports.create_a_SN2_1P2_1 = function(req, res)  {
+  var myData = new SN2_1P2_1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -730,41 +773,41 @@ exports.create_a_wc21_5_1 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_1 = function(req, res) {
-  wc21_5_1.find({}, function(err, data) {
+exports.read_all_SN2_1P2_1 = function(req, res) {
+  SN2_1P2_1.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_1 = function(req, res) {
-  wc21_5_1.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_1 = function(req, res) {
+  SN2_1P2_1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_1 = function(req, res) {
-  wc21_5_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_1 = function(req, res) {
+  SN2_1P2_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_1 = function(req, res) {
-  wc21_5_1.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_1 = function(req, res) {
+  SN2_1P2_1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_1 successfully deleted' });
+    res.json({ message: 'SN2_1P2_1 successfully deleted' });
   });
 }; 
 
-//wc21_5_2
-exports.create_a_wc21_5_2 = function(req, res)  {
-  var myData = new wc21_5_2(req.body);
+//SN2_1P2_2
+exports.create_a_SN2_1P2_2 = function(req, res)  {
+  var myData = new SN2_1P2_2(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -772,41 +815,41 @@ exports.create_a_wc21_5_2 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_2 = function(req, res) {
-  wc21_5_2.find({}, function(err, data) {
+exports.read_all_SN2_1P2_2 = function(req, res) {
+  SN2_1P2_2.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_2 = function(req, res) {
-  wc21_5_2.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_2 = function(req, res) {
+  SN2_1P2_2.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_2 = function(req, res) {
-  wc21_5_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_2 = function(req, res) {
+  SN2_1P2_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_2 = function(req, res) {
-  wc21_5_2.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_2 = function(req, res) {
+  SN2_1P2_2.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_2 successfully deleted' });
+    res.json({ message: 'SN2_1P2_2 successfully deleted' });
   });
 }; 
 
-//wc21_5_3
-exports.create_a_wc21_5_3 = function(req, res)  {
-  var myData = new wc21_5_3(req.body);
+//SN2_1P2_3
+exports.create_a_SN2_1P2_3 = function(req, res)  {
+  var myData = new SN2_1P2_3(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -814,41 +857,41 @@ exports.create_a_wc21_5_3 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_3 = function(req, res) {
-  wc21_5_3.find({}, function(err, data) {
+exports.read_all_SN2_1P2_3 = function(req, res) {
+  SN2_1P2_3.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_3 = function(req, res) {
-  wc21_5_3.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_3 = function(req, res) {
+  SN2_1P2_3.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_3 = function(req, res) {
-  wc21_5_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_3 = function(req, res) {
+  SN2_1P2_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_3 = function(req, res) {
-  wc21_5_3.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_3 = function(req, res) {
+  SN2_1P2_3.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_3 successfully deleted' });
+    res.json({ message: 'SN2_1P2_3 successfully deleted' });
   });
 }; 
 
-//wc21_5_4
-exports.create_a_wc21_5_4 = function(req, res)  {
-  var myData = new wc21_5_4(req.body);
+//SN2_1P2_4
+exports.create_a_SN2_1P2_4 = function(req, res)  {
+  var myData = new SN2_1P2_4(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -856,41 +899,41 @@ exports.create_a_wc21_5_4 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_4 = function(req, res) {
-  wc21_5_4.find({}, function(err, data) {
+exports.read_all_SN2_1P2_4 = function(req, res) {
+  SN2_1P2_4.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_4 = function(req, res) {
-  wc21_5_4.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_4 = function(req, res) {
+  SN2_1P2_4.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_4 = function(req, res) {
-  wc21_5_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_4 = function(req, res) {
+  SN2_1P2_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_4 = function(req, res) {
-  wc21_5_4.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_4 = function(req, res) {
+  SN2_1P2_4.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_4 successfully deleted' });
+    res.json({ message: 'SN2_1P2_4 successfully deleted' });
   });
 }; 
     
-//wc21_5_5
-exports.create_a_wc21_5_5 = function(req, res)  {
-  var myData = new wc21_5_5(req.body);
+//SN2_1P2_5
+exports.create_a_SN2_1P2_5 = function(req, res)  {
+  var myData = new SN2_1P2_5(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -898,41 +941,41 @@ exports.create_a_wc21_5_5 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_5 = function(req, res) {
-  wc21_5_5.find({}, function(err, data) {
+exports.read_all_SN2_1P2_5 = function(req, res) {
+  SN2_1P2_5.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_5 = function(req, res) {
-  wc21_5_5.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_5 = function(req, res) {
+  SN2_1P2_5.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_5 = function(req, res) {
-  wc21_5_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_5 = function(req, res) {
+  SN2_1P2_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_5 = function(req, res) {
-  wc21_5_5.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_5 = function(req, res) {
+  SN2_1P2_5.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json({ message: 'Region successfully deleted' });
   });
 }; 
     
-//wc21_5_6
-exports.create_a_wc21_5_6 = function(req, res)  {
-  var myData = new wc21_5_6(req.body);
+//SN2_1P2_6
+exports.create_a_SN2_1P2_6 = function(req, res)  {
+  var myData = new SN2_1P2_6(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -940,41 +983,41 @@ exports.create_a_wc21_5_6 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_6 = function(req, res) {
-  wc21_5_6.find({}, function(err, data) {
+exports.read_all_SN2_1P2_6 = function(req, res) {
+  SN2_1P2_6.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_6 = function(req, res) {
-  wc21_5_6.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_6 = function(req, res) {
+  SN2_1P2_6.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_6 = function(req, res) {
-  wc21_5_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_6 = function(req, res) {
+  SN2_1P2_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_6 = function(req, res) {
-  wc21_5_6.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_6 = function(req, res) {
+  SN2_1P2_6.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_6 successfully deleted' });
+    res.json({ message: 'SN2_1P2_6 successfully deleted' });
   });
 }; 
    
-//wc21_5_7
-exports.create_a_wc21_5_7 = function(req, res)  {
-  var myData = new wc21_5_7(req.body);
+//SN2_1P2_7
+exports.create_a_SN2_1P2_7 = function(req, res)  {
+  var myData = new SN2_1P2_7(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -982,41 +1025,41 @@ exports.create_a_wc21_5_7 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_5_7 = function(req, res) {
-  wc21_5_7.find({}, function(err, data) {
+exports.read_all_SN2_1P2_7 = function(req, res) {
+  SN2_1P2_7.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_5_7 = function(req, res) {
-  wc21_5_7.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_7 = function(req, res) {
+  SN2_1P2_7.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_5_7 = function(req, res) {
-  wc21_5_7.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_7 = function(req, res) {
+  SN2_1P2_7.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_5_7 = function(req, res) {
-  wc21_5_7.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_7 = function(req, res) {
+  SN2_1P2_7.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_5_7 successfully deleted' });
+    res.json({ message: 'SN2_1P2_7 successfully deleted' });
   });
 }; 
     
-//wc21_6
-exports.create_a_wc21_6 = function(req, res)  {
-  var myData = new wc21_6(req.body);
+//SN2_1P2_9_1
+exports.create_a_SN2_1P2_9_1 = function(req, res)  {
+  var myData = new SN2_1P2_9_1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1024,41 +1067,41 @@ exports.create_a_wc21_6 = function(req, res)  {
   });
 };
 
-exports.read_all_wc21_6 = function(req, res) {
-  wc21_6.find({}, function(err, data) {
+exports.read_all_SN2_1P2_9_1 = function(req, res) {
+  SN2_1P2_9_1.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_wc21_6 = function(req, res) {
-  wc21_6.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_9_1 = function(req, res) {
+  SN2_1P2_9_1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_wc21_6 = function(req, res) {
-  wc21_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_9_1 = function(req, res) {
+  SN2_1P2_9_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_wc21_6 = function(req, res) {
-  wc21_6.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_9_1 = function(req, res) {
+  SN2_1P2_9_1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'wc21_6 successfully deleted' });
+    res.json({ message: 'SN2_1P2_9_1 successfully deleted' });
   });
 }; 
       
-//rice
-exports.create_a_rice = function(req, res)  {
-  var myData = new rice(req.body);
+//SN2_1P2_9_3
+exports.create_a_SN2_1P2_9_3 = function(req, res)  {
+  var myData = new SN2_1P2_9_3(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1066,41 +1109,41 @@ exports.create_a_rice = function(req, res)  {
   });
 };
 
-exports.read_all_rice = function(req, res) {
-  rice.find({}, function(err, data) {
+exports.read_all_SN2_1P2_9_3 = function(req, res) {
+  SN2_1P2_9_3.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_rice = function(req, res) {
-  rice.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_9_3 = function(req, res) {
+  SN2_1P2_9_3.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_rice = function(req, res) {
-  rice.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_9_3 = function(req, res) {
+  SN2_1P2_9_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_rice = function(req, res) {
-  rice.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_9_3 = function(req, res) {
+  SN2_1P2_9_3.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'rice successfully deleted' });
+    res.json({ message: 'SN2_1P2_9_3 successfully deleted' });
   });
 }; 
         
-//plant
-exports.create_a_plant = function(req, res)  {
-  var myData = new plant(req.body);
+//SN2_1P2_9_4
+exports.create_a_SN2_1P2_9_4 = function(req, res)  {
+  var myData = new SN2_1P2_9_4(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1108,41 +1151,41 @@ exports.create_a_plant = function(req, res)  {
   });
 };
 
-exports.read_all_plant = function(req, res) {
-  plant.find({}, function(err, data) {
+exports.read_all_SN2_1P2_9_4 = function(req, res) {
+  SN2_1P2_9_4.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_plant = function(req, res) {
-  plant.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P2_9_4 = function(req, res) {
+  SN2_1P2_9_4.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_plant = function(req, res) {
-  plant.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P2_9_4 = function(req, res) {
+  SN2_1P2_9_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_plant = function(req, res) {
-  plant.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P2_9_4 = function(req, res) {
+  SN2_1P2_9_4.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'plant successfully deleted' });
+    res.json({ message: 'SN2_1P2_9_4 successfully deleted' });
   });
 }; 
         
-//rubber
-exports.create_a_rubber = function(req, res)  {
-  var myData = new rubber(req.body);
+//SN2_1P3
+exports.create_a_SN2_1P3 = function(req, res)  {
+  var myData = new SN2_1P3(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1150,41 +1193,41 @@ exports.create_a_rubber = function(req, res)  {
   });
 };
 
-exports.read_all_rubber = function(req, res) {
-  rubber.find({}, function(err, data) {
+exports.read_all_SN2_1P3 = function(req, res) {
+  SN2_1P3.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_rubber = function(req, res) {
-  rubber.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P3 = function(req, res) {
+  SN2_1P3.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_rubber = function(req, res) {
-  rubber.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P3 = function(req, res) {
+  SN2_1P3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_rubber = function(req, res) {
-  rubber.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P3 = function(req, res) {
+  SN2_1P3.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json({ message: ' successfully deleted' });
   });
 }; 
       
-//perennial
-exports.create_a_perennial = function(req, res)  {
-  var myData = new perennial(req.body);
+//SN2_1P4
+exports.create_a_SN2_1P4 = function(req, res)  {
+  var myData = new SN2_1P4(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1192,41 +1235,41 @@ exports.create_a_perennial = function(req, res)  {
   });
 };
 
-exports.read_all_perennial = function(req, res) {
-  perennial.find({}, function(err, data) {
+exports.read_all_SN2_1P4 = function(req, res) {
+  SN2_1P4.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_perennial = function(req, res) {
-  perennial.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P4 = function(req, res) {
+  SN2_1P4.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_perennial = function(req, res) {
-  perennial.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P4 = function(req, res) {
+  SN2_1P4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_perennial = function(req, res) {
-  perennial.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P4 = function(req, res) {
+  SN2_1P4.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'perennial successfully deleted' });
+    res.json({ message: 'SN2_1P4 successfully deleted' });
   });
 }; 
     
-//vegetable
-exports.create_a_vegetable = function(req, res)  {
-  var myData = new vegetable(req.body);
+//SN2_1P5
+exports.create_a_SN2_1P5 = function(req, res)  {
+  var myData = new SN2_1P5(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1234,41 +1277,41 @@ exports.create_a_vegetable = function(req, res)  {
   });
 };
 
-exports.read_all_vegetable = function(req, res) {
-  vegetable.find({}, function(err, data) {
+exports.read_all_SN2_1P5 = function(req, res) {
+  SN2_1P5.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_vegetable = function(req, res) {
-  vegetable.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5 = function(req, res) {
+  SN2_1P5.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_vegetable = function(req, res) {
-  vegetable.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5 = function(req, res) {
+  SN2_1P5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_vegetable = function(req, res) {
-  vegetable.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5 = function(req, res) {
+  SN2_1P5.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: ' successfully deleted' });
+    res.json({ message: 'SN2_1P5  successfully deleted' });
   });
 }; 
    
-//garden
-exports.create_a_garden = function(req, res)  {
-  var myData = new garden(req.body);
+//SN2_1P5_1
+exports.create_a_SN2_1P5_1 = function(req, res)  {
+  var myData = new SN2_1P5_1(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1276,41 +1319,41 @@ exports.create_a_garden = function(req, res)  {
   });
 };
 
-exports.read_all_garden = function(req, res) {
-  garden.find({}, function(err, data) {
+exports.read_all_SN2_1P5_1 = function(req, res) {
+  SN2_1P5_1.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_garden = function(req, res) {
-  garden.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_1 = function(req, res) {
+  SN2_1P5_1.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_garden = function(req, res) {
-  garden.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_1 = function(req, res) {
+  SN2_1P5_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_garden = function(req, res) {
-  garden.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_1 = function(req, res) {
+  SN2_1P5_1.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'garden successfully deleted' });
+    res.json({ message: 'SN2_1P5_1 successfully deleted' });
   });
 }; 
    
-//fish
-exports.create_a_fish = function(req, res)  {
-  var myData = new fish(req.body);
+//SN2_1P5_2
+exports.create_a_SN2_1P5_2 = function(req, res)  {
+  var myData = new SN2_1P5_2(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1318,41 +1361,41 @@ exports.create_a_fish = function(req, res)  {
   });
 };
 
-exports.read_all_fish = function(req, res) {
-  fish.find({}, function(err, data) {
+exports.read_all_SN2_1P5_2 = function(req, res) {
+  SN2_1P5_2.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_fish = function(req, res) {
-  fish.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_2 = function(req, res) {
+  SN2_1P5_2.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_fish = function(req, res) {
-  fish.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_2 = function(req, res) {
+  SN2_1P5_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_fish = function(req, res) {
-  fish.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_2 = function(req, res) {
+  SN2_1P5_2.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'fish successfully deleted' });
+    res.json({ message: 'SN2_1P5_2 successfully deleted' });
   });
 }; 
    
-//shrimp
-exports.create_a_shrimp = function(req, res)  {
-  var myData = new shrimp(req.body);
+//SN2_1P5_3
+exports.create_a_SN2_1P5_3 = function(req, res)  {
+  var myData = new SN2_1P5_3(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1360,41 +1403,41 @@ exports.create_a_shrimp = function(req, res)  {
   });
 };
 
-exports.read_all_shrimp = function(req, res) {
-  shrimp.find({}, function(err, data) {
+exports.read_all_SN2_1P5_3 = function(req, res) {
+  SN2_1P5_3.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_shrimp = function(req, res) {
-  shrimp.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_3 = function(req, res) {
+  SN2_1P5_3.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_shrimp = function(req, res) {
-  shrimp.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_3 = function(req, res) {
+  SN2_1P5_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_shrimp = function(req, res) {
-  shrimp.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_3 = function(req, res) {
+  SN2_1P5_3.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'shrimp successfully deleted' });
+    res.json({ message: 'SN2_1P5_3 successfully deleted' });
   });
 }; 
     
-//flog
-exports.create_a_flog = function(req, res)  {
-  var myData = new flog(req.body);
+//SN2_1P5_4
+exports.create_a_SN2_1P5_4 = function(req, res)  {
+  var myData = new SN2_1P5_4(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1402,41 +1445,41 @@ exports.create_a_flog = function(req, res)  {
   });
 };
 
-exports.read_all_flog = function(req, res) {
-  flog.find({}, function(err, data) {
+exports.read_all_SN2_1P5_4 = function(req, res) {
+  SN2_1P5_4.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_flog = function(req, res) {
-  flog.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_4 = function(req, res) {
+  SN2_1P5_4.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_flog = function(req, res) {
-  flog.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_4 = function(req, res) {
+  SN2_1P5_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_flog = function(req, res) {
-  flog.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_4 = function(req, res) {
+  SN2_1P5_4.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'flog successfully deleted' });
+    res.json({ message: 'SN2_1P5_4 successfully deleted' });
   });
 }; 
         
-//crocodile
-exports.create_a_crocodile = function(req, res)  {
-  var myData = new crocodile(req.body);
+//SN2_1P5_5
+exports.create_a_SN2_1P5_5 = function(req, res)  {
+  var myData = new SN2_1P5_5(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1444,41 +1487,41 @@ exports.create_a_crocodile = function(req, res)  {
   });
 };
 
-exports.read_all_crocodile = function(req, res) {
-  crocodile.find({}, function(err, data) {
+exports.read_all_SN2_1P5_5 = function(req, res) {
+  SN2_1P5_5.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_crocodile = function(req, res) {
-  crocodile.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_5 = function(req, res) {
+  SN2_1P5_5.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_crocodile = function(req, res) {
-  crocodile.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_5 = function(req, res) {
+  SN2_1P5_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_crocodile = function(req, res) {
-  crocodile.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_5 = function(req, res) {
+  SN2_1P5_5.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'crocodile successfully deleted' });
+    res.json({ message: 'SN2_1P5_5 successfully deleted' });
   });
 }; 
    
-//s_turtle
-exports.create_a_s_turtle = function(req, res)  {
-  var myData = new s_turtle(req.body);
+//SN2_1P5_6
+exports.create_a_SN2_1P5_6 = function(req, res)  {
+  var myData = new SN2_1P5_6(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1486,41 +1529,41 @@ exports.create_a_s_turtle = function(req, res)  {
   });
 };
 
-exports.read_all_s_turtle = function(req, res) {
-  s_turtle.find({}, function(err, data) {
+exports.read_all_SN2_1P5_6 = function(req, res) {
+  SN2_1P5_6.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_s_turtle = function(req, res) {
-  s_turtle.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_6 = function(req, res) {
+  SN2_1P5_6.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_s_turtle = function(req, res) {
-  s_turtle.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_6 = function(req, res) {
+  SN2_1P5_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_s_turtle = function(req, res) {
-  s_turtle.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_6 = function(req, res) {
+  SN2_1P5_6.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 's_turtle successfully deleted' });
+    res.json({ message: 'SN2_1P5_6 successfully deleted' });
   });
 }; 
      
-//well
-exports.create_a_well = function(req, res)  {
-  var myData = new well(req.body);
+//SN2_1P5_7
+exports.create_a_SN2_1P5_7 = function(req, res)  {
+  var myData = new SN2_1P5_7(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1528,41 +1571,41 @@ exports.create_a_well = function(req, res)  {
   });
 };
 
-exports.read_all_well = function(req, res) {
-  well.find({}, function(err, data) {
+exports.read_all_SN2_1P5_7 = function(req, res) {
+  SN2_1P5_7.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_well = function(req, res) {
-  well.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P5_7 = function(req, res) {
+  SN2_1P5_7.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_well = function(req, res) {
-  well.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P5_7 = function(req, res) {
+  SN2_1P5_7.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_well = function(req, res) {
-  well.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P5_7 = function(req, res) {
+  SN2_1P5_7.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'well successfully deleted' });
+    res.json({ message: 'SN2_1P5_7 successfully deleted' });
   });
 }; 
        
-//pool_size
-exports.create_a_pool_size = function(req, res)  {
-  var myData = new pool_size(req.body);
+//SN2_1P6
+exports.create_a_SN2_1P6 = function(req, res)  {
+  var myData = new SN2_1P6(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1570,41 +1613,41 @@ exports.create_a_pool_size = function(req, res)  {
   });
 };
 
-exports.read_all_pool_size = function(req, res) {
-  pool_size.find({}, function(err, data) {
+exports.read_all_SN2_1P6 = function(req, res) {
+  SN2_1P6.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_pool_size = function(req, res) {
-  pool_size.find({_id: req.params.id}, function(err, data) {
+exports.read_a_SN2_1P6 = function(req, res) {
+  SN2_1P6.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_pool_size = function(req, res) {
-  pool_size.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_SN2_1P6 = function(req, res) {
+  SN2_1P6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_pool_size = function(req, res) {
-  pool_size.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_SN2_1P6 = function(req, res) {
+  SN2_1P6.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'pool_size successfully deleted' });
+    res.json({ message: 'SN2_1P6 successfully deleted' });
   });
 }; 
   
-//pool
-exports.create_a_pool = function(req, res)  {
-  var myData = new pool(req.body);
+//Pool
+exports.create_a_Pool = function(req, res)  {
+  var myData = new Pool(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1612,41 +1655,41 @@ exports.create_a_pool = function(req, res)  {
   });
 };
 
-exports.read_all_pool = function(req, res) {
-  pool.find({}, function(err, data) {
+exports.read_all_Pool = function(req, res) {
+  Pool.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_pool = function(req, res) {
-  pool.find({_id: req.params.id}, function(err, data) {
+exports.read_a_Pool = function(req, res) {
+  Pool.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_pool = function(req, res) {
-  pool.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_Pool = function(req, res) {
+  Pool.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_pool = function(req, res) {
-  pool.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_Pool = function(req, res) {
+  Pool.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'pool successfully deleted' });
+    res.json({ message: 'Pool successfully deleted' });
   });
 }; 
         
-//pump
-exports.create_a_pump = function(req, res)  {
-  var myData = new pump(req.body);
+//Pump
+exports.create_a_Pump = function(req, res)  {
+  var myData = new Pump(req.body);
     myData.save(function(err, data) {
       if (err)
         res.send(err);
@@ -1654,37 +1697,254 @@ exports.create_a_pump = function(req, res)  {
   });
 };
 
-exports.read_all_pump = function(req, res) {
-  pump.find({}, function(err, data) {
+exports.read_all_Pump = function(req, res) {
+  Pump.find({}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.read_a_pump = function(req, res) {
-  pump.find({_id: req.params.id}, function(err, data) {
+exports.read_a_Pump = function(req, res) {
+  Pump.find({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.update_a_pump = function(req, res) {
-  pump.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+exports.update_a_Pump = function(req, res) {
+  Pump.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
 
-exports.delete_a_pump = function(req, res) {
-  pump.remove({_id: req.params.id}, function(err, data) {
+exports.delete_a_Pump = function(req, res) {
+  Pump.remove({_id: req.params.id}, function(err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'pump successfully deleted' });
+    res.json({ message: 'Pump successfully deleted' });
   });
 }; 
+
+//SN2_2P0
+
+exports.create_a_SN2_2P0 = function(req, res)  {
+  var myData = new SN2_2P0(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN2_2P0 = function(req, res) {
+  SN2_2P0.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN2_2P0 = function(req, res) {
+  SN2_2P0.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN2_2P0 = function(req, res) {
+  SN2_2P0.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN2_2P0 = function(req, res) {
+  SN2_2P0.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN2_2P0 successfully deleted' });
+  });
+};
+
+//SN2_2
+
+exports.create_a_SN2_2 = function(req, res)  {
+  var myData = new SN2_2(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN2_2 = function(req, res) {
+  SN2_2.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN2_2 = function(req, res) {
+  SN2_2.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN2_2 = function(req, res) {
+  SN2_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN2_2 = function(req, res) {
+  SN2_2.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN2_2 successfully deleted' });
+  });
+};
+
+//SN2_2P1_3
+
+exports.create_a_SN2_2P1_3 = function(req, res)  {
+  var myData = new SN2_2P1_3(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN2_2P1_3 = function(req, res) {
+  SN2_2P1_3.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN2_2P1_3 = function(req, res) {
+  SN2_2P1_3.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN2_2P1_3 = function(req, res) {
+  SN2_2P1_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN2_2P1_3 = function(req, res) {
+  SN2_2P1_3.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN2_2P1_3 successfully deleted' });
+  });
+};
+
+
+//SN2_2P1_5
+
+exports.create_a_SN2_2P1_5 = function(req, res)  {
+  var myData = new SN2_2P1_5(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN2_2P1_5 = function(req, res) {
+  SN2_2P1_5.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN2_2P1_5 = function(req, res) {
+  SN2_2P1_5.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN2_2P1_5 = function(req, res) {
+  SN2_2P1_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN2_2P1_5 = function(req, res) {
+  SN2_2P1_5.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN2_2P1_5 successfully deleted' });
+  });
+};
+
+
+//SN2_2P2
+
+exports.create_a_SN2_2P2 = function(req, res)  {
+  var myData = new SN2_2P2(req.body);
+    myData.save(function(err, data) {
+      if (err)
+        res.send(err);
+      res.json(data);
+  });
+};
+
+exports.read_all_SN2_2P2 = function(req, res) {
+  SN2_2P2.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.read_a_SN2_2P2 = function(req, res) {
+  SN2_2P2.find({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.update_a_SN2_2P2 = function(req, res) {
+  SN2_2P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_a_SN2_2P2 = function(req, res) {
+  SN2_2P2.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'SN2_2P2 successfully deleted' });
+  });
+};
 
 //page
 exports.getHomePage = function(req, res) {
