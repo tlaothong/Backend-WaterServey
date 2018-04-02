@@ -24,42 +24,6 @@ var User = new Schema({
     CWT_NAME: {type: String },
 });
 
-var Region = new Schema({
-    reg: { type: Number ,unique: true,index: true},
-    reg_name: { type: String },
-    }); 
-
-var Changwat = new Schema({
-        reg : Number,
-        cwt : { type: Number ,unique: true,index: true },
-        cwt_name : String 
-    });
-   
-var Amphoe = new Schema({
-        reg :Number,
-        cwt : Number,
-        amp : { type: Number ,unique: true,index: true},
-        amp_name :  String  
-    });
-
-var Tambon = new Schema({
-        reg :Number,
-        cwt : Number,
-        amp : { type: Number },
-        tmb : { type: Number ,unique: true,index: true},
-        tmb_name : { type: String}    
-    });
-
-var District = new Schema({
-        reg :Number,
-        cwt : Number,
-        amp : { type: Number },
-        tmb : { type: Number },
-        district : {type :Number ,index: true},
-        mun_tao : { type : Number ,unique: true,index: true},
-        district_name : { type: String} 
-    });
-
 var EnumerationArea = new Schema({
         reg :Number,
         cwt : Number,
@@ -329,7 +293,7 @@ var SN2_1P2_1 = new Schema({
     A2_E1_2_4: {type: Number},
     A2_E1_2_4_2_1: {type: Number},
     A2_E1_2_4_2_2: {type: Number},
-    A2_E1_2_4_2_3: {type: Number},
+    A2_E1_2_4_2_3: {type: Number},    
     A2_E1_2_4_3_1_1: {type: Number},
     A2_E1_2_4_3_1_2: {type: Number},
     A2_E1_2_4_3_1_3: {type: Number},
@@ -672,7 +636,7 @@ var SN2_1P5_1 = new Schema({
     A5_1_1_1_2_2_6: {type: Boolean},
     A5_1_1_1_3_1: {type: Number},
     A5_1_1_1_3_2: {type: Number},
-    A5_1_1_1_3_2: {type: Boolean},
+    A5_1_1_1_3_2_1: {type: Boolean},
     A5_1_1_2_1: {type: Boolean},
     A5_1_1_2_2_1: {type: Boolean},
     A5_1_1_2_2_2_1: {type: Boolean},
@@ -683,6 +647,7 @@ var SN2_1P5_1 = new Schema({
     A5_1_1_2_2_2_6: {type: Boolean},
     A5_1_1_2_3_1: {type: Number},
     A5_1_1_2_3_2: {type: Number},
+    A5_1_1_2_3_2_1:{type: Boolean},
     A5_1_2_1_1: {type: Number},
     A5_1_2_1_2: {type: Number},
     A5_1_2_2_1: {type: Number},
@@ -693,6 +658,17 @@ var SN2_1P5_1 = new Schema({
     A5_1_2_4_2: {type: Number},
     A5_1_2_5_1: {type: Number},
     A5_1_2_5_2: {type: Number},
+    A5_1_1_3_1: {type: Boolean},
+    A5_1_1_3_2_1: {type: Boolean},
+    A5_1_1_3_2_2_1: {type: Boolean},
+    A5_1_1_3_2_2_2: {type: Boolean},
+    A5_1_1_3_2_2_3: {type: Boolean},
+    A5_1_1_3_2_2_4: {type: Boolean},
+    A5_1_1_3_2_2_5: {type: Boolean},
+    A5_1_1_3_2_2_6: {type: Boolean},
+    A5_1_1_3_3_1: {type: Number},
+    A5_1_1_3_3_2: {type: Number},
+    A5_1_1_3_3_2_1: {type: Boolean},
     A5_1_3: {type: Boolean},
     A5_1_4: {type: Number},
 });
@@ -702,7 +678,7 @@ var SN2_1P5_2   = new Schema({
     A5_2_2_1: {type: Number},
     A5_2_3:[{ type: Schema.Types.ObjectId, ref: 'SN2_1P5_2_3' }],
     A5_2_4: {type: Boolean},
-    A5_2_4_1:{ type: Schema.Types.ObjectId, ref: 'SN2_1P5_2_3' }
+    A5_2_4_0:{ type: Schema.Types.ObjectId, ref: 'SN2_1P5_2_3' }
     
 });
 var SN2_1P5_3  = new Schema({
@@ -902,7 +878,7 @@ var SN2_2 = new Schema({
     B1_11_2 : {type:  Boolean},
     B1_11_3 : {type:  Boolean},
     B1_11_4 : {type:  Boolean},
-    B1_11_4_1 : {type:  Boolean},
+    B1_11_4_1 : {type:  String},
     B2_12 : {type:  Boolean},
     B2_12_1 : {type:  Number},
     B2_12_1_1 : [{type:  Schema.Types.ObjectId,ref: 'SN2_2P2'}],
@@ -916,7 +892,8 @@ var SN2_2P1_3 = new Schema({
     B1_3_2_2 : {type:  Boolean},
     B1_3_2_3 : {type:  Boolean},
     B1_3_2_4 : {type:  Boolean},
-    B1_3_2_4_1 : {type:  String},
+    B1_3_2_5 : {type:  Boolean},
+    B1_3_2_5_1 : {type:  String},
     B1_3_3_1 : {type:  Number},
     B1_3_3_2_1 : {type:  Number},     
     B1_3_3_2_2 : {type:  Number},
@@ -927,7 +904,6 @@ var SN2_2P1_3 = new Schema({
     B1_3_3_3_1_3 : {type:  Number},
     B1_3_3_3_2_1 : {type:  Number},
     B1_3_3_3_2_2 : {type:  Number},
-    B1_3_3_3_3 : {type:  Number},
 });
 
 var SN2_2P1_5 = new Schema({
@@ -954,11 +930,6 @@ var SN2_2P2 = new Schema({
     B2_17 : {type:  Number},
 });
 module.exports = mongoose.model('User', User);
-module.exports = mongoose.model('Region', Region);
-module.exports = mongoose.model('Changwat', Changwat);
-module.exports = mongoose.model('Amphoe', Amphoe);
-module.exports = mongoose.model('Tambon', Tambon);
-module.exports = mongoose.model('District', District);
 module.exports = mongoose.model('EnumerationArea', EnumerationArea);
 module.exports = mongoose.model('Area', Area);
 module.exports = mongoose.model('Tablet', Tablet);
