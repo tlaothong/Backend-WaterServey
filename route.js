@@ -355,5 +355,80 @@ module.exports = function(app) {
     app.route('/')
       .get(ctrl.getHomePage);
 
-  };  
+
+    app.route('/ea')
+      .get(ctrl.get_all_ea);
+
+    app.route('/user')
+      .get(ctrl.get_all_user);
+
+    app.route('/insert_user')
+      .post(ctrl.insert_user);
+
+    app.route('/update_user')
+      .put(ctrl.update_user);
+    
+    app.route('/delete_user')
+      .delete(ctrl.delete_user);
+
+    app.route('/insert_ea')
+      .post(ctrl.insert_ea);
+
+    app.route('/update_ea')
+      .put(ctrl.update_ea);
+    
+    app.route('/delete_ea')
+      .delete(ctrl.delete_ea);
+
+    app.route('/ea_cwt')
+      .get(ctrl.getEaByCWT);
+
+    app.route('/ea_fs')
+      .get(ctrl.getEaByFS);
+
+    app.route('/ea_fi')
+      .get(ctrl.getEaByFI);
+
+    app.route('/userlower_role')
+      .get(ctrl.getUserLowerRole);
+    
+    app.route('/user_by_area')
+      .get(ctrl.getUserByArea);
+
+    app.route('/userlower_role_area')
+      .get(ctrl.getUserLowerRoleArea);
+
+    app.route('/user_role_area')
+      .get(ctrl.getUserRoleArea);
+
+    app.route('/user_id_pwd')
+      .post(ctrl.getUserByIDPWD);
+
+    app.route('/user_id')
+      .post(ctrl.getUserByID);
+
+    app.route('/insert_tablet')
+      .post(ctrl.insert_tablet);
+
+    app.route('/update_tablet')
+      .put(ctrl.update_tablet);
+
+    app.route('/delete_tablet')
+      .delete(ctrl.delete_a_tablet);
+
+    app.route('/tablet')
+      .get(ctrl.read_all_tablet);
+    
+    app.route('/insert_sn22')
+      .post(ctrl.create_a_SN2_2);
+
+    app.route('/test')
+      .post(ctrl.kafka);
+
   
+  
+    };  
+
+  
+
+    

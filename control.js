@@ -1,6 +1,11 @@
 var path = require('path')
+var kafka = require('kafka-node');
+var Producer = kafka.Producer
+var client = new  kafka.KafkaClient({kafkaHost:"35.231.191.95:9092,35.231.131.0:9092,35.231.143.31:9092,35.231.255.229:9092",requestTimeout:2000});
+//var client = new kafka.Client({connectionString:'35.231.191.95:2181/',clientID:'3'})
+var producer = new Producer(client)
 var mongoose = require('mongoose'),
-user            = mongoose.model('User'),
+user              = mongoose.model('User'),
 enumerationArea = mongoose.model('EnumerationArea'),
 area            = mongoose.model('Area'),
 tablet          = mongoose.model('Tablet'),
@@ -1736,3 +1741,183 @@ exports.delete_a_SN2_2P2 = function(req, res) {
 exports.getHomePage = function(req, res) {
   res.sendFile(path.join(__dirname +'/index.html'));
 }
+
+exports.get_all_ea = function(req,res) {
+  area.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.get_all_user = function(req,res) {
+  user.find({}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.insert_user = function(req,res) {
+  var myData = new user(req.body);
+  myData.save(function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+});
+};
+
+exports.update_user = function(req,res) {
+  user.updateOne({'USERID':req.params.USERID},req.body, function(req,res) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_user = function(req ,res) {
+  user.deleteOne({'USERID':req.params.USERID},function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.insert_ea = function(req,res) {
+  var myData = new user(req.body);
+  myData.save(function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+});
+};
+
+exports.update_ea = function(req,res) {
+  area.updateOne({'REG':req.params.REG, 'CWT':req.params.CWT, 'AMP':req.params.AMP, 'TAM':req.params.TAM, 'DISTRICT':req.params.DISTRICT, 'EA':req.params.EA,},req.body, function(req,res) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.delete_ea = function(req ,res) {
+  area.deleteOne(req.body,function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getEaByCWT = function(req,res) {
+  area.find(req.body,function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getEaByFS = function(req,res) {
+  area.find(req.body,function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getEaByFI = function(req,res) {
+  area.find(req.body,function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserLowerRole = function(req,res){
+  user.find({"TID":{'$gt':role}}, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserByArea = function(req,res){
+  user.find(req.body,function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserLowerRoleArea = function(req,res){
+  user.find({'CWT':req.params.CWT,'TID':{'$gt':req.params.TID}}, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserRoleArea = function(req,res){
+  user.find({'CWT':req.params.CWT,'TID':req.params.TID}, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserByIDPWD = function(req,res) {
+  user.find(req.body, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.getUserByID = function(req,res) {
+  user.find(req.body,{EMAIL:1}, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.insert_tablet = function(req,res) {
+  var myData = new tablet(req.body);
+  myData.save(function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+});
+};
+
+exports.update_tablet = function(req,res){
+  tablet.updateOne({'tablet_sn':req.params.tablet_sn},req.body, function(req,res){
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
+exports.kafka = function(req,res){
+  payloads = [{ topic: req.body.topic , messages: req.body.message ,partition: 0}] 
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+      console.log(producer)
+      console.log(payloads)
+    res.json(data);
+  });
+};
+
+
+producer.on('ready',function(){ 
+  kafkaConnected = true;
+     console.log("kafka producer is connected");
+     payloads = [{ topic: 'post' , messages: 'asdasd' ,partition: 0}] 
+     producer.send(payloads, function (err, data) {
+     console.log(err)
+     console.log(data);
+     
+  });
+  producer.on('error', function (err) {});
+});
