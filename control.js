@@ -1,7 +1,7 @@
 var path = require('path')
 var kafka = require('kafka-node');
 var Producer = kafka.Producer
-var client = new  kafka.KafkaClient({kafkaHost:"35.231.191.95:9092,35.231.131.0:9092,35.231.143.31:9092,35.231.255.229:9092",requestTimeout:2000});
+var client = new  kafka.KafkaClient({kafkaHost:"fka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",requestTimeout:2000});
 //var client = new kafka.Client({connectionString:'35.231.191.95:2181/',clientID:'3'})
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
@@ -56,13 +56,18 @@ exports.read_all_user = function(req, res) {
 };
 
 exports.create_a_user = function(req, res) {
-  var newUser = new user(req.body);  
-  newUser.save(function(err, data) {
+  da = {"method":"post","model":"user","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
-    res.json(data)
-  });
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
+
 
 exports.read_a_user = function(req, res) {
   user.find({_id: req.params.id}, function(err, data) {
