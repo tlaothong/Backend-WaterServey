@@ -1,7 +1,7 @@
 var path = require('path')
 var kafka = require('kafka-node');
 var Producer = kafka.Producer
-var client = new  kafka.KafkaClient({kafkaHost:"35.231.191.95:9092,35.231.131.0:9092,35.231.143.31:9092,35.231.255.229:9092",requestTimeout:2000});
+var client = new  kafka.KafkaClient({kafkaHost:"35.231.191.95:9092,35.231.131.0:9092,35.231.143.31:9092",requestTimeout:30000});
 //var client = new kafka.Client({connectionString:'35.231.191.95:2181/',clientID:'3'})
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
@@ -1898,7 +1898,7 @@ exports.update_tablet = function(req,res){
 };
 
 exports.kafka = function(req,res){
-  payloads = [{ topic: req.body.topic , messages: req.body.message ,partition: 0}] 
+  payloads = [{ topic: req.body.topic , messages: req.body ,partition: 0}] 
   producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
@@ -1913,11 +1913,6 @@ exports.kafka = function(req,res){
 producer.on('ready',function(){ 
   kafkaConnected = true;
      console.log("kafka producer is connected");
-     payloads = [{ topic: 'post' , messages: 'asdasd' ,partition: 0}] 
-     producer.send(payloads, function (err, data) {
-     console.log(err)
-     console.log(data);
-     
-  });
+     payloads = [{ topic: 'post-topic' , messages: 'asdasd' ,partition: 0}] 
   producer.on('error', function (err) {});
 });

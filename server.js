@@ -6,7 +6,7 @@ var express = require('express'),
   mongoose = require('mongoose'), 
   db = require('./db'), //created model loading here
   bodyParser = require('body-parser');
-  urls = '35.227.94.29'
+  urls = '35.196.91.42'
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://'+urls+':27017/Demo'); 
 
