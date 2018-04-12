@@ -1,11 +1,7 @@
 var path = require('path')
 var kafka = require('kafka-node');
 var Producer = kafka.Producer
-<<<<<<< HEAD
-var client = new  kafka.KafkaClient({kafkaHost:"35.231.191.95:9092,35.231.131.0:9092,35.231.143.31:9092",requestTimeout:30000});
-=======
 var client = new  kafka.KafkaClient({kafkaHost:"fka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",requestTimeout:2000});
->>>>>>> c8c17597bb541db3b3b5f28167b1fabb73e66118
 //var client = new kafka.Client({connectionString:'35.231.191.95:2181/',clientID:'3'})
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
