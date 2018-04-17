@@ -1,12 +1,11 @@
 var path = require('path')
 var kafka = require('kafka-node');
 var Producer = kafka.Producer
-var client = new  kafka.KafkaClient({kafkaHost:"fka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",requestTimeout:2000});
+var client = new  kafka.KafkaClient({kafkaHost:"kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",requestTimeout:2000});
 //var client = new kafka.Client({connectionString:'35.231.191.95:2181/',clientID:'3'})
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
 user              = mongoose.model('User'),
-enumerationArea = mongoose.model('EnumerationArea'),
 area            = mongoose.model('Area'),
 tablet          = mongoose.model('Tablet'),
 progress        = mongoose.model('Progress'),
@@ -78,7 +77,7 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-    da = {"method":"put","model":"User","id":req.params.id,"data":req.body}
+    da = {"method":"put","model":"User","query":"USERID:"+req.params.id,"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -91,7 +90,7 @@ exports.update_a_user = function(req, res) {
 };
 
 exports.delete_a_user = function(req, res) {
-    da = {"method":"del","model":"User","id":req.params.id,"data":req.body}
+    da = {"method":"del","model":"User","query":"USERID:"+req.params.id,"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -103,58 +102,21 @@ exports.delete_a_user = function(req, res) {
 });
 };
 
-//enumerationArea
-exports.create_a_enumerationArea = function(req, res)  {
-  var myData = new enumerationArea(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
-};
-
-exports.read_all_enumerationArea = function(req, res) {
-  enumerationArea.find({}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
-};
-
-exports.read_a_enumerationArea = function(req, res) {
-  enumerationArea.find({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
-};
-
-exports.update_a_enumerationArea = function(req, res) {
-  enumerationArea.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
-};
-
-exports.delete_a_enumerationArea = function(req, res) {
-  enumerationArea.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'enumerationArea successfully deleted' });
-  });
-};
-
 //area
 
 exports.create_a_area = function(req, res)  {
-  var myData = new area (req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
-};
+  da = {"method":"post","model":"Area","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
+};  
+  
 
 exports.read_all_area = function(req, res) {
   area.find({}, function(err, data) {
@@ -173,32 +135,47 @@ exports.read_a_area = function(req, res) {
 };
 
 exports.update_a_area = function(req, res) {
-  area.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"Area","query":"{REG:"+req.params.REG+",CWT:"+req.params.CWT+",AMP:"+req.params.AMP+",TAM:"+req.params.TAM+",DISTRICT:"+req.params.DISTRICT+",EA:"+req.params.EA+"}","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+  });	
 };
 
+
 exports.delete_a_area = function(req, res) {
-  area.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'area successfully deleted' });
-  });
+  da = {"method":"del","model":"Area","query":"{REG:"+req.params.REG+",CWT:"+req.params.CWT+",AMP:"+req.params.AMP+",TAM:"+req.params.TAM+",DISTRICT:"+req.params.DISTRICT+",EA:"+req.params.EA+"}","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+  });	
 };
 
 //tablet
 
 exports.create_a_tablet = function(req, res)  {
-  var myData = new tablet(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
-};
-
+  da = {"method":"post","model":"Tablet","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
+};  
+  
 exports.read_all_tablet = function(req, res) {
   tablet.find({}, function(err, data) {
     if (err)
@@ -216,31 +193,46 @@ exports.read_a_tablet = function(req, res) {
 };
 
 exports.update_a_tablet = function(req, res) {
-  tablet.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"Area","query":"tablet_sn:"+req.params.tablet_sn,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+  });	
 };
 
 exports.delete_a_tablet = function(req, res) {
-  tablet.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'tablet successfully deleted' });
-  });
+  da = {"method":"put","model":"Area","query":"tablet_sn:"+req.params.tablet_sn,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+  });	
 };
 
 //Progress
 
 exports.create_a_progress = function(req, res)  {
-  var myData = new progress(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
-};
+  da = {"method":"post","model":"Progress","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
+};  
+  
 
 exports.read_all_progress = function(req, res) {
   progress.find({}, function(err, data) {
@@ -259,31 +251,46 @@ exports.read_a_progress = function(req, res) {
 };
 
 exports.update_a_progress = function(req, res) {
-  progress.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"Progress","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_progress = function(req, res) {
-  progress.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'progress successfully deleted' });
-  });
+  da = {"method":"del","model":"Progress","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //SN1
 
 exports.create_a_SN1 = function(req, res)  {
-  var myData = new SN1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
-};
+  da = {"method":"post","model":"SN1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
+};  
+  
 
 exports.read_all_SN1 = function(req, res) {
   SN1.find({}, function(err, data) {
@@ -302,29 +309,43 @@ exports.read_a_SN1 = function(req, res) {
 };
 
 exports.update_a_SN1 = function(req, res) {
-  SN1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN1 = function(req, res) {
-  SN1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN1 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //SN1P1
 exports.create_a_SN1P1 = function(req, res)  {
-  var myData = new SN1P1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN1P1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN1P1 = function(req, res) {
@@ -344,29 +365,43 @@ exports.read_a_SN1P1 = function(req, res) {
 };
 
 exports.update_a_SN1P1 = function(req, res) {
-  SN1P1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN1P1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+  });	
 };
 
 exports.delete_a_SN1P1 = function(req, res) {
-  SN1P1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN1P1 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN1P1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //SN1P2 
 exports.create_a_SN1P2 = function(req, res)  {
-  var myData = new SN1P2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN1P2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN1P2 = function(req, res) {
@@ -386,29 +421,43 @@ exports.read_a_SN1P2 = function(req, res) {
 };
 
 exports.update_a_SN1P2 = function(req, res) {
-  SN1P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN1P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN1P2 = function(req, res) {
-  SN1P2.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN1P2 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN1P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //wc21_1
 exports.create_a_SN1P3 = function(req, res)  {
-  var myData = new SN1P3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN1P3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN1P3 = function(req, res) {
@@ -428,29 +477,43 @@ exports.read_a_SN1P3 = function(req, res) {
 };
 
 exports.update_a_SN1P3 = function(req, res) {
-  SN1P3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN1P3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN1P3 = function(req, res) {
-  SN1P3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN1P3 successfully deleted' });
-  });
-};  
+  da = {"method":"del","model":"SN1P3ress","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 
 //SN2_1       
 exports.create_a_SN2_1 = function(req, res)  {
-  var myData = new SN2_1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1 = function(req, res) {
@@ -470,29 +533,43 @@ exports.read_a_SN2_1 = function(req, res) {
 };
 
 exports.update_a_SN2_1 = function(req, res) {
-  SN2_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1 = function(req, res) {
-  SN2_1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 
 //SN2_1P1
 exports.create_a_SN2_1P1 = function(req, res)  {
-  var myData = new SN2_1P1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P1 = function(req, res) {
@@ -512,29 +589,43 @@ exports.read_a_SN2_1P1 = function(req, res) {
 };
 
 exports.update_a_SN2_1P1 = function(req, res) {
-  SN2_1P1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P1 = function(req, res) {
-  SN2_1P1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P1 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
         
 //SN2_1P2
 exports.create_a_SN2_1P2 = function(req, res)  {
-  var myData = new SN2_1P2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2 = function(req, res) {
@@ -554,29 +645,43 @@ exports.read_a_SN2_1P2 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2 = function(req, res) {
-  SN2_1P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2 = function(req, res) {
-  SN2_1P2.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
          
 //SN2_1P2_1
 exports.create_a_SN2_1P2_1 = function(req, res)  {
-  var myData = new SN2_1P2_1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_1 = function(req, res) {
@@ -596,29 +701,43 @@ exports.read_a_SN2_1P2_1 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_1 = function(req, res) {
-  SN2_1P2_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_1 = function(req, res) {
-  SN2_1P2_1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_1 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 
 //SN2_1P2_2
 exports.create_a_SN2_1P2_2 = function(req, res)  {
-  var myData = new SN2_1P2_2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_2 = function(req, res) {
@@ -638,29 +757,43 @@ exports.read_a_SN2_1P2_2 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_2 = function(req, res) {
-  SN2_1P2_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_2 = function(req, res) {
-  SN2_1P2_2.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_2 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 
 //SN2_1P2_3
 exports.create_a_SN2_1P2_3 = function(req, res)  {
-  var myData = new SN2_1P2_3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_3 = function(req, res) {
@@ -680,29 +813,42 @@ exports.read_a_SN2_1P2_3 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_3 = function(req, res) {
-  SN2_1P2_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_3 = function(req, res) {
-  SN2_1P2_3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_3 successfully deleted' });
-  });
-}; 
-
+  da = {"method":"del","model":"SN2_1P2_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 //SN2_1P2_4
 exports.create_a_SN2_1P2_4 = function(req, res)  {
-  var myData = new SN2_1P2_4(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_4","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_4 = function(req, res) {
@@ -722,29 +868,43 @@ exports.read_a_SN2_1P2_4 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_4 = function(req, res) {
-  SN2_1P2_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_4 = function(req, res) {
-  SN2_1P2_4.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_4 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
     
 //SN2_1P2_5
 exports.create_a_SN2_1P2_5 = function(req, res)  {
-  var myData = new SN2_1P2_5(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_5","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_5 = function(req, res) {
@@ -764,29 +924,43 @@ exports.read_a_SN2_1P2_5 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_5 = function(req, res) {
-  SN2_1P2_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_5 = function(req, res) {
-  SN2_1P2_5.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Region successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
     
 //SN2_1P2_6
 exports.create_a_SN2_1P2_6 = function(req, res)  {
-  var myData = new SN2_1P2_6(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_6","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_6 = function(req, res) {
@@ -806,31 +980,44 @@ exports.read_a_SN2_1P2_6 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_6 = function(req, res) {
-  SN2_1P2_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_6 = function(req, res) {
-  SN2_1P2_6.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_6 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
    
 //SN2_1P2_7
 exports.create_a_SN2_1P2_7 = function(req, res)  {
-  var myData = new SN2_1P2_7(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_7","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
-
 exports.read_all_SN2_1P2_7 = function(req, res) {
   SN2_1P2_7.find({}, function(err, data) {
     if (err)
@@ -848,29 +1035,43 @@ exports.read_a_SN2_1P2_7 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_7 = function(req, res) {
-  SN2_1P2_7.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_7","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_7 = function(req, res) {
-  SN2_1P2_7.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_7 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_7","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
     
 //SN2_1P2_9_1
 exports.create_a_SN2_1P2_9_1 = function(req, res)  {
-  var myData = new SN2_1P2_9_1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_9_1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_9_1 = function(req, res) {
@@ -890,29 +1091,43 @@ exports.read_a_SN2_1P2_9_1 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_9_1 = function(req, res) {
-  SN2_1P2_9_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_9_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_9_1 = function(req, res) {
-  SN2_1P2_9_1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_9_1 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_9_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
       
 //SN2_1P2_9_3
 exports.create_a_SN2_1P2_9_3 = function(req, res)  {
-  var myData = new SN2_1P2_9_3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_9_3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_9_3 = function(req, res) {
@@ -932,29 +1147,43 @@ exports.read_a_SN2_1P2_9_3 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_9_3 = function(req, res) {
-  SN2_1P2_9_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_9_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_9_3 = function(req, res) {
-  SN2_1P2_9_3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_9_3 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_9_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
         
 //SN2_1P2_9_4
 exports.create_a_SN2_1P2_9_4 = function(req, res)  {
-  var myData = new SN2_1P2_9_4(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P2_9_4","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P2_9_4 = function(req, res) {
@@ -974,29 +1203,43 @@ exports.read_a_SN2_1P2_9_4 = function(req, res) {
 };
 
 exports.update_a_SN2_1P2_9_4 = function(req, res) {
-  SN2_1P2_9_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P2_9_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P2_9_4 = function(req, res) {
-  SN2_1P2_9_4.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P2_9_4 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P2_9_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
         
 //SN2_1P3
 exports.create_a_SN2_1P3 = function(req, res)  {
-  var myData = new SN2_1P3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P3 = function(req, res) {
@@ -1016,29 +1259,43 @@ exports.read_a_SN2_1P3 = function(req, res) {
 };
 
 exports.update_a_SN2_1P3 = function(req, res) {
-  SN2_1P3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P3 = function(req, res) {
-  SN2_1P3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: ' successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
       
 //SN2_1P4
 exports.create_a_SN2_1P4 = function(req, res)  {
-  var myData = new SN2_1P4(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P4","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P4 = function(req, res) {
@@ -1058,29 +1315,43 @@ exports.read_a_SN2_1P4 = function(req, res) {
 };
 
 exports.update_a_SN2_1P4 = function(req, res) {
-  SN2_1P4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P4 = function(req, res) {
-  SN2_1P4.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P4 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
     
 //SN2_1P5
 exports.create_a_SN2_1P5 = function(req, res)  {
-  var myData = new SN2_1P5(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5 = function(req, res) {
@@ -1100,29 +1371,42 @@ exports.read_a_SN2_1P5 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5 = function(req, res) {
-  SN2_1P5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
-
 exports.delete_a_SN2_1P5 = function(req, res) {
-  SN2_1P5.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5  successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
    
 //SN2_1P5_1
 exports.create_a_SN2_1P5_1 = function(req, res)  {
-  var myData = new SN2_1P5_1(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_1","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_1 = function(req, res) {
@@ -1142,29 +1426,43 @@ exports.read_a_SN2_1P5_1 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_1 = function(req, res) {
-  SN2_1P5_1.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P5_1 = function(req, res) {
-  SN2_1P5_1.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_1 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_1","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
    
 //SN2_1P5_2
 exports.create_a_SN2_1P5_2 = function(req, res)  {
-  var myData = new SN2_1P5_2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_2 = function(req, res) {
@@ -1201,12 +1499,16 @@ exports.delete_a_SN2_1P5_2 = function(req, res) {
    
 //SN2_1P5_3
 exports.create_a_SN2_1P5_3 = function(req, res)  {
-  var myData = new SN2_1P5_3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_3 = function(req, res) {
@@ -1226,29 +1528,43 @@ exports.read_a_SN2_1P5_3 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_3 = function(req, res) {
-  SN2_1P5_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P5_3 = function(req, res) {
-  SN2_1P5_3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_3 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
     
 //SN2_1P5_4
 exports.create_a_SN2_1P5_4 = function(req, res)  {
-  var myData = new SN2_1P5_4(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_4","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_4 = function(req, res) {
@@ -1268,29 +1584,42 @@ exports.read_a_SN2_1P5_4 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_4 = function(req, res) {
-  SN2_1P5_4.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
-
 exports.delete_a_SN2_1P5_4 = function(req, res) {
-  SN2_1P5_4.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_4 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_4","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
         
 //SN2_1P5_5
 exports.create_a_SN2_1P5_5 = function(req, res)  {
-  var myData = new SN2_1P5_5(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_5","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_5 = function(req, res) {
@@ -1310,29 +1639,43 @@ exports.read_a_SN2_1P5_5 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_5 = function(req, res) {
-  SN2_1P5_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P5_5 = function(req, res) {
-  SN2_1P5_5.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_5 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
    
 //SN2_1P5_6
 exports.create_a_SN2_1P5_6 = function(req, res)  {
-  var myData = new SN2_1P5_6(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_6","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_6 = function(req, res) {
@@ -1352,29 +1695,43 @@ exports.read_a_SN2_1P5_6 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_6 = function(req, res) {
-  SN2_1P5_6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P5_6 = function(req, res) {
-  SN2_1P5_6.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_6 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
      
 //SN2_1P5_7
 exports.create_a_SN2_1P5_7 = function(req, res)  {
-  var myData = new SN2_1P5_7(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P5_7","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P5_7 = function(req, res) {
@@ -1394,29 +1751,43 @@ exports.read_a_SN2_1P5_7 = function(req, res) {
 };
 
 exports.update_a_SN2_1P5_7 = function(req, res) {
-  SN2_1P5_7.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P5_7","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P5_7 = function(req, res) {
-  SN2_1P5_7.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P5_7 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P5_7","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
        
 //SN2_1P6
 exports.create_a_SN2_1P6 = function(req, res)  {
-  var myData = new SN2_1P6(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_1P6","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_1P6 = function(req, res) {
@@ -1436,29 +1807,43 @@ exports.read_a_SN2_1P6 = function(req, res) {
 };
 
 exports.update_a_SN2_1P6 = function(req, res) {
-  SN2_1P6.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_1P6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_1P6 = function(req, res) {
-  SN2_1P6.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_1P6 successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"SN2_1P6","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
   
 //Pool
 exports.create_a_Pool = function(req, res)  {
-  var myData = new Pool(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"Pool","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_Pool = function(req, res) {
@@ -1478,29 +1863,43 @@ exports.read_a_Pool = function(req, res) {
 };
 
 exports.update_a_Pool = function(req, res) {
-  Pool.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"Pool","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_Pool = function(req, res) {
-  Pool.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Pool successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"Pool","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
         
 //Pump
 exports.create_a_Pump = function(req, res)  {
-  var myData = new Pump(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"Pump","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_Pump = function(req, res) {
@@ -1520,30 +1919,44 @@ exports.read_a_Pump = function(req, res) {
 };
 
 exports.update_a_Pump = function(req, res) {
-  Pump.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"Pump","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_Pump = function(req, res) {
-  Pump.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Pump successfully deleted' });
-  });
-}; 
+  da = {"method":"del","model":"Pump","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
+};
 
 //SN2_2P0
 
 exports.create_a_SN2_2P0 = function(req, res)  {
-  var myData = new SN2_2P0(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_2P0","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_2P0 = function(req, res) {
@@ -1563,32 +1976,45 @@ exports.read_a_SN2_2P0 = function(req, res) {
 };
 
 exports.update_a_SN2_2P0 = function(req, res) {
-  SN2_2P0.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_2P0","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_2P0 = function(req, res) {
-  SN2_2P0.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_2P0 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN2_2P0","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //SN2_2
 
 exports.create_a_SN2_2 = function(req, res)  {
-  var myData = new SN2_2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
-
 exports.read_all_SN2_2 = function(req, res) {
   SN2_2.find({}, function(err, data) {
     if (err)
@@ -1606,30 +2032,44 @@ exports.read_a_SN2_2 = function(req, res) {
 };
 
 exports.update_a_SN2_2 = function(req, res) {
-  SN2_2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_2 = function(req, res) {
-  SN2_2.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_2 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN2_2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //SN2_2P1_3
 
 exports.create_a_SN2_2P1_3 = function(req, res)  {
-  var myData = new SN2_2P1_3(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_2P1_3","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_2P1_3 = function(req, res) {
@@ -1649,31 +2089,45 @@ exports.read_a_SN2_2P1_3 = function(req, res) {
 };
 
 exports.update_a_SN2_2P1_3 = function(req, res) {
-  SN2_2P1_3.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_2P1_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_2P1_3 = function(req, res) {
-  SN2_2P1_3.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_2P1_3 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN2_2P1_3","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 
 //SN2_2P1_5
 
 exports.create_a_SN2_2P1_5 = function(req, res)  {
-  var myData = new SN2_2P1_5(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_2P1_5","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_2P1_5 = function(req, res) {
@@ -1693,31 +2147,45 @@ exports.read_a_SN2_2P1_5 = function(req, res) {
 };
 
 exports.update_a_SN2_2P1_5 = function(req, res) {
-  SN2_2P1_5.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_2P1_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_2P1_5 = function(req, res) {
-  SN2_2P1_5.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_2P1_5 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN2_2P1_5","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 
 //SN2_2P2
 
 exports.create_a_SN2_2P2 = function(req, res)  {
-  var myData = new SN2_2P2(req.body);
-    myData.save(function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-  });
+  da = {"method":"post","model":"SN2_2P2","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
+    if (err)
+      res.send(err);
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 exports.read_all_SN2_2P2 = function(req, res) {
@@ -1737,19 +2205,29 @@ exports.read_a_SN2_2P2 = function(req, res) {
 };
 
 exports.update_a_SN2_2P2 = function(req, res) {
-  SN2_2P2.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-  });
+  da = {"method":"put","model":"SN2_2P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 exports.delete_a_SN2_2P2 = function(req, res) {
-  SN2_2P2.remove({_id: req.params.id}, function(err, data) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'SN2_2P2 successfully deleted' });
-  });
+  da = {"method":"del","model":"SN2_2P2","query":"_id:"+req.params.id,"data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+  producer.send(payloads, function (err, data) {
+  if (err)
+    res.send(err);
+    console.log(err)
+  res.json(data);
+  console.log(payloads);
+});	
 };
 
 //page
@@ -1774,11 +2252,15 @@ exports.get_all_user = function(req,res) {
 };
 
 exports.insert_user = function(req,res) {
-  var myData = new user(req.body);
-  myData.save(function(err, data) {
+  da = {"method":"post","model":"User","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
+      console.log(err)
     res.json(data);
+    console.log(payloads);
 });
 };
 
@@ -1799,11 +2281,15 @@ exports.delete_user = function(req ,res) {
 };
 
 exports.insert_ea = function(req,res) {
-  var myData = new user(req.body);
-  myData.save(function(err, data) {
+  da = {"method":"post","model":"Area","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
+      console.log(err)
     res.json(data);
+    console.log(payloads);
 });
 };
 
@@ -1896,11 +2382,15 @@ exports.getUserByID = function(req,res) {
 };
 
 exports.insert_tablet = function(req,res) {
-  var myData = new tablet(req.body);
-  myData.save(function(err, data) {
+  da = {"method":"post","model":"Tablet","data":req.body}
+  j = JSON.stringify(da);
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
+      console.log(err)
     res.json(data);
+    console.log(payloads);
 });
 };
 
@@ -1912,17 +2402,7 @@ exports.update_tablet = function(req,res){
   });
 };
 
-exports.kafka = function(req,res){
-  payloads = [{ topic: req.body.topic , messages: req.body ,partition: 0}] 
-  producer.send(payloads, function (err, data) {
-    if (err)
-      res.send(err);
-      console.log(err)
-      console.log(producer)
-      console.log(payloads)
-    res.json(data);
-  });
-};
+
 
 
 producer.on('ready',function(){ 

@@ -10,16 +10,6 @@ module.exports = function(app) {
     app.route('/api/user/')
       .post(ctrl.create_a_user)
 
-    //EnumerationArea
-    app.route('/api/EAs')
-      .get(ctrl.read_all_enumerationArea);
-    app.route('/api/EA/')
-      .post(ctrl.create_a_enumerationArea);
-      app.route('/api/amphoe/:id')  
-      .get(ctrl.read_a_enumerationArea)
-      .put(ctrl.update_a_enumerationArea)
-      .delete(ctrl.delete_a_enumerationArea);
-    
     //area
     app.route('/api/areas')
       .get(ctrl.read_all_area);
@@ -363,7 +353,7 @@ module.exports = function(app) {
       .get(ctrl.get_all_user);
 
     app.route('/insert_user')
-      .post(ctrl.insert_user);
+      .post(ctrl.create_a_user);
 
     app.route('/update_user')
       .put(ctrl.update_user);
@@ -372,13 +362,13 @@ module.exports = function(app) {
       .delete(ctrl.delete_user);
 
     app.route('/insert_ea')
-      .post(ctrl.insert_ea);
+      .post(ctrl.create_a_area);
 
     app.route('/update_ea')
-      .put(ctrl.update_ea);
+      .put(ctrl.update_a_area);
     
     app.route('/delete_ea')
-      .delete(ctrl.delete_ea);
+      .delete(ctrl.delete_a_area);
 
     app.route('/ea_cwt')
       .get(ctrl.getEaByCWT);
@@ -408,10 +398,10 @@ module.exports = function(app) {
       .post(ctrl.getUserByID);
 
     app.route('/insert_tablet')
-      .post(ctrl.insert_tablet);
+      .post(ctrl.create_a_tablet);
 
     app.route('/update_tablet')
-      .put(ctrl.update_tablet);
+      .put(ctrl.update_a_tablet);
 
     app.route('/delete_tablet')
       .delete(ctrl.delete_a_tablet);
@@ -421,9 +411,6 @@ module.exports = function(app) {
     
     app.route('/insert_sn22')
       .post(ctrl.create_a_SN2_2);
-
-    app.route('/test')
-      .post(ctrl.kafka);
 
   
   

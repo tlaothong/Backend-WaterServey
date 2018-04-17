@@ -24,28 +24,6 @@ var User = new Schema({
     CWT_NAME: {type: String },
 });
 
-var EnumerationArea = new Schema({
-        reg :Number,
-        cwt : Number,
-        amp : Number ,
-        tmb : Number ,
-        district : Number,
-        mun_tao : Number,
-        ea : Number,
-        vil : Number,
-        vil_name : String,
-        map_status : Number,
-        building : Number,
-        household : Number,
-        agricultural_HH : Number,
-        es_BUSI : Number,
-        es_INDUS : Number,
-        es_HOTEL : Number,
-        es_PV_HOS : Number,
-        remark : String,
-        fs_id:{ type: Schema.Types.ObjectId, ref: 'User' },
-        fi_id:[{ type: Schema.Types.ObjectId, ref: 'User'}]
-    });
 
 var Area = new Schema({
     REG : { Type : String},
@@ -123,7 +101,7 @@ var SN1P1 = new Schema({
     TAO_NAME : { type : String },
     EA : { type : String },
     VIL : { type : String },
-    VIL_NAME : { type : String },
+    VIL_NAME : { type : String },   
     FI_ID : { type : String },
     FS_ID : { type : String },
     FI_DATE : { type : String },
@@ -930,7 +908,6 @@ var SN2_2P2 = new Schema({
     B2_17 : {type:  Number},
 });
 module.exports = mongoose.model('User', User);
-module.exports = mongoose.model('EnumerationArea', EnumerationArea);
 module.exports = mongoose.model('Area', Area);
 module.exports = mongoose.model('Tablet', Tablet);
 module.exports = mongoose.model('Progress', Progress);

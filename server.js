@@ -6,9 +6,10 @@ var express = require('express'),
   mongoose = require('mongoose'), 
   db = require('./db'), //created model loading here
   bodyParser = require('body-parser');
-  urls = '35.196.91.42'
+  urls = '35.196.18.119'
+  url = '35.227.94.29'
   mongoose.Promise = global.Promise;
-  mongoose.connect('mongodb://'+urls+':27017/Demo'); 
+  mongoose.connect('mongodb://'+url+':27017/Demo'); 
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
