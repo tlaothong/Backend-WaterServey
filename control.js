@@ -56,7 +56,7 @@ exports.read_all_user = function(req, res) {
 };
 
 exports.create_a_user = function(req, res) {
-  da = {"method":"post","model":"user","data":req.body}
+  da = {"method":"post","model":"User","data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
   producer.send(payloads, function (err, data) {
@@ -78,19 +78,29 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-  user.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    da = {"method":"put","model":"User","id":req.params.id,"data":req.body}
+    j = JSON.stringify(da);
+    payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+    producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
+      console.log(err)
     res.json(data);
-  });
+    console.log(payloads);
+});	
 };
 
 exports.delete_a_user = function(req, res) {
-  user.remove({_id: req.params.id}, function(err, data) {
+    da = {"method":"del","model":"User","id":req.params.id,"data":req.body}
+    j = JSON.stringify(da);
+    payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
+    producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
-    res.json({ message: 'User successfully deleted' });
-  });
+      console.log(err)
+    res.json(data);
+    console.log(payloads);
+});
 };
 
 //enumerationArea
