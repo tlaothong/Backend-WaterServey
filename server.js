@@ -1,7 +1,7 @@
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 8080 ;
-
+var cors = require('cors')
 
   mongoose = require('mongoose'), 
   db = require('./db'), //created model loading here
@@ -13,7 +13,7 @@ var express = require('express'),
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  
+  app.use(cors()); 
 var routes = require('./route'); //importing route
   routes(app);    
 

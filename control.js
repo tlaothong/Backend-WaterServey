@@ -77,7 +77,7 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-    da = {"method":"put","model":"User","query":"USERID:"+req.params.id,"data":req.body}
+    da = {"method":"put","model":"User","query":"USERID:"+req.body.USERID,"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -90,7 +90,7 @@ exports.update_a_user = function(req, res) {
 };
 
 exports.delete_a_user = function(req, res) {
-    da = {"method":"del","model":"User","query":"USERID:"+req.params.id,"data":req.body}
+    da = {"method":"del","model":"User","query":"USERID:"+req.params.element,"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -2265,7 +2265,7 @@ exports.insert_user = function(req,res) {
 };
 
 exports.update_user = function(req,res) {
-  user.updateOne({'USERID':req.params.USERID},req.body, function(req,res) {
+  user.updateOne({'USERID':req.params.USERID},req.body, function(err,data) {
     if (err)
       res.send(err);
     res.json(data);
@@ -2294,7 +2294,7 @@ exports.insert_ea = function(req,res) {
 };
 
 exports.update_ea = function(req,res) {
-  area.updateOne({'REG':req.params.REG, 'CWT':req.params.CWT, 'AMP':req.params.AMP, 'TAM':req.params.TAM, 'DISTRICT':req.params.DISTRICT, 'EA':req.params.EA,},req.body, function(req,res) {
+  area.updateOne({'REG':req.params.REG, 'CWT':req.params.CWT, 'AMP':req.params.AMP, 'TAM':req.params.TAM, 'DISTRICT':req.params.DISTRICT, 'EA':req.params.EA,},req.body, function(err,data) {
     if (err)
       res.send(err);
     res.json(data);
@@ -2310,7 +2310,7 @@ exports.delete_ea = function(req ,res) {
 };
 
 exports.getEaByCWT = function(req,res) {
-  area.find(req.body,function(req,res){
+  area.find(req.body,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2318,7 +2318,7 @@ exports.getEaByCWT = function(req,res) {
 };
 
 exports.getEaByFS = function(req,res) {
-  area.find(req.body,function(req,res){
+  area.find(req.body,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2326,7 +2326,7 @@ exports.getEaByFS = function(req,res) {
 };
 
 exports.getEaByFI = function(req,res) {
-  area.find(req.body,function(req,res){
+  area.find(req.body,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2334,7 +2334,7 @@ exports.getEaByFI = function(req,res) {
 };
 
 exports.getUserLowerRole = function(req,res){
-  user.find({"TID":{'$gt':role}}, function(req,res){
+  user.find({"TID":{'$gt':role}}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2342,7 +2342,7 @@ exports.getUserLowerRole = function(req,res){
 };
 
 exports.getUserByArea = function(req,res){
-  user.find(req.body,function(req,res){
+  user.find(req.body,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2350,7 +2350,7 @@ exports.getUserByArea = function(req,res){
 };
 
 exports.getUserLowerRoleArea = function(req,res){
-  user.find({'CWT':req.params.CWT,'TID':{'$gt':req.params.TID}}, function(req,res){
+  user.find({'CWT':req.params.CWT,'TID':{'$gt':req.params.TID}}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2358,7 +2358,7 @@ exports.getUserLowerRoleArea = function(req,res){
 };
 
 exports.getUserRoleArea = function(req,res){
-  user.find({'CWT':req.params.CWT,'TID':req.params.TID}, function(req,res){
+  user.find({'CWT':req.params.CWT,'TID':req.params.TID}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2366,7 +2366,7 @@ exports.getUserRoleArea = function(req,res){
 };
 
 exports.getUserByIDPWD = function(req,res) {
-  user.find(req.body, function(req,res){
+  user.find({USERID:req.body.USERID,PASSWORD:req.body.PASSWORD}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2374,7 +2374,7 @@ exports.getUserByIDPWD = function(req,res) {
 };
 
 exports.getUserByID = function(req,res) {
-  user.find(req.body,{EMAIL:1}, function(req,res){
+  user.find(req.body,{EMAIL:1}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2395,7 +2395,7 @@ exports.insert_tablet = function(req,res) {
 };
 
 exports.update_tablet = function(req,res){
-  tablet.updateOne({'tablet_sn':req.params.tablet_sn},req.body, function(req,res){
+  tablet.updateOne({'tablet_sn':req.params.tablet_sn},req.body, function(err,data){
     if (err)
       res.send(err);
     res.json(data);

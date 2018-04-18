@@ -356,10 +356,10 @@ module.exports = function(app) {
       .post(ctrl.create_a_user);
 
     app.route('/update_user')
-      .put(ctrl.update_user);
+      .put(ctrl.update_a_user);
     
     app.route('/delete_user')
-      .delete(ctrl.delete_user);
+      .delete(ctrl.delete_a_user);
 
     app.route('/insert_ea')
       .post(ctrl.create_a_area);
