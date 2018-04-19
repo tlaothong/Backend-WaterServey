@@ -135,7 +135,7 @@ exports.read_a_area = function(req, res) {
 };
 
 exports.update_a_area = function(req, res) {
-  da = {"method":"put","model":"Area","query":"{REG:"+req.params.REG+",CWT:"+req.params.CWT+",AMP:"+req.params.AMP+",TAM:"+req.params.TAM+",DISTRICT:"+req.params.DISTRICT+",EA:"+req.params.EA+"}","data":req.body}
+  da = {"method":"put","model":"Area","query":{REG: req.params.REG,CWT:req.params.CWT,AMP:req.params.AMP,TAM:req.params.TAM,DISTRICT:req.params.DISTRICT,EA:req.params.EA}, "data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
@@ -149,7 +149,7 @@ exports.update_a_area = function(req, res) {
 
 
 exports.delete_a_area = function(req, res) {
-  da = {"method":"del","model":"Area","query":"{REG:"+req.params.REG+",CWT:"+req.params.CWT+",AMP:"+req.params.AMP+",TAM:"+req.params.TAM+",DISTRICT:"+req.params.DISTRICT+",EA:"+req.params.EA+"}","data":req.body}
+  da = {"method":"del","model":"Area","query":{REG: req.params.REG,CWT:req.params.CWT,AMP:req.params.AMP,TAM:req.params.TAM,DISTRICT:req.params.DISTRICT,EA:req.params.EA}, "data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
@@ -193,7 +193,7 @@ exports.read_a_tablet = function(req, res) {
 };
 
 exports.update_a_tablet = function(req, res) {
-  da = {"method":"put","model":"Area","query":"tablet_sn:"+req.params.tablet_sn,"data":req.body}
+  da = {"method":"put","model":"Area","query":{tablet_sn:req.params.tablet_sn},"data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
@@ -206,7 +206,7 @@ exports.update_a_tablet = function(req, res) {
 };
 
 exports.delete_a_tablet = function(req, res) {
-  da = {"method":"put","model":"Area","query":"tablet_sn:"+req.params.tablet_sn,"data":req.body}
+  da = {"method":"put","model":"Area","query":{tablet_sn:req.params.tablet_sn},"data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
