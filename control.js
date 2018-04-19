@@ -77,7 +77,7 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-    da = {"method":"put","model":"User","query":{USERID: req.body.USERID+''},"data":req.body}
+    da = {"method":"put","model":"User","query":{USERID: req.body.USERID},"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -90,7 +90,7 @@ exports.update_a_user = function(req, res) {
 };
 
 exports.delete_a_user = function(req, res) {
-    da = {"method":"del","model":"User","query":{USERID : req.query.USERID+''},"data":req.body}
+    da = {"method":"del","model":"User","query":{USERID : req.query.USERID},"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -206,7 +206,7 @@ exports.update_a_tablet = function(req, res) {
 };
 
 exports.delete_a_tablet = function(req, res) {
-  da = {"method":"put","model":"Area","query":{tablet_sn:req.params.tablet_sn},"data":req.body}
+  da = {"method":"del","model":"Area","query":{tablet_sn:req.params.tablet_sn},"data":req.body}
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
@@ -2310,7 +2310,8 @@ exports.delete_ea = function(req ,res) {
 };
 
 exports.getEaByCWT = function(req,res) {
-  area.find(req.body,function(err,data){
+  da = {CWT:req.query.CWT}
+  area.find(da,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2318,7 +2319,8 @@ exports.getEaByCWT = function(req,res) {
 };
 
 exports.getEaByFS = function(req,res) {
-  area.find(req.body,function(err,data){
+  da = {FS:req.query.FS}
+  area.find(da,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2326,7 +2328,8 @@ exports.getEaByFS = function(req,res) {
 };
 
 exports.getEaByFI = function(req,res) {
-  area.find(req.body,function(err,data){
+  da = {FI:req.query.FI}
+  area.find(da,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2334,6 +2337,7 @@ exports.getEaByFI = function(req,res) {
 };
 
 exports.getUserLowerRole = function(req,res){
+  role = req.query.TID
   user.find({"TID":{'$gt':role}}, function(err,data){
     if (err)
       res.send(err);
@@ -2342,7 +2346,8 @@ exports.getUserLowerRole = function(req,res){
 };
 
 exports.getUserByArea = function(req,res){
-  user.find(req.body,function(err,data){
+  da = {CWT:req.query.CWT}
+  user.find(da,function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2350,7 +2355,7 @@ exports.getUserByArea = function(req,res){
 };
 
 exports.getUserLowerRoleArea = function(req,res){
-  user.find({'CWT':req.params.CWT,'TID':{'$gt':req.params.TID}}, function(err,data){
+  user.find({'CWT':req.query.CWT,'TID':{'$gt':req.query.TID}}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
@@ -2358,7 +2363,7 @@ exports.getUserLowerRoleArea = function(req,res){
 };
 
 exports.getUserRoleArea = function(req,res){
-  user.find({'CWT':req.params.CWT,'TID':req.params.TID}, function(err,data){
+  user.find({'CWT':req.query.CWT,'TID':req.query.TID}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
