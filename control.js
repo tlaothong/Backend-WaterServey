@@ -77,7 +77,7 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-    da = {"method":"put","model":"User","query":"USERID:"+req.body.USERID,"data":req.body}
+    da = {"method":"put","model":"User","query":{USERID: req.body.USERID+''},"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
@@ -90,7 +90,7 @@ exports.update_a_user = function(req, res) {
 };
 
 exports.delete_a_user = function(req, res) {
-    da = {"method":"del","model":"User","query":"USERID:"+req.params.element,"data":req.body}
+    da = {"method":"del","model":"User","query":{USERID : req.query.USERID+''},"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
