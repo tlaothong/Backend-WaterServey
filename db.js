@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
-var User = new Schema({
+var users = new Schema({
     USERID: {type: String ,unique: true},
     FIRSTNAME: {type: String},
     LASTNAME: {type: String},
@@ -25,7 +25,7 @@ var User = new Schema({
 });
 
 
-var Area = new Schema({
+var areas = new Schema({
     REG : { Type : String},
     REG_NAME : { Type : String},
     CWT : { Type : String},
@@ -907,8 +907,8 @@ var SN2_2P2 = new Schema({
     B2_16 : {type:  Number},
     B2_17 : {type:  Number},
 });
-module.exports = mongoose.model('User', User);
-module.exports = mongoose.model('Area', Area);
+module.exports = mongoose.model('User', users);
+module.exports = mongoose.model('Area', areas);
 module.exports = mongoose.model('Tablet', Tablet);
 module.exports = mongoose.model('Progress', Progress);
 module.exports = mongoose.model('SN1', SN1);
