@@ -55,25 +55,31 @@ exports.read_all_user = function(req, res) {
 };
 
 exports.create_a_user = function(req, res) {
-  ids = []
-  user.find({'CWT':req.body.CWT,'TID':req.body.TID})function(req,res){
+  user.find({CWT:req.body.CWT,TID:{$gt:req.body.TID-1}} , function(err,data){
+    console.log(data)
+    console.log(req.body.CWT)
     if (err)
 	res.sent(err);
-    for( i in res.json(data)){
-      ids.push(i['USERID'])
-  }
-  console.log('ids')
-  console.log(ids)
-};
-  da = {"method":"post","model":"User","data":req.body}
+    ids = [];
+    for( i =0 ;i < data.length ; i++){
+      ids.push(Number(data[i]['USERID']));
+    }
+    body = req.body;
+    console.log(ids)
+    if(ids.length == 0 )
+      ids.push(Number(body.CWT+body.TID+'0000'))
+    id = ids.sort()[0]+1
+    body.USERID = String(id)
+  da = {"method":"post","model":"User","data":body}
   j = JSON.stringify(da);
-  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]  
+  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
   producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
       console.log(err)
     res.json(data);
     console.log(payloads);
+  });
 });
 };
 
@@ -2386,7 +2392,7 @@ exports.getUserByIDPWD = function(req,res) {
 };
 
 exports.getUserByID = function(req,res) {
-  user.find(req.body, function(err,data){
+  user.find({USERID:req.query.USERID}, function(err,data){
     if (err)
       res.send(err);
     res.json(data);
