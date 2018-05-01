@@ -1,0 +1,33 @@
+var mongoose = require('mongoose'),
+Schema = mongoose.Schema;
+
+var SN2_1P1 = new Schema({
+    A1: { type: Number},
+    H3: { type: Number},
+    FI_ID: { type: String},
+    FS_ID: { type: String},
+    FI_DATE: { type: String},
+    FS_DATE: { type: String},
+    A1_1: { type: String},
+    A1_2: { type: Number},
+    A1_2_1: { type: Number},
+    A1_2_2: { type: Number},
+    A1_2_3: { type: Number},
+    A1_2_4: { type: Number},
+    A1_2_5: { type: Number}, 
+    A1_2_6: { type: Number},
+    A1_2_7: { type: Number},
+    A1_2_8: { type: Number},
+    A1_2_9: { type: Number},
+    A1_3: { type: Boolean},
+    A1_4_1: { type: Boolean},
+    A1_4_2: { type: Boolean},
+    A1_4_3: { type: Boolean},
+    A1_4_4: { type: Boolean},
+    A1_4_5: { type: Boolean},
+    A1_4_6: { type: Boolean},
+    A1_4_7: { type: Boolean},
+    A1_4_8: { type: Boolean},
+    A1_4_8_1: { type: String},
+});
+module.exports = mongoose.model('SN2_1P1', SN2_1P1);

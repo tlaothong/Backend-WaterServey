@@ -1,0 +1,38 @@
+var mongoose = require('mongoose'),
+Schema = mongoose.Schema;
+
+var SN2_2 = new Schema({
+    B0 : {type:  Schema.Types.ObjectId, ref: 'SN2_2P0' },
+    B1_1 : {type:  Boolean},
+    B1_2 : {type:  Number},
+    B1_3 : [{type:  Schema.Types.ObjectId, ref: 'SN2_2P1_3'}],
+    B1_4_1 : {type:  Boolean},
+    B1_4_2 : {type:  Boolean},
+    B1_4_3 : {type:  Boolean},
+    B1_5_1 : {type:  Boolean},
+    B1_5_2 : {type:  Number},
+    B1_5 : [{type:  Schema.Types.ObjectId,ref: 'SN2_2P1_5'}],
+    B1_9 : {type:  Boolean},
+    B1_10 : {type:  Boolean},
+    B1_10_1 : {type:  Boolean},
+    B1_10_2 : {type:  Boolean},
+    B1_10_3 : {type:  Boolean},
+    B1_10_4 : {type:  Boolean},
+    B1_10_5 : {type:  Boolean},
+    B1_10_6 : {type:  Boolean},
+    B1_10_7 : {type:  Boolean},
+    B1_10_8 : {type:  Boolean},
+    B1_10_9 : {type:  Boolean},
+    B1_10_10 : {type:  Boolean},
+    B1_11 : {type:  Boolean},
+    B1_11_1 : {type:  Boolean},
+    B1_11_2 : {type:  Boolean},
+    B1_11_3 : {type:  Boolean},
+    B1_11_4 : {type:  Boolean},
+    B1_11_4_1 : {type:  String},
+    B2_12 : {type:  Boolean},
+    B2_12_1 : {type:  Number},
+    B2_12_1_1 : [{type:  Schema.Types.ObjectId,ref: 'SN2_2P2'}],
+});
+
+module.exports = mongoose.model('SN2_2', SN2_2);
