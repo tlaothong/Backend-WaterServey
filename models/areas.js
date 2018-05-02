@@ -27,7 +27,7 @@ var areas = new Schema({
     ES_HOTEL : { Type : Number},
     ES_PV_HOS : { Type : Number},
     REMARK : { Type : String},
-    FI : [{ Type : String}],
+    FI : [ String ],
     FS : { Type : String},
 });
 
