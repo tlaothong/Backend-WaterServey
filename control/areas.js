@@ -4,7 +4,6 @@ var client = new kafka.KafkaClient({ kafkaHost: "kafka-1:9092,kafka-2:9092,kafka
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
   area = mongoose.model('Area');
-
 //area
 
 exports.create_a_area = function (req, res) {
