@@ -14,33 +14,34 @@ exports.read_all_user = function (req, res) {
   });
 };
 
-exports.create_a_user = function(req, res) {
-  user.find({CWT:req.body.CWT,TID:{$gt:req.body.TID-1}} , function(err,data){
+exports.create_a_user = function (req, res) {
+  user.find({ CWT: req.body.CWT, TID: { $gt: req.body.TID - 1 } }, function (err, data) {
     console.log(data)
     console.log(req.body.CWT)
+    console.log(req.body.TID)
     if (err)
-        res.sent(err);
+      res.sent(err);
     ids = [];
-    for( i =0 ;i < data.length ; i++){
+    for (i = 0; i < data.length; i++) {
       ids.push(Number(data[i]['USERID']));
     }
     body = req.body;
     console.log(ids)
-    if(ids.length == 0 )
-      ids.push(Number(body.CWT+body.TID+'0000'))
-    id = ids.sort()[0]+1
+    if (ids.length == 0)
+      ids.push(Number(body.CWT + body.TID + '0000'))
+    id = ids.sort()[0] + 1
     body.USERID = String(id)
-  da = {"method":"post","model":"User","data":body}
-  j = JSON.stringify(da);
-  payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
-  producer.send(payloads, function (err, data) {
-    if (err)
-      res.send(err);
+    da = { "method": "post", "model": "User", "data": body }
+    j = JSON.stringify(da);
+    payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
+    producer.send(payloads, function (err, data) {
+      if (err)
+        res.send(err);
       console.log(err)
-    res.json(data);
-    console.log(payloads);
+      res.json(data);
+      console.log(payloads);
+    });
   });
-});
 };
 
 
