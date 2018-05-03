@@ -29,8 +29,9 @@ exports.create_a_user = function (req, res) {
     console.log(ids)
     if (ids.length == 0)
       ids.push(Number(body.CWT + body.TID + '0000'))
-    id = ids.sort()[0] + 1
-    body.USERID = String(id)
+    
+    id = ids.sort().reverse()[0] + 1 ;
+    body.USERID = String(id) ;
     da = { "method": "post", "model": "User", "data": body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
