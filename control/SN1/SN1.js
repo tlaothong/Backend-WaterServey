@@ -50,7 +50,7 @@ exports.update_a_SN1 = function(req, res) {
 };
   
 exports.delete_a_SN1 = function(req, res) {
-    da = {"method":"del","model":"SN1","query":"_id:"+req.params.id,"data":req.body}
+    da = {"method":"del","model":"SN1","query":{ SN1_ID : req.query.SN1_ID },"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {

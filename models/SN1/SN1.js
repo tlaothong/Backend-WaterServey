@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var SN1 = new Schema({
+var sn1 = new Schema({
     SN1P1: {
         REG: { type: String },
         REG_NAME: { type: String },
@@ -70,4 +70,4 @@ var SN1 = new Schema({
     }]
 });
 
-module.exports = mongoose.model('SN1', SN1);
+module.exports = mongoose.model('SN1', sn1);
