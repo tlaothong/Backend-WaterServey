@@ -53,13 +53,15 @@ module.exports = function (app) {
 
   //SN1
   let SN1 = require('./control/SN1/SN1')
-  app.route('/api/SN1s')
+  app.route('/sn1')
     .get(SN1.read_all_SN1);
-  app.route('/api/SN1/')
+  app.route('/insert_SN1')
     .put(SN1.create_a_SN1);
-  app.route('/api/SN1/:id')
-    .get(SN1.read_a_SN1)
-    .post(SN1.update_a_SN1)
+  app.route('/sn1ID')
+    .get(SN1.read_a_SN1);
+    app.route('/update_sn1')
+    .post(SN1.update_a_SN1);
+    app.route('/delete_sn1')
     .delete(SN1.delete_a_SN1);
   //SN1P1
   let SN1P1 = require('./control/SN1/SN1P1')

@@ -29,7 +29,7 @@ exports.read_all_SN1 = function(req, res) {
 };
   
 exports.read_a_SN1 = function(req, res) {
-    SN1.find({_id: req.params.id}, function(err, data) {
+    SN1.find({SN1_ID: req.params.SN1_ID}, function(err, data) {
       if (err)
         res.send(err);
       res.json(data);
@@ -37,7 +37,7 @@ exports.read_a_SN1 = function(req, res) {
 };
   
 exports.update_a_SN1 = function(req, res) {
-    da = {"method":"put","model":"SN1","query":"_id:"+req.params.id,"data":req.body}
+    da = {"method":"put","model":"SN1","query":{ "SN1_ID:" : req.body.SN1_ID },"data":req.body}
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic' , messages: [j]  ,partition: 0}]
     producer.send(payloads, function (err, data) {
