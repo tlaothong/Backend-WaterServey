@@ -63,7 +63,7 @@ var sn1 = new Schema({
         }]
     }],
     status_approve: Number,
-    status_data: Number,
+    status_data: String,
     messeges: [{
         date: { type: Date },
         massage: { type: String }
