@@ -1,37 +1,43 @@
 module.exports = function (app) {
   let ctrl = require('./control/users')
-  
+
 
   //user
-  app.route('/api/users')
-    .get(ctrl.read_all_user)
-  app.route('/api/user/:id')
-    .get(ctrl.read_a_user)
-    .post(ctrl.update_a_user)
+  app.route('/user')
+    .get(ctrl.read_all_user);
+  app.route('/insert_user')
+    .get(ctrl.read_a_user);
+  app.route('/update_user')
+    .post(ctrl.update_a_user);
+  app.route('/delete_user')
     .delete(ctrl.delete_a_user);
   app.route('/api/user/')
     .put(ctrl.create_a_user)
 
   //area
   let area = require('./control/areas')
-  app.route('/api/areas')
+  app.route('/ea')
     .get(area.read_all_area);
-  app.route('/api/area/')
+  app.route('/insert_ea')
     .put(area.create_a_area);
   app.route('/api/area/:id')
-    .get(area.read_a_area)
-    .post(area.update_a_area)
+    .get(area.read_a_area);
+  app.route('/update_ea')
+    .post(area.update_a_area);
+  app.route('/delete_ea')
     .delete(area.delete_a_area);
 
   //tablet
   let tablet = require('./control/tablets')
-  app.route('/api/tablets')
+  app.route('/tablet')
     .get(tablet.read_all_tablet);
-  app.route('/api/tablet/')
+  app.route('/insert_tablet')
     .put(tablet.create_a_tablet);
   app.route('/api/tablet/:id')
     .get(tablet.read_a_tablet)
-    .post(tablet.update_a_tablet)
+  app.route('/update_tablet')
+    .post(tablet.update_a_tablet);
+    app.route('/delete_tablet')
     .delete(tablet.delete_a_tablet);
 
   //progress
@@ -286,7 +292,7 @@ module.exports = function (app) {
     .post(SN2_1P5_4.update_a_SN2_1P5_4)
     .delete(SN2_1P5_4.delete_a_SN2_1P5_4);
   //SN2_1P5_5
-  let SN2_1P5_5 = require('./control/SN2_1/SN2_1P5_5') 
+  let SN2_1P5_5 = require('./control/SN2_1/SN2_1P5_5')
   app.route('/api/SN2_1P5_5s')
     .get(SN2_1P5_5.read_all_SN2_1P5_5);
   app.route('/api/SN2_1P5_5/')
@@ -387,29 +393,6 @@ module.exports = function (app) {
     .delete(SN2_2P2.delete_a_SN2_2P2);
 
 
-  app.route('/ea')
-    .get(area.get_all_ea);
-
-  app.route('/user')
-    .get(ctrl.get_all_user);
-
-  app.route('/insert_user')
-    .put(ctrl.create_a_user);
-
-  app.route('/update_user')
-    .post(ctrl.update_a_user);
-
-  app.route('/delete_user')
-    .delete(ctrl.delete_a_user);
-
-  app.route('/insert_ea')
-    .put(area.create_a_area);
-
-  app.route('/update_ea')
-    .post(area.update_a_area);
-
-  app.route('/delete_ea')
-    .delete(area.delete_a_area);
 
   app.route('/ea_cwt')
     .get(area.getEaByCWT);
@@ -437,18 +420,6 @@ module.exports = function (app) {
 
   app.route('/user_id')
     .post(ctrl.getUserByID);
-
-  app.route('/insert_tablet')
-    .put(tablet.create_a_tablet);
-
-  app.route('/update_tablet')
-    .post(tablet.update_a_tablet);
-
-  app.route('/delete_tablet')
-    .delete(tablet.delete_a_tablet);
-
-  app.route('/tablet')
-    .get(tablet.read_all_tablet);
 
   app.route('/insert_sn22')
     .put(SN2_2.create_a_SN2_2);
