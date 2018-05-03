@@ -15,7 +15,7 @@ exports.read_all_user = function (req, res) {
 };
 
 exports.create_a_user = function (req, res) {
-  user.find({ CWT: req.body.CWT, TID: { $gt: req.body.TID - 1 } }, function (err, data) {
+  user.find({ CWT: req.body.CWT, TID:req.body.TID}, function (err, data) {
     console.log(data)
     console.log(req.body.CWT)
     console.log(req.body.TID)
