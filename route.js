@@ -394,7 +394,7 @@ module.exports = function (app) {
     .get(ctrl.get_all_user);
 
   app.route('/insert_user')
-    .post(ctrl.create_a_user);
+    .put(ctrl.create_a_user);
 
   app.route('/update_user')
     .post(ctrl.update_a_user);
@@ -403,7 +403,7 @@ module.exports = function (app) {
     .delete(ctrl.delete_a_user);
 
   app.route('/insert_ea')
-    .post(area.create_a_area);
+    .put(area.create_a_area);
 
   app.route('/update_ea')
     .post(area.update_a_area);
