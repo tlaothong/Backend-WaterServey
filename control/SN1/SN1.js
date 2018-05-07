@@ -29,7 +29,8 @@ exports.read_all_SN1 = function(req, res) {
 };
   
 exports.read_a_SN1 = function(req, res) {
-    SN1.find({SN1_ID: req.params.SN1_ID}, function(err, data) {
+  sn1_id = req.params.SN1_ID+''
+    SN1.find({SN1_ID: sn1_id}, function(err, data) {
       if (err)
         res.send(err);
       res.json(data);
