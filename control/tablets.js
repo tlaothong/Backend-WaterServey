@@ -36,7 +36,7 @@ exports.read_a_tablet = function (req, res) {
 };
 
 exports.update_a_tablet = function (req, res) {
-  da = { "method": "put", "model": "Area", "query": { tablet_sn: req.body.tablet_sn }, "data": req.body }
+  da = { "method": "put", "model": "Tablet", "query": { tablet_sn: req.body.tablet_sn }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
@@ -49,7 +49,7 @@ exports.update_a_tablet = function (req, res) {
 };
 
 exports.delete_a_tablet = function (req, res) {
-  da = { "method": "del", "model": "Area", "query": { tablet_sn: req.query.tablet_sn }, "data": req.body }
+  da = { "method": "del", "model": "Tablet", "query": { tablet_sn: req.query.tablet_sn }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
