@@ -22,7 +22,7 @@ var sn2_2 = new Schema({
         EA: String ,
         VIL: String ,
         VIL_NAME: String ,
-        BASIN: Boolean,
+        BASIN: Number,
         FI_ID: String ,
         FS_ID: String ,
         FI_DATE: String ,
