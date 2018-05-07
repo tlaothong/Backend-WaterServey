@@ -28,7 +28,7 @@ exports.read_all_tablet = function (req, res) {
 };
 
 exports.read_a_tablet = function (req, res) {
-  tablet.find({ _id: req.params.id }, function (err, data) {
+  tablet.find({ tablet_sn_id: req.query.tablet_sn }, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
@@ -36,7 +36,7 @@ exports.read_a_tablet = function (req, res) {
 };
 
 exports.update_a_tablet = function (req, res) {
-  da = { "method": "put", "model": "Area", "query": { tablet_sn: req.params.tablet_sn }, "data": req.body }
+  da = { "method": "put", "model": "Area", "query": { tablet_sn: req.body.tablet_sn }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
@@ -49,7 +49,7 @@ exports.update_a_tablet = function (req, res) {
 };
 
 exports.delete_a_tablet = function (req, res) {
-  da = { "method": "del", "model": "Area", "query": { tablet_sn: req.params.tablet_sn }, "data": req.body }
+  da = { "method": "del", "model": "Area", "query": { tablet_sn: req.query.tablet_sn }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {

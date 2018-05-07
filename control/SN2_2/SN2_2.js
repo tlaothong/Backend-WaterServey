@@ -26,15 +26,15 @@ exports.read_all_SN2_2 = function (req, res) {
 };
 
 exports.read_a_SN2_2 = function (req, res) {
-    SN2_2.find({ _id: req.params.id }, function (err, data) {
+    SN2_2.find({SN2_2_ID: req.query.SN2_2_ID}, function(err, data) {
         if (err)
-            res.send(err);
+          res.send(err);
         res.json(data);
-    });
-};
+      });
+  };
 
 exports.update_a_SN2_2 = function (req, res) {
-    da = { "method": "put", "model": "SN2_2", "query": "_id:" + req.params.id, "data": req.body }
+    da = { "method": "put", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {
@@ -47,7 +47,7 @@ exports.update_a_SN2_2 = function (req, res) {
 };
 
 exports.delete_a_SN2_2 = function (req, res) {
-    da = { "method": "del", "model": "SN2_2", "query": "_id:" + req.params.id, "data": req.body }
+    da = { "method": "del", "model": "SN2_2", "query":{ SN2_2_ID: + req.query.SN2_2_ID}, "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {

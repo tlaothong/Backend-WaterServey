@@ -33,11 +33,11 @@ module.exports = function (app) {
     .get(tablet.read_all_tablet);
   app.route('/insert_tablet')
     .put(tablet.create_a_tablet);
-  app.route('/api/tablet/:id')
-    .get(tablet.read_a_tablet)
+  app.route('/tabletID')
+    .get(tablet.read_a_tablet);
   app.route('/update_tablet')
     .post(tablet.update_a_tablet);
-    app.route('/delete_tablet')
+  app.route('/delete_tablet')
     .delete(tablet.delete_a_tablet);
 
   //progress
@@ -59,21 +59,22 @@ module.exports = function (app) {
     .put(SN1.create_a_SN1);
   app.route('/sn1ID')
     .get(SN1.read_a_SN1);
-    app.route('/update_sn1')
+  app.route('/update_sn1')
     .post(SN1.update_a_SN1);
-    app.route('/delete_sn1')
+  app.route('/delete_sn1')
     .delete(SN1.delete_a_SN1);
-  
-  let SN2_2 = require('./control/SN2_2/SN2_2')
-  app.route('/api/SN2_2s')
-    .get(SN2_2.read_all_SN2_2);
-  app.route('/api/SN2_2/')
-    .put(SN2_2.create_a_SN2_2);
-  app.route('/api/SN2_2/:id')
-    .get(SN2_2.read_a_SN2_2)
-    .post(SN2_2.update_a_SN2_2)
-    .delete(SN2_2.delete_a_SN2_2);
 
+  let SN2_2 = require('./control/SN2_2/SN2_2')
+  app.route('/sn22')
+    .get(SN2_2.read_all_SN2_2);
+  app.route('/insert_SN22')
+    .put(SN2_2.create_a_SN2_2);
+  app.route('/sn22ID')
+    .get(SN2_2.read_a_SN2_2);
+  app.route('/update_sn22')
+    .post(SN2_2.update_a_SN2_2);
+  app.route('/delete_sn22')
+    .delete(SN2_2.delete_a_SN2_2);
 
   app.route('/ea_cwt')
     .get(area.getEaByCWT);
