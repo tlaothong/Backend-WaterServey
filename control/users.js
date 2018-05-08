@@ -32,7 +32,7 @@ exports.create_a_user = function (req, res) {
     
     id = ids.sort().reverse()[0] + 1 ;
     body.USERID = String(id) ;
-    da = { "method": "post", "model": "User", "data": body }
+    da = { "method": "put", "model": "User", "data": body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {
@@ -55,7 +55,7 @@ exports.read_a_user = function (req, res) {
 };
 
 exports.update_a_user = function (req, res) {
-  da = { "method": "put", "model": "User", "query": { USERID: req.body.USERID }, "data": req.body }
+  da = { "method": "post", "model": "User", "query": { USERID: req.body.USERID }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {

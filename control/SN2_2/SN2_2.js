@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     SN2_2 = mongoose.model('SN2_2');
 
 exports.create_a_SN2_2 = function (req, res) {
-    da = { "method": "post", "model": "SN2_2", "data": req.body }
+    da = { "method": "put", "model": "SN2_2", "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {
@@ -34,7 +34,7 @@ exports.read_a_SN2_2 = function (req, res) {
   };
 
 exports.update_a_SN2_2 = function (req, res) {
-    da = { "method": "put", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
+    da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {

@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 //Progress
 
 exports.create_a_progress = function (req, res) {
-  da = { "method": "post", "model": "Progress", "data": req.body }
+  da = { "method": "put", "model": "Progress", "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
@@ -39,7 +39,7 @@ exports.read_a_progress = function (req, res) {
 };
 
 exports.update_a_progress = function (req, res) {
-  da = { "method": "put", "model": "Progress", "query": "_id:" + req.params.id, "data": req.body }
+  da = { "method": "post", "model": "Progress", "query": "_id:" + req.params.id, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {

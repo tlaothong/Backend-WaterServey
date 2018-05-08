@@ -33,7 +33,7 @@ var consumerGroup = new ConsumerGroup(options, 'post-topic');
 consumerGroup.on('message', function (message) {
   obj = JSON.parse(message.value)
   console.log(obj.method)
-  if (obj.method == 'post') {
+  if (obj.method == 'put') {
     var model = mongoose.model(obj.model);
     var mydata = new model(obj.data);
     mydata.save(function (err, data) {
@@ -41,7 +41,7 @@ consumerGroup.on('message', function (message) {
         console.log(err)
       console.log(data)
     });
-  } else if (obj.method == 'put') {
+  } else if (obj.method == 'post') {
     var model = mongoose.model(obj.model);
     var q = obj.query;
     model.findOneAndUpdate(q, obj.data, { new: true }, function (err, data) {

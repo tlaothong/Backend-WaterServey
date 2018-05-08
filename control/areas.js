@@ -7,13 +7,12 @@ var mongoose = require('mongoose'),
 //area
 
 exports.create_a_area = function (req, res) {
-  da = { "method": "post", "model": "Area", "data": req.body }
+  da = { "method": "put", "model": "Area", "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
-    console.log(err)
     res.json(data);
     console.log(payloads);
   });
@@ -37,7 +36,7 @@ exports.read_a_area = function (req, res) {
 };
 
 exports.update_a_area = function (req, res) {
-  da = { "method": "put", "model": "Area", "query": { REG: req.body.REG, CWT: req.body.CWT, AMP: req.body.AMP, TAM: req.body.TAM, DISTRICT: req.body.DISTRICT, EA: req.body.EA }, "data": req.body }
+  da = { "method": "post", "model": "Area", "query": { REG: req.body.REG, CWT: req.body.CWT, AMP: req.body.AMP, TAM: req.body.TAM, DISTRICT: req.body.DISTRICT, EA: req.body.EA }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
