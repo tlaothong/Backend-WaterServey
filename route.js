@@ -6,13 +6,11 @@ module.exports = function (app) {
   app.route('/user')
     .get(user.read_all_user);
   app.route('/insert_user')
-    .put(user.read_a_user);
+    .put(user.create_a_user);
   app.route('/update_user')
     .post(user.update_a_user);
   app.route('/delete_user')
     .delete(user.delete_a_user);
-  app.route('/api/user/')
-    .put(user.create_a_user)
 
   //area
   let area = require('./control/areas')
@@ -20,8 +18,6 @@ module.exports = function (app) {
     .get(area.read_all_area);
   app.route('/insert_ea')
     .put(area.create_a_area);
-  app.route('/api/area/:id')
-    .get(area.read_a_area);
   app.route('/update_ea')
     .post(area.update_a_area);
   app.route('/delete_ea')
