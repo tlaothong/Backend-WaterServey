@@ -44,7 +44,7 @@ consumerGroup.on('message', function (message) {
   } else if (obj.method == 'post') {
     var model = mongoose.model(obj.model);
     var q = obj.query;
-    model.findOneAndUpdate(q, obj.data, { new: true }, function (err, data) {
+    model.findOneAndUpdate(q, obj.data, { upsert: true, new: true, setDefaultsOnInsert: true }, function (err, data) {
       if (err)
         console.log(err)
       console.log(data)

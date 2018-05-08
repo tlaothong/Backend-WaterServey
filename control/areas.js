@@ -117,11 +117,10 @@ exports.getEaByFS = function (req, res) {
 };
 
 exports.getEaByFI = function (req, res) {
-  area.find({ FI: req.query }, function (err, data) {
+  area.find({ FI: req.query.FI }, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
-    console.log(res);
   });
 };
 

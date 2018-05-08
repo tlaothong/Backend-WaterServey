@@ -28,7 +28,7 @@ var areas = new Schema({
     ES_PV_HOS: Number,
     REMARK: String,
     FI: [String],
-    FS: String,
+    FS: String
 });
 
 module.exports = mongoose.model('Area', areas);

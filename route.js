@@ -1,18 +1,18 @@
 module.exports = function (app) {
-  let ctrl = require('./control/users')
+  let user = require('./control/users')
 
 
   //user
   app.route('/user')
-    .get(ctrl.read_all_user);
+    .get(user.read_all_user);
   app.route('/insert_user')
-    .get(ctrl.read_a_user);
+    .put(user.read_a_user);
   app.route('/update_user')
-    .post(ctrl.update_a_user);
+    .post(user.update_a_user);
   app.route('/delete_user')
-    .delete(ctrl.delete_a_user);
+    .delete(user.delete_a_user);
   app.route('/api/user/')
-    .put(ctrl.create_a_user)
+    .put(user.create_a_user)
 
   //area
   let area = require('./control/areas')
@@ -86,22 +86,22 @@ module.exports = function (app) {
     .get(area.getEaByFI);
 
   app.route('/userlower_role')
-    .get(ctrl.getUserLowerRole);
+    .get(user.getUserLowerRole);
 
   app.route('/user_by_area')
-    .get(ctrl.getUserByArea);
+    .get(user.getUserByArea);
 
   app.route('/userlower_role_area')
-    .get(ctrl.getUserLowerRoleArea);
+    .get(user.getUserLowerRoleArea);
 
   app.route('/user_role_area')
-    .get(ctrl.getUserRoleArea);
+    .get(user.getUserRoleArea);
 
   app.route('/user_id_pwd')
-    .post(ctrl.getUserByIDPWD);
+    .post(user.getUserByIDPWD);
 
   app.route('/user_id')
-    .post(ctrl.getUserByID);
+    .post(user.getUserByID);
 
   app.route('/insert_sn22')
     .put(SN2_2.create_a_SN2_2);
