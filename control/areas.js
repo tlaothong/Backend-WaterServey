@@ -101,7 +101,7 @@ exports.delete_ea = function (req, res) {
 };
 
 exports.getEaByCWT = function (req, res) {
-  area.find({ CWT: req.query.CWT }, function (err, data) {
+  area.find( req.query , function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
@@ -109,7 +109,7 @@ exports.getEaByCWT = function (req, res) {
 };
 
 exports.getEaByFS = function (req, res) {
-  area.find({ FS: req.query.FS }, function (err, data) {
+  area.find( req.query, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
@@ -117,7 +117,7 @@ exports.getEaByFS = function (req, res) {
 };
 
 exports.getEaByFI = function (req, res) {
-  area.find({ FI: req.query.FI }, function (err, data) {
+  area.find( req.query, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
