@@ -26,12 +26,12 @@ exports.read_all_SN2_2 = function (req, res) {
 };
 
 exports.read_a_SN2_2 = function (req, res) {
-    SN2_2.find({SN2_2_ID: req.query.SN2_2_ID}, function(err, data) {
+    SN2_2.find({ SN2_2_ID: req.query.SN2_2_ID }, function (err, data) {
         if (err)
-          res.send(err);
+            res.send(err);
         res.json(data);
-      });
-  };
+    });
+};
 
 exports.update_a_SN2_2 = function (req, res) {
     da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
@@ -47,7 +47,7 @@ exports.update_a_SN2_2 = function (req, res) {
 };
 
 exports.delete_a_SN2_2 = function (req, res) {
-    da = { "method": "del", "model": "SN2_2", "query":{ SN2_2_ID: + req.query.SN2_2_ID}, "data": req.body }
+    da = { "method": "del", "model": "SN2_2", "query": { SN2_2_ID: req.query.SN2_2_ID }, "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {
@@ -56,6 +56,38 @@ exports.delete_a_SN2_2 = function (req, res) {
         console.log(err)
         res.json(data);
         console.log(payloads);
+    });
+};
+
+exports.getsn22ByAreaId = function (req, res) {
+    SN2_2.find({ 'SN2_2_ID': { "$regex": "^" + req.query.CWT } }, function (err, data) {
+        if (err)
+            res.send(err);
+        res.json(data);
+    });
+};
+
+exports.getsn22ByFS = function (req, res) {
+    SN2_2.find({ 'B0.FS_ID': req.query.FS_ID }, function (err, data) {
+        if (err)
+            res.send(err);
+        res.json(data);
+    });
+};
+
+exports.getsn22ByFI = function (req, res) {
+    SN2_2.find({ 'B0.FI_ID': req.query.FI_ID }, function (err, data) {
+        if (err)
+            res.send(err);
+        res.json(data);
+    });
+};
+
+exports.getsn22ByCWT = function (req, res) {
+    SN2_2.find({ 'B0.CWT': req.query.CWT }, function (err, data) {
+        if (err)
+            res.send(err);
+        res.json(data);
     });
 };
 

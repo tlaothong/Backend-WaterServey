@@ -59,6 +59,13 @@ module.exports = function (app) {
     .post(SN1.update_a_SN1);
   app.route('/delete_sn1')
     .delete(SN1.delete_a_SN1);
+  app.route('/sn1_fs')
+    .get(SN1.getSN1ByFS);
+  app.route('/sn1_fi')
+    .get(SN1.getSN1ByFI);
+  app.route('/sn1_cwt')
+    .get(SN1.getSN1ByCWT);
+
 
   let SN2_2 = require('./control/SN2_2/SN2_2')
   app.route('/sn22')
@@ -71,6 +78,15 @@ module.exports = function (app) {
     .post(SN2_2.update_a_SN2_2);
   app.route('/delete_sn22')
     .delete(SN2_2.delete_a_SN2_2);
+    app.route('/sn22AreaID')
+    .get(SN2_2.getsn22ByAreaId);
+    app.route('/sn22_fs')
+    .get(SN2_2.getsn22ByFS);
+    app.route('/sn22_fi')
+    .get(SN2_2.getsn22ByFI);
+    app.route('/sn22_cwt')
+    .get(SN2_2.getsn22ByCWT);
+
 
   app.route('/ea_cwt')
     .get(area.getEaByCWT);
