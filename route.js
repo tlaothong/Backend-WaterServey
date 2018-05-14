@@ -36,17 +36,6 @@ module.exports = function (app) {
   app.route('/delete_tablet')
     .delete(tablet.delete_a_tablet);
 
-  //progress
-  let progress = require('./control/progress')
-  app.route('/api/progresss')
-    .get(progress.read_all_progress);
-  app.route('/api/progress/')
-    .put(progress.create_a_progress);
-  app.route('/api/progress/:id')
-    .get(progress.read_a_progress)
-    .post(progress.update_a_progress)
-    .delete(progress.delete_a_progress);
-
   //SN1
   let SN1 = require('./control/SN1/SN1')
   app.route('/sn1')
