@@ -2,7 +2,7 @@ var kafka = require('kafka-node');
 var Producer = kafka.Producer
 var client = new kafka.KafkaClient({ kafkaHost: "kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092", requestTimeout: 2000 });
 var producer = new Producer(client)
-var mongoose = require('mongoose'),
+var mongoose = require('Mongoose'),
   area = mongoose.model('Area');
 //area
 
