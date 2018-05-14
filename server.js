@@ -39,7 +39,7 @@ consumerGroup.on('message', function (message) {
   if (obj.method == 'put') {
     //var model = mongoose.model(obj.model);
     //var mydata = new model(obj.data);
-    db.collection(obj.model).save(obj.data ,(err, data) => {
+    db.collection(obj.model).save(obj.data ,function (err, data) {
       if (err)
         console.log(err)
       console.log(data)
