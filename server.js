@@ -36,7 +36,7 @@ consumerGroup.on('message', function (message) {
   if (obj.method == 'put') {
     var model = mongoose.model(obj.model);
     var mydata = new model(obj.data);
-    mydata.insertOne(function (err, data) {
+    mydata.save(function (err, data) {
       if (err)
         console.log(err)
       console.log(data)
