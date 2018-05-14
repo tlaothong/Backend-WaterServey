@@ -3,19 +3,8 @@ var express = require('express'),
   port = process.env.PORT || 8080;
 var cors = require('cors')
 mongoose = require('mongoose'),
-<<<<<<< HEAD
-mongodb = require('./models/db')
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-const url = 'mongodb://35.227.94.29:27017';
-const dbName = 'Demo';
-
-
-bodyParser = require('body-parser');
-=======
   db = require('./models/db'), //created model loading here
   bodyParser = require('body-parser');
->>>>>>> parent of 099ae3e... test mongo db
 urls = '35.196.123.192'  //mongo router
 url = '35.227.94.29'
 mongoose.Promise = global.Promise;
@@ -29,64 +18,18 @@ routes(app);
 var kafka = require('kafka-node');
 var ConsumerGroup = kafka.ConsumerGroup;
 var options = {
-	kafkaHost:"kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",
-	groupId: 'ExampleTestGroup',
-  	autoCommit:false,
-	sessionTimeout: 15000,
-  	protocol: ['roundrobin'],
-  	asyncPush: false,
-  	id: 'consumer1',
-   fromOffset: 'latest'
+  kafkaHost: "kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092",
+  groupId: 'ExampleTestGroup',
+  autoCommit: false,
+  sessionTimeout: 15000,
+  protocol: ['roundrobin'],
+  asyncPush: false,
+  id: 'consumer1',
+  fromOffset: 'latest'
 }
 
 var consumerGroup = new ConsumerGroup(options, 'post-topic');
 
-<<<<<<< HEAD
-
-
-MongoClient.connect(url, function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
-
-  var db = client.db(dbName);
-  consumerGroup.on('message', function (message) {
-    obj = JSON.parse(message.value)
-    console.log(obj.method)
-    if (obj.method == 'put') {
-      //var model = mongoose.model(obj.model);
-      //var mydata = new model(obj.data);
-      db.collection(obj.model).insertOne(obj.data ,function (err, data) {
-        if (err)
-          console.log(err)
-        console.log(data)
-      });
-    } else if (obj.method == 'post') {
-      var model = mongoose.model(obj.model);
-      var q = obj.query;
-      delete obj.data.__v ;
-      model.findOneAndUpdate(q, obj.data, { upsert: true, new: true }, function (err, data) {
-        if (err)
-          console.log(err)
-        console.log(data)
-      });
-    } else if (obj.method == 'del') {
-      var model = mongoose.model(obj.model);
-      var q = obj.query;
-      model.deleteOne(q, function (err, data) {
-        if (err)
-          console.log(err)
-        console.log(data)
-      });
-    }
-  });
-
-  app.listen(port);
-  console.log('API server started on: localhost:' + port);
-  console.log('Mongodb server started on: ' + urls + ':27017');
-  client.close();
-});
-
-=======
 consumerGroup.on('message', function (message) {
   obj = JSON.parse(message.value)
   console.log(obj.method)
@@ -101,7 +44,7 @@ consumerGroup.on('message', function (message) {
   } else if (obj.method == 'post') {
     var model = mongoose.model(obj.model);
     var q = obj.query;
-    delete obj.data.__v ;
+    delete obj.data.__v;
     model.findOneAndUpdate(q, obj.data, { upsert: true, new: true }, function (err, data) {
       if (err)
         console.log(err)
@@ -118,7 +61,6 @@ consumerGroup.on('message', function (message) {
   }
 });
 
->>>>>>> parent of 099ae3e... test mongo db
 
 app.listen(port);
 console.log('API server started on: localhost:' + port);

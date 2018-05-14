@@ -5,14 +5,7 @@ var producer = new Producer(client)
 var mongoose = require('mongoose'),
   area = mongoose.model('Area');
 //area
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://35.227.94.29:27017';
-const dbName = 'Demo';
-MongoClient.connect(url, function(err, client) {
-  var db = client.db(dbName);
 
-  client.close();
-});
 exports.create_a_area = function (req, res) {
   da = { "method": "put", "model": "Area", "data": req.body }
   j = JSON.stringify(da);
