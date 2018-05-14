@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var sn1 = new Schema({
     SN1_ID: String,
+    create_time: Date,
     SN1P1: {
         REG: String,
         REG_NAME: String,
@@ -44,17 +45,18 @@ var sn1 = new Schema({
         N: Number,
         N0: Number,
         N1: Number,
-        N1: Number,
         P1: Number,
         P2: Number,
         P3: Number,
         P4: Number,
         A11: String,
+        Create_DATE: Date,
+        Modify_DATE: [Date],
         H3: [{
+            A1: Number,
             H3: Number,
             H4: String,
             H4_0: Boolean,
-            status: Number,
             H5_1: Number,
             H5_2: Number,
             H5_3: Number,
@@ -86,14 +88,14 @@ var sn1 = new Schema({
                     A1_4_6: Boolean,
                     A1_4_7: Boolean,
                     A1_4_8: Boolean,
-                    A1_4_8_1: String 
+                    A1_4_8_1: String
                 },
                 A2: {
                     status: Number,
                     A2_E1_1: Boolean,
                     A2_E1_2: Number,
                     A2_E1: [{
-                        A2_E1_2_1_CW: String,
+                        A2_E1_2_1_CWT: String,
                         A2_E1_2_1_AMP: String,
                         A2_E1_2_1_TMB: String,
                         A2_E1_2_2_1: Number,
@@ -163,7 +165,7 @@ var sn1 = new Schema({
                         A2_E2_2_5_7: Boolean,
                         A2_E2_2_5_8: Boolean,
                         A2_E2_2_5_9: Boolean,
-                        A2_E2_2_5_9_1: String 
+                        A2_E2_2_5_9_1: String
                     }],
                     A2_E3_1: Boolean,
                     A2_E3_2: Number,
@@ -184,7 +186,7 @@ var sn1 = new Schema({
                         A2_E3_2_4_7: Boolean,
                         A2_E3_2_4_8: Boolean,
                         A2_E3_2_4_9: Boolean,
-                        A2_E3_2_4_9_1: String 
+                        A2_E3_2_4_9_1: String
                     }],
                     A2_E4_1: Boolean,
                     A2_E4_2: Number,
@@ -220,7 +222,7 @@ var sn1 = new Schema({
                         A2_E5_2_3: Boolean,
                         A2_E5_2_4: [String],
                         A2_E5_2_5: Number,
-                        A2_E5_2_5_2: [String],
+                        A2_E5_2_5_2: String,
                         A2_E5_2_6_1: Boolean,
                         A2_E5_2_6_2: Boolean,
                         A2_E5_2_6_3: Boolean,
@@ -230,7 +232,7 @@ var sn1 = new Schema({
                         A2_E5_2_6_7: Boolean,
                         A2_E5_2_6_8: Boolean,
                         A2_E5_2_6_9: Boolean,
-                        A2_E5_2_6_9_1: String 
+                        A2_E5_2_6_9_1: String
                     }],
                     A2_E6_1: Boolean,
                     A2_E6_2: Number,
@@ -244,7 +246,7 @@ var sn1 = new Schema({
                         A2_E6_2_3: Boolean,
                         A2_E6_2_4: [String],
                         A2_E6_2_5: Number,
-                        A2_E6_2_5_2: [String],
+                        A2_E6_2_5_2: String,
                         A2_E6_2_6_1: Boolean,
                         A2_E6_2_6_2: Boolean,
                         A2_E6_2_6_3: Boolean,
@@ -254,7 +256,7 @@ var sn1 = new Schema({
                         A2_E6_2_6_7: Boolean,
                         A2_E6_2_6_8: Boolean,
                         A2_E6_2_6_9: Boolean,
-                        A2_E6_2_6_9_1: String 
+                        A2_E6_2_6_9_1: String
                     }],
                     A2_E7_1: Boolean,
                     A2_E7_2: Number,
@@ -273,7 +275,7 @@ var sn1 = new Schema({
                         A2_E7_2_4_7: Boolean,
                         A2_E7_2_4_8: Boolean,
                         A2_E7_2_4_9: Boolean,
-                        A2_E7_2_4_9_1: String 
+                        A2_E7_2_4_9_1: String
                     }],
                     A2_E8_1: Boolean,
                     A2_E8_2_1_0: Boolean,
@@ -337,7 +339,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_1_3: Number,
                         A2_E9_1_1_4_1: Boolean,
@@ -349,7 +351,7 @@ var sn1 = new Schema({
                         A2_E9_1_1_4_7: Boolean,
                         A2_E9_1_1_4_8: Boolean,
                         A2_E9_1_1_4_9: Boolean,
-                        A2_E9_1_1_4_9_1: String 
+                        A2_E9_1_1_4_9_1: String
                     },
                     A2_E9_1_1_2: {
                         A2_E9_1_1_1_1: Boolean,
@@ -371,7 +373,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_1_3: Number,
                         A2_E9_1_1_4_1: Boolean,
@@ -383,7 +385,7 @@ var sn1 = new Schema({
                         A2_E9_1_1_4_7: Boolean,
                         A2_E9_1_1_4_8: Boolean,
                         A2_E9_1_1_4_9: Boolean,
-                        A2_E9_1_1_4_9_1: String 
+                        A2_E9_1_1_4_9_1: String
                     },
                     A2_E9_1_1_3: {
                         A2_E9_1_3_1_1: Boolean,
@@ -403,7 +405,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_3_3: Number,
                         A2_E9_1_3_4_1: Boolean,
@@ -415,7 +417,7 @@ var sn1 = new Schema({
                         A2_E9_1_3_4_7: Boolean,
                         A2_E9_1_3_4_8: Boolean,
                         A2_E9_1_3_4_9: Boolean,
-                        A2_E9_1_3_4_9_1: String 
+                        A2_E9_1_3_4_9_1: String
                     },
                     A2_E9_1_1_4: {
                         A2_E9_1_4_1_1: Boolean,
@@ -434,7 +436,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_4_3: Number,
                         A2_E9_1_4_4_1: Boolean,
@@ -446,7 +448,7 @@ var sn1 = new Schema({
                         A2_E9_1_4_4_7: Boolean,
                         A2_E9_1_4_4_8: Boolean,
                         A2_E9_1_4_4_9: Boolean,
-                        A2_E9_1_4_4_9_1: String 
+                        A2_E9_1_4_4_9_1: String
                     },
                     A2_E9_1_1_5: {
                         A2_E9_1_4_1_1: Boolean,
@@ -465,7 +467,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_4_3: Number,
                         A2_E9_1_4_4_1: Boolean,
@@ -477,7 +479,7 @@ var sn1 = new Schema({
                         A2_E9_1_4_4_7: Boolean,
                         A2_E9_1_4_4_8: Boolean,
                         A2_E9_1_4_4_9: Boolean,
-                        A2_E9_1_4_4_9_1: String 
+                        A2_E9_1_4_4_9_1: String
                     },
                     A2_E9_1_1_6: {
                         A2_E9_1_1_1_1: Boolean,
@@ -499,7 +501,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_1_3: Number,
                         A2_E9_1_1_4_1: Boolean,
@@ -511,7 +513,7 @@ var sn1 = new Schema({
                         A2_E9_1_1_4_7: Boolean,
                         A2_E9_1_1_4_8: Boolean,
                         A2_E9_1_1_4_9: Boolean,
-                        A2_E9_1_1_4_9_1: String 
+                        A2_E9_1_1_4_9_1: String
                     },
                     A2_E9_1_1_7: {
                         A2_E9_1_1_1_1: Boolean,
@@ -533,7 +535,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_1_3: Number,
                         A2_E9_1_1_4_1: Boolean,
@@ -545,7 +547,7 @@ var sn1 = new Schema({
                         A2_E9_1_1_4_7: Boolean,
                         A2_E9_1_1_4_8: Boolean,
                         A2_E9_1_1_4_9: Boolean,
-                        A2_E9_1_1_4_9_1: String 
+                        A2_E9_1_1_4_9_1: String
                     },
                     A2_E9_1_1_8: {
                         A2_E9_1_4_1_1: Boolean,
@@ -564,7 +566,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_4_3: Number,
                         A2_E9_1_4_4_1: Boolean,
@@ -576,7 +578,7 @@ var sn1 = new Schema({
                         A2_E9_1_4_4_7: Boolean,
                         A2_E9_1_4_4_8: Boolean,
                         A2_E9_1_4_4_9: Boolean,
-                        A2_E9_1_4_4_9_1: String 
+                        A2_E9_1_4_4_9_1: String
                     },
                     A2_E9_1_1_9: {
                         A2_E9_1_1_1_1: Boolean,
@@ -598,7 +600,7 @@ var sn1 = new Schema({
                             A2_E9_1_1_2_2_3_1_2: Number,
                             A2_E9_1_1_2_2_3_1_3: Number,
                             A2_E9_1_1_2_2_3_2_1: Number,
-                            A2_E9_1_1_2_2_3_2_2: Number 
+                            A2_E9_1_1_2_2_3_2_2: Number
                         }],
                         A2_E9_1_1_3: Number,
                         A2_E9_1_1_4_1: Boolean,
@@ -610,11 +612,11 @@ var sn1 = new Schema({
                         A2_E9_1_1_4_7: Boolean,
                         A2_E9_1_1_4_8: Boolean,
                         A2_E9_1_1_4_9: Boolean,
-                        A2_E9_1_1_4_9_1: String 
+                        A2_E9_1_1_4_9_1: String
                     },
                 },
                 A3: {
-                    status: String,
+                    status: Number,
                     A3_1: String,
                     A3_2_1: String,
                     A3_2_2: String,
@@ -637,10 +639,10 @@ var sn1 = new Schema({
                     A3_8_8_1: String,
                     A3_9: Boolean,
                     A3_10: Boolean,
-                    A3_11: Boolean 
+                    A3_11: Boolean
                 },
                 A4: {
-                    status: String,
+                    status: Number,
                     A4_1: String,
                     A4_2_1: String,
                     A4_2_2: String,
@@ -680,10 +682,10 @@ var sn1 = new Schema({
                     A4_7_6: Boolean,
                     A4_7_7: Boolean,
                     A4_7_8: Boolean,
-                    A4_7_8_1: String 
+                    A4_7_8_1: String
                 },
                 A5: {
-                    status: String,
+                    status: Number,
                     A5_1: {
                         A5_1_1_1_1: Boolean,
                         A5_1_1_1_2_1: Boolean,
@@ -772,7 +774,7 @@ var sn1 = new Schema({
                         A5_2_4: Boolean,
                         A5_2_5: Number,
                         A5_2_5_1: Number,
-                        A5_2_4_0: {
+                        A5_2_6: {
                             A5_2_3_1: Number,
                             A5_2_3_1_2: Boolean,
                             A5_2_3_2: Boolean,
@@ -833,7 +835,7 @@ var sn1 = new Schema({
                         A5_3_5_2_1: Boolean,
                         A5_3_5_2_2: Boolean,
                         A5_3_5_2_3: Boolean,
-                        A5_3_5_2_4: Boolean 
+                        A5_3_5_2_4: Boolean
                     },
                     A5_4: {
                         A5_4_1: Boolean,
@@ -953,11 +955,11 @@ var sn1 = new Schema({
                         A5_7_1_5_2: Number,
                         A5_7_1_5_3: Number,
                         A5_7_1_5_4: Number,
-                        A5_7_1_5_5: Number 
+                        A5_7_1_5_5: Number
                     },
                 },
                 A6: {
-                    Status: String,
+                    Status: Number,
                     A6_1: Boolean,
                     A6_2_1_1: Number,
                     A6_2_1_2: Number,
@@ -984,19 +986,25 @@ var sn1 = new Schema({
                 status_approve: Number,
                 status_data: Number,
                 messeges: [{
-                    date: Date ,
-                    massage: String 
+                    date: Date,
+                    massage: String
                 }]
             },
+            WaterData: {
+
+            },
+            messeges: [{
+                date: Date,
+                massage: String
+            }]
         }]
+
     }],
-    status_approve_id: Number,
-    status_approve: String,
-    status_data_id: Number,
+    status_approve: Number,
     status_data: String,
     messeges: [{
-        date: Date ,
-        massage: String 
+        date: Date,
+        massage: String
     }]
 });
 
