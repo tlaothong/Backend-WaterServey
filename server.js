@@ -68,7 +68,7 @@ MongoClient.connect(url, function(err, client) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
 
-  const db = client.db(dbName);
+  var db = client.db(dbName);
   app.listen(port);
   console.log('API server started on: localhost:' + port);
   console.log('Mongodb server started on: ' + urls + ':27017');
