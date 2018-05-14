@@ -2,13 +2,16 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 8080;
 var cors = require('cors')
-mongoose = require('mongoose'),
-  db = require('./models/db'), //created model loading here
-  bodyParser = require('body-parser');
+var mongoose = require('Mongoose')
+db = require('./models/db')
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const url = 'mongodb://35.227.94.29:27017';
+const dbName = 'Demo';
+
+
+bodyParser = require('body-parser');
 urls = '35.196.123.192'  //mongo router
-url = '35.227.94.29'
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://' + url + ':27017/Demo');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -34,9 +37,9 @@ consumerGroup.on('message', function (message) {
   obj = JSON.parse(message.value)
   console.log(obj.method)
   if (obj.method == 'put') {
-    var model = mongoose.model(obj.model);
-    var mydata = new model(obj.data);
-    mydata.save(function (err, data) {
+    //var model = mongoose.model(obj.model);
+    //var mydata = new model(obj.data);
+    db.collection(obj.model).save(obj.data ,(err, data) => {
       if (err)
         console.log(err)
       console.log(data)
@@ -61,8 +64,16 @@ consumerGroup.on('message', function (message) {
   }
 });
 
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
 
-app.listen(port);
-console.log('API server started on: localhost:' + port);
-console.log('Mongodb server started on: ' + urls + ':27017');
+  const db = client.db(dbName);
+  app.listen(port);
+  console.log('API server started on: localhost:' + port);
+  console.log('Mongodb server started on: ' + urls + ':27017');
+  client.close();
+});
+
+
 //    

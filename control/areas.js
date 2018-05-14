@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 //area
 
 exports.create_a_area = function (req, res) {
-  da = { "method": "put", "model": "Area", "data": req.body }
+  da = { "method": "put", "model": "areas", "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
