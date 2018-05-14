@@ -3,6 +3,7 @@ var express = require('express'),
   port = process.env.PORT || 8080;
 var cors = require('cors')
 mongoose = require('mongoose'),
+<<<<<<< HEAD
 mongodb = require('./models/db')
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
@@ -11,7 +12,14 @@ const dbName = 'Demo';
 
 
 bodyParser = require('body-parser');
+=======
+  db = require('./models/db'), //created model loading here
+  bodyParser = require('body-parser');
+>>>>>>> parent of 099ae3e... test mongo db
 urls = '35.196.123.192'  //mongo router
+url = '35.227.94.29'
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://' + url + ':27017/Demo');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -33,6 +41,7 @@ var options = {
 
 var consumerGroup = new ConsumerGroup(options, 'post-topic');
 
+<<<<<<< HEAD
 
 
 MongoClient.connect(url, function(err, client) {
@@ -77,5 +86,41 @@ MongoClient.connect(url, function(err, client) {
   client.close();
 });
 
+=======
+consumerGroup.on('message', function (message) {
+  obj = JSON.parse(message.value)
+  console.log(obj.method)
+  if (obj.method == 'put') {
+    var model = mongoose.model(obj.model);
+    var mydata = new model(obj.data);
+    mydata.save(function (err, data) {
+      if (err)
+        console.log(err)
+      console.log(data)
+    });
+  } else if (obj.method == 'post') {
+    var model = mongoose.model(obj.model);
+    var q = obj.query;
+    delete obj.data.__v ;
+    model.findOneAndUpdate(q, obj.data, { upsert: true, new: true }, function (err, data) {
+      if (err)
+        console.log(err)
+      console.log(data)
+    });
+  } else if (obj.method == 'del') {
+    var model = mongoose.model(obj.model);
+    var q = obj.query;
+    model.deleteOne(q, function (err, data) {
+      if (err)
+        console.log(err)
+      console.log(data)
+    });
+  }
+});
 
+>>>>>>> parent of 099ae3e... test mongo db
+
+app.listen(port);
+console.log('API server started on: localhost:' + port);
+console.log('Mongodb server started on: ' + urls + ':27017');
 //    
