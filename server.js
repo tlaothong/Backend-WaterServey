@@ -36,7 +36,7 @@ consumerGroup.on('message', function (message) {
   if (obj.method == 'put') {
     var model = mongoose.model(obj.model);
     var mydata = new model(obj.data);
-    mydata.save(function (err, data) {
+    mydata.insertOne(function (err, data) {
       if (err)
         console.log(err)
       console.log(data)
@@ -60,7 +60,6 @@ consumerGroup.on('message', function (message) {
     });
   }
 });
-
 
 app.listen(port);
 console.log('API server started on: localhost:' + port);
