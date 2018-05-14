@@ -69,6 +69,37 @@ MongoClient.connect(url, function(err, client) {
   console.log("Connected successfully to server");
 
   var db = client.db(dbName);
+  consumerGroup.on('message', function (message) {
+    obj = JSON.parse(message.value)
+    console.log(obj.method)
+    if (obj.method == 'put') {
+      //var model = mongoose.model(obj.model);
+      //var mydata = new model(obj.data);
+      db.collection(obj.model).save(obj.data ,function (err, data) {
+        if (err)
+          console.log(err)
+        console.log(data)
+      });
+    } else if (obj.method == 'post') {
+      var model = mongoose.model(obj.model);
+      var q = obj.query;
+      delete obj.data.__v ;
+      model.findOneAndUpdate(q, obj.data, { upsert: true, new: true }, function (err, data) {
+        if (err)
+          console.log(err)
+        console.log(data)
+      });
+    } else if (obj.method == 'del') {
+      var model = mongoose.model(obj.model);
+      var q = obj.query;
+      model.deleteOne(q, function (err, data) {
+        if (err)
+          console.log(err)
+        console.log(data)
+      });
+    }
+  });
+
   app.listen(port);
   console.log('API server started on: localhost:' + port);
   console.log('Mongodb server started on: ' + urls + ':27017');
