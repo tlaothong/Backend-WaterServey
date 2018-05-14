@@ -3,7 +3,7 @@ var express = require('express'),
   port = process.env.PORT || 8080;
 var cors = require('cors')
 mongoose = require('mongoose'),
-db = require('./models/db')
+mongodb = require('./models/db')
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const url = 'mongodb://35.227.94.29:27017';
@@ -33,36 +33,7 @@ var options = {
 
 var consumerGroup = new ConsumerGroup(options, 'post-topic');
 
-consumerGroup.on('message', function (message) {
-  obj = JSON.parse(message.value)
-  console.log(obj.method)
-  if (obj.method == 'put') {
-    //var model = mongoose.model(obj.model);
-    //var mydata = new model(obj.data);
-    db.collection(obj.model).save(obj.data ,function (err, data) {
-      if (err)
-        console.log(err)
-      console.log(data)
-    });
-  } else if (obj.method == 'post') {
-    var model = mongoose.model(obj.model);
-    var q = obj.query;
-    delete obj.data.__v ;
-    model.findOneAndUpdate(q, obj.data, { upsert: true, new: true }, function (err, data) {
-      if (err)
-        console.log(err)
-      console.log(data)
-    });
-  } else if (obj.method == 'del') {
-    var model = mongoose.model(obj.model);
-    var q = obj.query;
-    model.deleteOne(q, function (err, data) {
-      if (err)
-        console.log(err)
-      console.log(data)
-    });
-  }
-});
+
 
 MongoClient.connect(url, function(err, client) {
   assert.equal(null, err);
@@ -75,7 +46,7 @@ MongoClient.connect(url, function(err, client) {
     if (obj.method == 'put') {
       //var model = mongoose.model(obj.model);
       //var mydata = new model(obj.data);
-      db.collection(obj.model).save(obj.data ,function (err, data) {
+      db.collection(obj.model).insertOne(obj.data ,function (err, data) {
         if (err)
           console.log(err)
         console.log(data)
