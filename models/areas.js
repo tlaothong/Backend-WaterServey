@@ -29,6 +29,6 @@ var areas = new Schema({
     REMARK: String,
     FI: [String],
     FS: String
-});
+}, { strict: false });
 
 module.exports = mongoose.model('Area', areas);

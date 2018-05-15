@@ -7,6 +7,6 @@ var Tablet = new Schema({
     sim: String,
     user_id: String,
 
-});
+}, { strict: false });
 
 module.exports = mongoose.model('Tablet', Tablet);

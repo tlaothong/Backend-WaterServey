@@ -20,6 +20,6 @@ var users = new Schema({
     TYPE_NAME: String,
     CWT: String,
     CWT_NAME: String,
-});
+}, { strict: false });
 
 module.exports = mongoose.model('User', users);
