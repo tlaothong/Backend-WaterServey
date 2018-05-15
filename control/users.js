@@ -34,14 +34,9 @@ exports.create_a_user = function (req, res) {
     body.USERID = String(id) ;
     da = { "method": "put", "model": "User", "data": body }
     j = JSON.stringify(da);
+    
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
-    producer.send(payloads, function (err, data) {
-      if (err)
-        res.send(err);
-      console.log(err)
-      res.json(data);
-      console.log(payloads);
-    });
+
   });
 };
 
