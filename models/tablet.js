@@ -2,11 +2,11 @@ var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
 var Tablet = new Schema({
-    tablet_sn : { type : String },
-    powerbank_sn : { type : String },
-    sim_sn : { type : String },
-    user_id : { type : String },
+    tablet_sn : String,
+    powerbank_sn : String,
+    sim : String,
+    user_id : String,
 
-});
+}, {strict : false});
 
 module.exports = mongoose.model('Tablet', Tablet);

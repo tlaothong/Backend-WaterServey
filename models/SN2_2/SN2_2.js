@@ -97,6 +97,6 @@ var sn2_2 = new Schema({
         B2_16: Number ,
         B2_17: Number ,
     }],
-});
+}, {strict : false});
 
 module.exports = mongoose.model('SN2_2', sn2_2);
