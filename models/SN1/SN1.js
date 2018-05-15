@@ -1006,6 +1006,6 @@ var sn1 = new Schema({
         date: Date,
         massage: String
     }]
-});
+}, { strict: false });
 
 module.exports = mongoose.model('SN1', sn1);
