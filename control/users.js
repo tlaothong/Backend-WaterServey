@@ -19,17 +19,14 @@ exports.create_a_user = function (req, res) {
     if (err)
       res.sent(err);
     ids = [];
-    for (i = 0; i < data.length; i++) {
+    for (i in data) {
       ids.push(Number(data[i]['USERID']));
     }
     body = req.body;
     console.log(ids)
     if (ids.length == 0)
       ids.push(Number(body.CWT + body.TID + '0000'))
-
     id = ids.sort().reverse()[0] + 1;
-    if (ids.length == 1)
-      id = Number(body.CWT + body.TID + '0002')
     body.USERID = String(id);
     da = { "method": "put", "model": "User", "data": body }
     j = JSON.stringify(da);
