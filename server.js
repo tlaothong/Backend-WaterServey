@@ -5,10 +5,10 @@ var cors = require('cors')
 mongoose = require('mongoose'),
   db = require('./models/db'), //created model loading here
   bodyParser = require('body-parser');
-urls = '35.196.123.192'  //mongo router
+urls = '35.196.197.109'  //mongo router
 url = '35.227.94.29'
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://' + url + ':27017/Demo');
+mongoose.connect('mongodb://' + urls + ':27017/Demo');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

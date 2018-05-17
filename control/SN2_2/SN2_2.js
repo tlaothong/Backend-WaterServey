@@ -60,7 +60,7 @@ exports.delete_a_SN2_2 = function (req, res) {
 };
 
 exports.getsn22ByAreaId = function (req, res) {
-    SN2_2.find({ 'SN2_2_ID': { "$regex": "^" + req.query.CWT } }, function (err, data) {
+    SN2_2.find({ 'SN2_2_ID': { "$regex": "^" + req.query.SN2_2_ID } }, function (err, data) {
         if (err)
             res.send(err);
         res.json(data);
