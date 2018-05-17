@@ -15,12 +15,16 @@ exports.read_all_user = function (req, res) {
 };
 
 exports.create_a_user = function (req, res) {
-  user.find({ CWT: req.body.CWT, TID: req.body.TID }, function (err, data) {
+  user.find({ CWT: req.body.CWT, TID: req.body.TID },{'USERID':1,'_id':0}, function (err, data) {
     if (err)
       res.sent(err);
-    ids = [];
+    ids = []
+    console.log(data[0]);
+    console.log(typeof(data[0]),typeof(data))
     for (i in data) {
-      ids.push(Number(data[i]['USERID']));
+      console.log(i)
+      ids.push(Number(data[i].toObject()['USERID']));
+      console.log(data[i].toObject()['USERID'])  	
     }
     body = req.body;
     console.log(ids)
