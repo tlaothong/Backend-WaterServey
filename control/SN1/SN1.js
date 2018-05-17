@@ -88,7 +88,16 @@ exports.getSN1ByCWT = function (req, res) {
   });
 };
 
+exports.getSN1EditStatus = function (req, res) {
+  SN1.find({ 'status_approve': 1, 'SN1P1.FI_ID': req.query.FI_ID, 'status_data': { '$lt': 2 } }, function (err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
 producer.on('ready', function () {
   kafkaConnected = true;
   producer.on('error', function (err) { });
 });
+

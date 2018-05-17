@@ -54,6 +54,8 @@ module.exports = function (app) {
     .get(SN1.getSN1ByFI);
   app.route('/sn1_cwt')
     .get(SN1.getSN1ByCWT);
+  app.route('/sn1_edit')
+    .get(SN1.getSN1EditStatus);
 
 
   let SN2_2 = require('./control/SN2_2/SN2_2')
