@@ -77,8 +77,8 @@ module.exports = function (app) {
     .get(SN2_2.getsn22ByFI);
     app.route('/sn22_cwt')
     .get(SN2_2.getsn22ByCWT);
-
-
+  app.route('/sn2_2_edit')
+    .get(SN2_2.getSN2_2EditStatus);
   app.route('/ea_cwt')
     .get(area.getEaByCWT);
 

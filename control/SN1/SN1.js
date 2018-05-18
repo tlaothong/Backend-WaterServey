@@ -7,22 +7,24 @@ var mongoose = require('mongoose'),
 //SN1
 
 exports.create_a_SN1 = function (req, res) {
-  hasdata = SN1.find({'SN1_ID':req.body.SN1_ID}).length
-  console.log(hasdata)
+  SN1.find({'SN1_ID':req.body.SN1_ID},function(err,result){
+    if (err)
+	res.sent(err)
+    hasdata = result.length
   if (hasdata){
-    da = { "method": "put", "model": "SN1", "data": req.body }
-  }else {
     da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID }, "data": req.body }
+  }else {
+    da = { "method": "put", "model": "SN1", "data": req.body }
   }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
     if (err)
       res.send(err);
-    console.log(err)
     res.json(data);
     console.log(payloads);
   });
+ });
 };
 
 
