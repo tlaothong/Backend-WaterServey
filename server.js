@@ -5,7 +5,7 @@ var cors = require('cors')
 mongoose = require('mongoose'),
   db = require('./models/db'), //created model loading here
   bodyParser = require('body-parser');
-urls = '35.196.197.109'  //mongo router
+urls = '35.231.240.118'
 url = '35.227.94.29'
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + url + ':27017/Demo');

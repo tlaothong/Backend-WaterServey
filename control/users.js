@@ -19,15 +19,11 @@ exports.create_a_user = function (req, res) {
     if (err)
       res.sent(err);
     ids = []
-    console.log(data[0]);
-    console.log(typeof(data[0]),typeof(data))
     for (i in data) {
       console.log(i)
       ids.push(Number(data[i].toObject()['USERID']));
-      console.log(data[i].toObject()['USERID'])  	
     }
     body = req.body;
-    console.log(ids)
     if (ids.length == 0)
       ids.push(Number(body.CWT + body.TID + '0000'))
     id = ids.sort().reverse()[0] + 1;
@@ -38,9 +34,7 @@ exports.create_a_user = function (req, res) {
     producer.send(payloads, function (err, data) {
       if (err)
         res.send(err);
-      console.log(err)
       res.json(data);
-      console.log(payloads);
     })
   });
 };
@@ -63,7 +57,6 @@ exports.update_a_user = function (req, res) {
       res.send(err);
     console.log(err)
     res.json(data);
-    console.log(payloads);
   });
 };
 
@@ -76,7 +69,6 @@ exports.delete_a_user = function (req, res) {
       res.send(err);
     console.log(err)
     res.json(data);
-    console.log(payloads);
   });
 };
 
@@ -137,7 +129,6 @@ exports.insert_user = function (req, res) {
       res.send(err);
     console.log(err)
     res.json(data);
-    console.log(payloads);
   });
 };
 
