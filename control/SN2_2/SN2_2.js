@@ -11,9 +11,9 @@ exports.create_a_SN2_2 = function (req, res) {
     res.sent(err)
     hasdata = result.length
     if (hasdata){
-        da = { "method": "put", "model": "SN2_2", "data": req.body }
+	da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
     }else {
-        da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
+	da = { "method": "put", "model": "SN2_2", "data": req.body }
     }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
@@ -101,7 +101,7 @@ exports.getsn22ByCWT = function (req, res) {
 };
 
 exports.getSN2_2EditStatus = function (req, res) {
-  fiid = req.query.SN2_2_ID
+  fiid = req.query.FI_ID;
   SN2_2.find({ 'status': 10, 'SN2_2_ID': fiid, 'STATUS': { '$lt': 2 } }, function (err, data) {
     if (err)
       res.send(err);

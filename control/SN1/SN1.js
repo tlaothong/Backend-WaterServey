@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
 //SN1
 
 exports.create_a_SN1 = function (req, res) {
-  SN1.find({'SN1_ID':req.body.SN1_ID},function(err,result){
+  fiid = req.body.SN1P1.FI_ID; 
+  SN1.find({'SN1_ID':req.body.SN1_ID,'SN1P1.FI_ID':fiid },function(err,result){
     if (err)
 	    res.sent(err)
     hasdata = result.length
