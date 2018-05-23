@@ -35,7 +35,9 @@ module.exports = function (app) {
     .post(tablet.update_a_tablet);
   app.route('/delete_tablet')
     .delete(tablet.delete_a_tablet);
-    
+  app.route('/tablet_cwt')
+    .get(tablet.get_tabletByCWT);
+
   //SN1
   let SN1 = require('./control/SN1/SN1')
   app.route('/sn1')
@@ -69,13 +71,13 @@ module.exports = function (app) {
     .post(SN2_2.update_a_SN2_2);
   app.route('/delete_sn22')
     .delete(SN2_2.delete_a_SN2_2);
-    app.route('/sn22AreaID')
+  app.route('/sn22AreaID')
     .get(SN2_2.getsn22ByAreaId);
-    app.route('/sn22_fs')
+  app.route('/sn22_fs')
     .get(SN2_2.getsn22ByFS);
-    app.route('/sn22_fi')
+  app.route('/sn22_fi')
     .get(SN2_2.getsn22ByFI);
-    app.route('/sn22_cwt')
+  app.route('/sn22_cwt')
     .get(SN2_2.getsn22ByCWT);
   app.route('/sn22_edit')
     .get(SN2_2.getSN2_2EditStatus);

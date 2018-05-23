@@ -82,6 +82,15 @@ exports.update_tablet = function (req, res) {
   });
 };
 
+exports.get_tabletByCWT = function (req, res) {
+  cwt = req.query.CWT;
+  tablet.find({ user_id: { "$regex": "^" + cwt } }, function (err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
 producer.on('ready', function () {
   kafkaConnected = true;
   producer.on('error', function (err) { });
