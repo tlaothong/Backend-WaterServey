@@ -37,7 +37,8 @@ module.exports = function (app) {
     .delete(tablet.delete_a_tablet);
   app.route('/tablet_cwt')
     .get(tablet.get_tabletByCWT);
-
+  app.route('/tablet_user')
+    .get(tablet.get_tabletByUser);
   //SN1
   let SN1 = require('./control/SN1/SN1')
   app.route('/sn1')

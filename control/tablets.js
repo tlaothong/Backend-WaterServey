@@ -100,6 +100,15 @@ exports.get_tabletByCWT = function (req, res) {
   });
 };
 
+exports.get_tabletByUser = function (req, res) {
+  cwt = req.query.CWT;
+  tablet.find({ user_id: req.query.user_id }, function (err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
+};
+
 producer.on('ready', function () {
   kafkaConnected = true;
   producer.on('error', function (err) { });
