@@ -105,7 +105,7 @@ exports.getUserRoleArea = function (req, res) {
 };
 
 exports.getUserByIDPWD = function (req, res) {
-  user.find({ USERID: req.body.USERID, PASSWORD: req.body.PASSWORD }, function (err, data) {
+  user.find({ USERID: req.body.USERID, PASSWORD: req.body.PASSWORD ,STATUS:true  }, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);

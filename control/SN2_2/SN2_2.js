@@ -102,7 +102,7 @@ exports.getsn22ByCWT = function (req, res) {
 
 exports.getSN2_2EditStatus = function (req, res) {
   fiid = req.query.FI_ID;
-  SN2_2.find({ 'status': 10, 'SN2_2_ID': fiid, 'STATUS': { '$lt': 2 } }, function (err, data) {
+  SN2_2.find({ 'status': 10, 'B0.FI_ID': fiid, 'STATUS': { '$lt': 2 } }, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
