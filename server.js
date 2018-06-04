@@ -5,7 +5,7 @@ var cors = require('cors')
 mongoose = require('mongoose'),
   db = require('./models/db'), //created model loading here
   bodyParser = require('body-parser');
-urls = 'nso-db' 
+urls = 'nso-db'
 url = '10.142.0.2'
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + url + ':27017/Demo');
@@ -34,13 +34,37 @@ consumerGroup.on('message', function (message) {
   obj = JSON.parse(message.value)
   console.log(obj.method)
   if (obj.method == 'put') {
-    var model = mongoose.model(obj.model);
-    var mydata = new model(obj.data);
-    mydata.save(function (err, data) {
-      if (err)
-        console.log(err)
-      console.log(data)
-    });
+    if (obj.model == 'User') {
+      var user = mongoose.model('User');
+      user.find({ CWT: obj.data.CWT, TID: obj.data.TID }, { 'USERID': 1, '_id': 0 }, function (err, data) {
+        if (err)
+          console.log(err);
+        ids = []
+        for (i in data) {
+          ids.push(Number(data[i].toObject()['USERID']));
+        }
+        body = obj.data;
+        if (ids.length == 0)
+          ids.push(Number(body.CWT + body.TID + '0000'))
+        id = ids.sort().reverse()[0] + 1;
+        body.USERID = String(id);
+        var mydata = new user(body);
+        mydata.save(function (err, data) {
+          if (err)
+            console.log(err)
+          console.log(data)
+        });
+      });
+    }
+    else {
+      var model = mongoose.model(obj.model);
+      var mydata = new model(obj.data);
+      mydata.save(function (err, data) {
+        if (err)
+          console.log(err)
+        console.log(data)
+      });
+    }
   } else if (obj.method == 'post') {
     var model = mongoose.model(obj.model);
     var q = obj.query;

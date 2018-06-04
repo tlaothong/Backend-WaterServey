@@ -15,20 +15,7 @@ exports.read_all_user = function (req, res) {
 };
 
 exports.create_a_user = function (req, res) {
-  user.find({ CWT: req.body.CWT, TID: req.body.TID },{'USERID':1,'_id':0}, function (err, data) {
-    if (err)
-      res.sent(err);
-    ids = []
-    for (i in data) {
-      console.log(i)
-      ids.push(Number(data[i].toObject()['USERID']));
-    }
-    body = req.body;
-    if (ids.length == 0)
-      ids.push(Number(body.CWT + body.TID + '0000'))
-    id = ids.sort().reverse()[0] + 1;
-    body.USERID = String(id);
-    da = { "method": "put", "model": "User", "data": body }
+    da = { "method": "put", "model": "User", "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {
@@ -36,7 +23,6 @@ exports.create_a_user = function (req, res) {
         res.send(err);
       res.json(data);
     })
-  });
 };
 
 
