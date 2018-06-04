@@ -48,6 +48,7 @@ consumerGroup.on('message', function (message) {
           ids.push(Number(body.CWT + body.TID + '0000'))
         id = ids.sort().reverse()[0] + 1;
         body.USERID = String(id);
+	body.STATUS = true
         var mydata = new user(body);
         mydata.save(function (err, data) {
           if (err)
