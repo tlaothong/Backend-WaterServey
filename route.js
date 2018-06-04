@@ -1,7 +1,6 @@
 module.exports = function (app) {
   let user = require('./control/users')
-
-
+  
   //user
   app.route('/user')
     .get(user.read_all_user);
