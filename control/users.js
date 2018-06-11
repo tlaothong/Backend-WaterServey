@@ -18,13 +18,20 @@ exports.create_a_user = function (req, res) {
     da = { "method": "put", "model": "User", "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
+    delays(function(){
+      console.log('wait')
+    });
     producer.send(payloads, function (err, data) {
       if (err)
         res.send(err);
       res.json(data);
-    })
+    });
+    console.log(req.body.FIRSTNAME)
 };
 
+function delays(callback){
+  setTimeout(callback  ,1000);
+}
 
 exports.read_a_user = function (req, res) {
   user.find({ _id: req.params.id }, function (err, data) {

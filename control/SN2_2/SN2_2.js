@@ -6,12 +6,12 @@ var mongoose = require('mongoose'),
     SN2_2 = mongoose.model('SN2_2');
 
 exports.create_a_SN2_2 = function (req, res) {
-    SN2_2.find({'SN2_2_ID':req.body.SN2_2_ID},function(err,result){
+    SN2_2.find({'SN2_2_ID':req.body.SN2_2_ID, 'B0.FI_ID':req.body.B0.FI_ID},function(err,result){
         if (err)
     res.sent(err)
     hasdata = result.length
     if (hasdata){
-	da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID }, "data": req.body }
+	da = { "method": "post", "model": "SN2_2", "query": { SN2_2_ID: req.body.SN2_2_ID , 'B0.FI_ID':req.body.B0.FI_ID }, "data": req.body }
     }else {
 	da = { "method": "put", "model": "SN2_2", "data": req.body }
     }

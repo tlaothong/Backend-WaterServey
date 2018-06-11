@@ -13,7 +13,7 @@ exports.create_a_SN1 = function (req, res) {
 	    res.sent(err)
     hasdata = result.length
     if (hasdata){
-      da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID }, "data": req.body }
+      da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID ,'SN1P1.FI_ID':fiid}, "data": req.body }
     }else {
       da = { "method": "put", "model": "SN1", "data": req.body }
     }
