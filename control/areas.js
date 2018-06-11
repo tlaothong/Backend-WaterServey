@@ -5,7 +5,8 @@ var producer = new Producer(client)
 var mongoose = require('mongoose'),
   area = mongoose.model('Area');
 //area
-
+var fs = require('fs')
+var path = require("path");
 exports.create_a_area = function (req, res) {
   da = { "method": "put", "model": "Area", "data": req.body }
   j = JSON.stringify(da);
@@ -123,6 +124,31 @@ exports.getEaByFI = function (req, res) {
     res.json(data);
   });
 };
+
+exports.getMap1 = function (req, res) {
+        file = req.query.EA
+	console.log(__dirname)
+        fs.readFileSync(path.resolve(__dirname,'../map/'+file+'.jpg'), function(err,data){
+	  console.log(data)
+          var img = Buffer.from(data, 'base64');
+          res.writeHead(200, {
+            'Content-Type': 'image/jpg',
+            'Content-Length': img.length
+        });
+        res.end(img);
+    });
+};
+
+exports.getMap = function (req, res) {
+        file = req.query.EA
+        var da = fs.readFileSync(path.resolve(__dirname,'../map/'+file+'.jpg'))
+	var img = Buffer.from(da, 'base64');
+        res.writeHead(200, {
+            'Content-Type': 'image/jpg',
+            'Content-Length': img.length
+        });
+        res.end(img);
+    };
 
 producer.on('ready', function () {
   kafkaConnected = true;

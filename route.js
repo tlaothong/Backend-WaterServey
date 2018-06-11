@@ -111,7 +111,8 @@ module.exports = function (app) {
   app.route('/insert_sn22')
     .put(SN2_2.create_a_SN2_2);
 
-
+  app.route('/get_map')
+    .get(area.getMap);
 
 };
 

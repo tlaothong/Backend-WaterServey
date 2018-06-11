@@ -6,6 +6,7 @@ mongoose = require('mongoose'),
   db = require('./models/db') //created model loading here
 var bodyParser = require('body-parser')  
 bodyParser = require('body-parser');
+var fs = require('fs')
 urls = 'nso-db'
 url = '10.142.0.2'
 mongoose.Promise = global.Promise;
