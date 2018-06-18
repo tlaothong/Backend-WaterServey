@@ -8,15 +8,24 @@ var mongoose = require('mongoose'),
 var fs = require('fs')
 var path = require("path");
 exports.create_a_area = function (req, res) {
-  da = { "method": "put", "model": "Area", "data": req.body }
-  j = JSON.stringify(da);
-  payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
-  producer.send(payloads, function (err, data) {
-    if (err)
-      res.send(err);
-    res.json(data);
-    console.log(payloads);
-  });
+  area.find({ REG: req.body.REG, CWT: req.body.CWT, AMP: req.body.AMP, TAM: req.body.TAM, DISTRICT: req.body.DISTRICT, EA: req.body.EA },function(err,result){
+  if (err)
+	res.sent(err)
+  hasdata = result.length
+  if(!hasdata){
+	da = { "method": "put", "model": "Area", "data": req.body }
+  	j = JSON.stringify(da);
+  	payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
+  	producer.send(payloads, function (err, data) {
+    	  if (err)
+      	    res.send(err);
+    	  res.json(data);
+    	  console.log(payloads);
+  	  });
+	}else{
+	  res.json('Area has data')
+	}	
+    })
 };
 
 
@@ -127,28 +136,22 @@ exports.getEaByFI = function (req, res) {
 
 exports.getMap1 = function (req, res) {
         file = req.query.EA
-	console.log(__dirname)
-        fs.readFileSync(path.resolve(__dirname,'../map/'+file+'.jpg'), function(err,data){
-	  console.log(data)
-          var img = Buffer.from(data, 'base64');
-          res.writeHead(200, {
-            'Content-Type': 'image/jpg',
+	var da = fs.readFileSync(path.resolve(__dirname,'../map/'+file+'.jpg'))          
+	var img = Buffer.from(da,'binary')
+	res.writeHead(200, {
+            'Content-Type': 'text/plain',
             'Content-Length': img.length
         });
         res.end(img);
-    });
 };
 
 exports.getMap = function (req, res) {
         file = req.query.EA
         var da = fs.readFileSync(path.resolve(__dirname,'../map/'+file+'.jpg'))
-	var img = Buffer.from(da, 'base64');
-        res.writeHead(200, {
-            'Content-Type': 'image/jpg',
-            'Content-Length': img.length
-        });
-        res.end(img);
-    };
+	var img = Buffer.from(da).toString('base64');
+	res.json(img)
+}
+
 
 producer.on('ready', function () {
   kafkaConnected = true;

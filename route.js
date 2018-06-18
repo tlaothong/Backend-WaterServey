@@ -114,6 +114,8 @@ module.exports = function (app) {
   app.route('/get_map')
     .get(area.getMap);
 
+  app.route('/get_map1')
+    .get(area.getMap1);
 };
 
 
