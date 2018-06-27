@@ -1,6 +1,6 @@
 var kafka = require('kafka-node');
 var Producer = kafka.Producer
-var client = new kafka.KafkaClient({ kafkaHost: "kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092", requestTimeout: 2000 });
+var client = new kafka.KafkaClient({ kafkaHost: "kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092,instance-1:9092", requestTimeout: 2000 });
 var producer = new Producer(client)
 var mongoose = require('mongoose'),
   SN1 = mongoose.model('SN1');
@@ -46,7 +46,7 @@ exports.read_a_SN1 = function (req, res) {
 };
 
 exports.update_a_SN1 = function (req, res) {
-  da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID }, "data": req.body }
+  da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID ,'SN1P1.FI_ID':fiid}, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
