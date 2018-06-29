@@ -56,7 +56,7 @@ exports.update_a_SN2_2 = function (req, res) {
 };
 
 exports.delete_a_SN2_2 = function (req, res) {
-    da = { "method": "del", "model": "SN2_2", "query": { SN2_2_ID: req.query.SN2_2_ID }, "data": req.body }
+    da = { "method": "del", "model": "SN2_2", "query": { SN2_2_ID: req.query.SN2_2_ID, 'B0.FI_ID':req.body.B0.FI_ID }, "data": req.body }
     j = JSON.stringify(da);
     payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
     producer.send(payloads, function (err, data) {

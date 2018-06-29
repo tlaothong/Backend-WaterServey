@@ -46,6 +46,7 @@ exports.read_a_SN1 = function (req, res) {
 };
 
 exports.update_a_SN1 = function (req, res) {
+  fiid = req.body.SN1P1.FI_ID;
   da = { "method": "post", "model": "SN1", "query": { SN1_ID: req.body.SN1_ID ,'SN1P1.FI_ID':fiid}, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
@@ -59,7 +60,8 @@ exports.update_a_SN1 = function (req, res) {
 };
 
 exports.delete_a_SN1 = function (req, res) {
-  da = { "method": "del", "model": "SN1", "query": { SN1_ID: req.query.SN1_ID }, "data": req.body }
+  fiid = req.body.SN1P1.FI_ID;
+  da = { "method": "del", "model": "SN1", "query": { SN1_ID: req.query.SN1_ID,'SN1P1.FI_ID':fiid }, "data": req.body }
   j = JSON.stringify(da);
   payloads = [{ topic: 'post-topic', messages: [j], partition: 0 }]
   producer.send(payloads, function (err, data) {
