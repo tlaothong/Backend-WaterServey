@@ -1,6 +1,6 @@
 module.exports = function (app) {
   let user = require('./control/users')
-  
+
   //user
   app.route('/user')
     .get(user.read_all_user);
@@ -10,6 +10,18 @@ module.exports = function (app) {
     .post(user.update_a_user);
   app.route('/delete_user')
     .delete(user.delete_a_user);
+  app.route('/userlower_role')
+    .get(user.getUserLowerRole);
+  app.route('/user_by_area')
+    .get(user.getUserByArea);
+  app.route('/userlower_role_area')
+    .get(user.getUserLowerRoleArea);
+  app.route('/user_role_area')
+    .get(user.getUserRoleArea);
+  app.route('/user_id_pwd')
+    .post(user.getUserByIDPWD);
+  app.route('/user_id')
+    .post(user.getUserByID);
 
   //area
   let area = require('./control/areas')
@@ -21,6 +33,14 @@ module.exports = function (app) {
     .post(area.update_a_area);
   app.route('/delete_ea')
     .delete(area.delete_a_area);
+  app.route('/get_map')
+    .get(area.getMap);
+  app.route('/ea_fs')
+    .get(area.getEaByFS);
+  app.route('/ea_cwt')
+    .get(area.getEaByCWT);
+  app.route('/ea_fi')
+    .get(area.getEaByFI);
 
   //tablet
   let tablet = require('./control/tablets')
@@ -81,41 +101,16 @@ module.exports = function (app) {
     .get(SN2_2.getsn22ByCWT);
   app.route('/sn22_edit')
     .get(SN2_2.getSN2_2EditStatus);
-  app.route('/ea_cwt')
-    .get(area.getEaByCWT);
-
-  app.route('/ea_fs')
-    .get(area.getEaByFS);
-
-  app.route('/ea_fi')
-    .get(area.getEaByFI);
-
-  app.route('/userlower_role')
-    .get(user.getUserLowerRole);
-
-  app.route('/user_by_area')
-    .get(user.getUserByArea);
-
-  app.route('/userlower_role_area')
-    .get(user.getUserLowerRoleArea);
-
-  app.route('/user_role_area')
-    .get(user.getUserRoleArea);
-
-  app.route('/user_id_pwd')
-    .post(user.getUserByIDPWD);
-
-  app.route('/user_id')
-    .post(user.getUserByID);
-
   app.route('/insert_sn22')
     .put(SN2_2.create_a_SN2_2);
 
-  app.route('/get_map')
-    .get(area.getMap);
 
-  app.route('/get_map1')
-    .get(area.getMap1);
+
+
+
+
+
+
 };
 
 
